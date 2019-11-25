@@ -5,8 +5,9 @@
  */
 package com.cours.ebenus.dao.entities;
 
+import java.util.Objects;
+
 /**
- *
  * @author elhad
  */
 public class Role {
@@ -65,4 +66,24 @@ public class Role {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
+    @Override
+    public String toString() {
+        return "Id :" + this.idRole + ", Identifiant: " + this.identifiant +
+                ", description: " + this.description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return idRole.equals(role.idRole);
+    }
+
+    @Override
+    public int hashCode() {
+        return idRole.hashCode();
+    }
+
 }

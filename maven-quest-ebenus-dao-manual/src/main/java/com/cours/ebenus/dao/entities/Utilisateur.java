@@ -170,4 +170,38 @@ public class Utilisateur {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "idUtilisateur=" + idUtilisateur +
+                ", civilite='" + civilite + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", nom='" + nom + '\'' +
+                ", identifiant='" + identifiant + '\'' +
+                ", motPasse='" + motPasse + '\'' +
+                ", dateNaissance=" + dateNaissance +
+                ", dateCreation=" + dateCreation +
+                ", dateModification=" + dateModification +
+                ", actif=" + actif +
+                ", marquerEffacer=" + marquerEffacer +
+                ", version=" + version +
+                ", role=" + role +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Utilisateur that = (Utilisateur) o;
+
+        return idUtilisateur.equals(that.idUtilisateur);
+    }
+
+    @Override
+    public int hashCode() {
+        return idUtilisateur.hashCode();
+    }
 }
