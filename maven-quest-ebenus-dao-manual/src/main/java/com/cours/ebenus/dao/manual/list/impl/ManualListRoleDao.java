@@ -7,6 +7,8 @@ package com.cours.ebenus.dao.manual.list.impl;
 
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.entities.Role;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,11 +20,12 @@ import org.apache.commons.logging.LogFactory;
 public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRoleDao {
 
     private static final Log log = LogFactory.getLog(ManualListRoleDao.class);
-    private List<Role> rolesListDataSource = null;
+    private List<Role> rolesListDataSource = new ArrayList<Role>();
 
-    //public ManualListRoleDao() {
-    //    super(Role.class, DataSource.getInstance().getRolesListDataSource());
-    //}
+    public ManualListRoleDao() {
+
+//        super(Role.class, DataSource.getInstance().getRolesListDataSource());
+    }
     /**
      * Méthode qui retourne la liste de tous les rôles de la database (ici
      * rolesListDataSource)
