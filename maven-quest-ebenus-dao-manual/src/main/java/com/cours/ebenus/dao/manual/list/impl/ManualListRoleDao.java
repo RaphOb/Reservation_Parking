@@ -19,15 +19,14 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author ElHadji
  */
-public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRoleDao {
+public class ManualListRoleDao extends AbstractListDao<Role> implements IRoleDao {
 
     private static final Log log = LogFactory.getLog(ManualListRoleDao.class);
     private List<Role> rolesListDataSource;
 
     public ManualListRoleDao() {
-
-//        super(Role.class, DataSource.getInstance().getRolesListDataSource());
-        rolesListDataSource = DataSource.getInstance().getRolesListDataSource();
+    	super(Role.class, DataSource.getInstance().getRolesListDataSource());
+    	rolesListDataSource = super.findAll();
     }
 
     /**
@@ -50,6 +49,11 @@ public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRol
      */
     @Override
     public Role findRoleById(int idRole) {
+        for(Role r : this.rolesListDataSource)
+        {
+        	if (r.getIdRole() == idRole)
+        		return r;
+        }
         return null;
     }
 
@@ -63,7 +67,13 @@ public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRol
      */
     @Override
     public List<Role> findRoleByIdentifiant(String identifiantRole) {
-        return null;
+    	List<Role> list = new ArrayList<Role>();
+    	for(Role r : this.rolesListDataSource)
+        {
+        	if (r.getIdentifiant().equals(identifiantRole))
+        		list.add(r);
+        }
+        return list;
     }
 
     /**
@@ -95,7 +105,14 @@ public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRol
      */
     @Override
     public Role updateRole(Role role) {
-        return null;
+    	int pos = 0;
+    	for(Role r : this.rolesListDataSource)
+        {
+        	if (r.getIdRole() == role.getIdRole())
+        		return this.rolesListDataSource.set(pos, role);
+        	pos++;
+        }
+    	return null;
     }
 
     /**
@@ -107,6 +124,11 @@ public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRol
      */
     @Override
     public boolean deleteRole(Role role) {
-        return false;
+    	for(Role r : this.rolesListDataSource)
+        {
+        	if (r.getIdRole() == role.getIdRole())
+        		return this.rolesListDataSource.remove(role);
+        }
+    	return false;
     }
 }

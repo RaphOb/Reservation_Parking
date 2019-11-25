@@ -24,12 +24,12 @@ public abstract class AbstractListDao<T> implements IDao<T> {
     @Override
     public List<T> findAll() {
 
-        return null;
+        return myList;
     }
 
     @Override
     public T findById(int id) {
-        return null;
+        return myList.get(id);
     }
 
     @Override
