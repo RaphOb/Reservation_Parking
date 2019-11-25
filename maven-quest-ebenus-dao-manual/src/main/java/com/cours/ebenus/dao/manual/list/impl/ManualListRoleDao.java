@@ -5,27 +5,31 @@
  */
 package com.cours.ebenus.dao.manual.list.impl;
 
+import com.cours.ebenus.dao.DataSource;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.entities.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.cours.ebenus.dao.exception.EbenusException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
  * @author ElHadji
  */
 public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRoleDao {
 
     private static final Log log = LogFactory.getLog(ManualListRoleDao.class);
-    private List<Role> rolesListDataSource = new ArrayList<Role>();
+    private List<Role> rolesListDataSource;
 
     public ManualListRoleDao() {
 
 //        super(Role.class, DataSource.getInstance().getRolesListDataSource());
+        rolesListDataSource = DataSource.getInstance().getRolesListDataSource();
     }
+
     /**
      * Méthode qui retourne la liste de tous les rôles de la database (ici
      * rolesListDataSource)
@@ -34,7 +38,7 @@ public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRol
      */
     @Override
     public List<Role> findAllRoles() {
-        return null;
+        return rolesListDataSource;
     }
 
     /**
@@ -70,8 +74,15 @@ public class ManualListRoleDao /*extends AbstractListDao<Role>*/ implements IRol
      * @return Le rôle ajouté ou null si échec
      */
     @Override
-    public Role createRole(Role role) {
-        return null;
+    public Role createRole(final Role role) {
+        boolean exist = this.rolesListDataSource.stream().anyMatch(t -> t.equals(role));
+        if (exist) {
+            return null;
+        } else {
+            this.rolesListDataSource.add(new Role(this.rolesListDataSource.size() + 1, role.getDescription(), role.getIdentifiant()));
+            return role;
+        }
+
     }
 
     /**

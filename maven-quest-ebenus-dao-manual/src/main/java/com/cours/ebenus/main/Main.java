@@ -5,6 +5,9 @@
  */
 package com.cours.ebenus.main;
 
+import com.cours.ebenus.dao.IRoleDao;
+import com.cours.ebenus.dao.entities.Role;
+import com.cours.ebenus.dao.manual.list.impl.ManualListRoleDao;
 import com.cours.ebenus.service.IServiceFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,6 +25,11 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        IRoleDao r = new ManualListRoleDao();
+
+        Role role = new Role(9, "un truc", "un autre truc");
+        r.createRole(role);
+        System.out.println(r.findAllRoles());
         IServiceFacade serviceFacade = null;
 
     }

@@ -2,7 +2,7 @@ package com.cours.ebenus.dao.exception;
 
 public class EbenusException extends RuntimeException {
 
-    EbenusException(String message){
+    public EbenusException(String message){
         super(message);
     }
 }
