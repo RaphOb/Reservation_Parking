@@ -13,6 +13,7 @@ import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.dao.manual.list.impl.AbstractListDao;
 import com.cours.ebenus.dao.manual.list.impl.ManualListRoleDao;
 import com.cours.ebenus.dao.manual.list.impl.ManualListUtilisateurDao;
+import com.cours.ebenus.dao.manual.map.impl.ManualMapRoleDao;
 import com.cours.ebenus.service.IServiceFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,21 +34,26 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
     	
-    	IRoleDao m = new ManualListRoleDao();
-    	IUtilisateurDao r = new ManualListUtilisateurDao();
+//    	AbstractListDao m = new ManualListRoleDao();
+//    	IUtilisateurDao r = new ManualListUtilisateurDao();
 
-        Role role = new Role(9, "un truc", "un autre truc");
-        Utilisateur u = new Utilisateur(1, "ss", "sasasa", "sasasa", "sasasasa", "passw0rd", new Date(System.currentTimeMillis()),role);
+        Role role = new Role(1, "Standard", "un autre truc");
+//        ((ManualListRoleDao) m).createRole(role);
+//        System.out.println(m.findAll());
+//        Utilisateur u = new Utilisateur(1, "ss", "sasasa", "sasasa", "sasasasa", "passw0rd", new Date(System.currentTimeMillis()),role);
 //        r.createRole(role);
-        r.createUtilisateur(u);
-        System.out.println(r.findAllUtilisateurs());
+//        r.createUtilisateur(u);
+//        System.out.println(r.findAllUtilisateurs());
 
-        Utilisateur f = new Utilisateur(29, "ss", "rererere", "rerere", "rererere", "passw0rd", new Date(System.currentTimeMillis()),role);
-        r.updateUtilisateur(f);
-        System.out.println(r.findAllUtilisateurs());
+//        Utilisateur f = new Utilisateur(29, "ss", "rererere", "rerere", "rererere", "passw0rd", new Date(System.currentTimeMillis()),role);
+//        r.updateUtilisateur(f);
+//        System.out.println(r.findAllUtilisateurs());
 //        r.deleteUtilisateur(u);
 //        System.out.println(r.findAllUtilisateurs());
 
+        IRoleDao m = new ManualMapRoleDao();
+        m.createRole(role);
+        System.out.println(m.findAllRoles());
 
 
         IServiceFacade serviceFacade = null;

@@ -5,25 +5,31 @@
  */
 package com.cours.ebenus.dao.manual.map.impl;
 
+import com.cours.ebenus.dao.DataSource;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.entities.Role;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
  * @author ElHadji
  */
-public class ManualMapRoleDao /*extends AbstractMapDao<Role>*/ implements IRoleDao {
+public class ManualMapRoleDao extends AbstractMapDao<Role> implements IRoleDao {
 
     private static final Log log = LogFactory.getLog(ManualMapRoleDao.class);
     private Map<Integer, Role> rolesListDataSource = null;
 
-    //public ManualMapRoleDao() {
-    //    super(Role.class, DataSource.getInstance().getRolesMapDataSource());
-    //}
+    public ManualMapRoleDao() {
+        super(Role.class, DataSource.getInstance().getRolesMapDataSource());
+        rolesListDataSource = super.getmyMap();
+    }
+
     /**
      * Méthode qui retourne la liste de tous les rôles de la database (ici
      * rolesListDataSource)
@@ -32,7 +38,7 @@ public class ManualMapRoleDao /*extends AbstractMapDao<Role>*/ implements IRoleD
      */
     @Override
     public List<Role> findAllRoles() {
-        return null;
+        return new ArrayList<>(rolesListDataSource.values());
     }
 
     /**
@@ -44,7 +50,7 @@ public class ManualMapRoleDao /*extends AbstractMapDao<Role>*/ implements IRoleD
      */
     @Override
     public Role findRoleById(int idRole) {
-        return null;
+        return rolesListDataSource.get(idRole);
     }
 
     /**
@@ -57,7 +63,9 @@ public class ManualMapRoleDao /*extends AbstractMapDao<Role>*/ implements IRoleD
      */
     @Override
     public List<Role> findRoleByIdentifiant(String identifiantRole) {
-        return null;
+        return rolesListDataSource.values().stream()
+                .filter(r -> r.getIdentifiant().equals(identifiantRole))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -69,7 +77,9 @@ public class ManualMapRoleDao /*extends AbstractMapDao<Role>*/ implements IRoleD
      */
     @Override
     public Role createRole(Role role) {
-        return null;
+        rolesListDataSource.put(rolesListDataSource.size() + 1, new Role(rolesListDataSource.size() + 1, role.getIdentifiant(), role.getDescription()));
+        return role;
+
     }
 
     /**
@@ -82,7 +92,13 @@ public class ManualMapRoleDao /*extends AbstractMapDao<Role>*/ implements IRoleD
      */
     @Override
     public Role updateRole(Role role) {
-        return null;
+        if (rolesListDataSource.get(role) == null) {
+            return null;
+        }
+        else {
+            rolesListDataSource.put(role.getIdRole(), role);
+            return role;
+        }
     }
 
     /**
@@ -94,6 +110,10 @@ public class ManualMapRoleDao /*extends AbstractMapDao<Role>*/ implements IRoleD
      */
     @Override
     public boolean deleteRole(Role role) {
+        if (rolesListDataSource.get(role) != null){
+            rolesListDataSource.remove(role.getIdRole());
+            return true;
+        }
         return false;
     }
 

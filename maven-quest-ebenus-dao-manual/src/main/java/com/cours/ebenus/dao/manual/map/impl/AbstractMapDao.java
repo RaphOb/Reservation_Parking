@@ -22,6 +22,10 @@ public abstract class AbstractMapDao<T> implements IDao<T> {
         this.myMap = myMap;
     }
 
+    public Map<Integer, T> getmyMap() {
+        return this.myMap;
+    }
+
     @Override
     public List<T> findAll() {
         return null;
