@@ -41,8 +41,12 @@ public class Main {
 //        r.createRole(role);
         r.createUtilisateur(u);
         System.out.println(r.findAllUtilisateurs());
-        r.deleteUtilisateur(u);
+
+        Utilisateur f = new Utilisateur(29, "ss", "rererere", "rerere", "rererere", "passw0rd", new Date(System.currentTimeMillis()),role);
+        r.updateUtilisateur(f);
         System.out.println(r.findAllUtilisateurs());
+//        r.deleteUtilisateur(u);
+//        System.out.println(r.findAllUtilisateurs());
 
 
 

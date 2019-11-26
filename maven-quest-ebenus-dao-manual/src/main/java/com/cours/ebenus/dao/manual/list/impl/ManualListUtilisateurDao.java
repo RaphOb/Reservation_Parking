@@ -132,10 +132,12 @@ public class ManualListUtilisateurDao extends AbstractListDao<Utilisateur> imple
      */
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
-               utilisateursListDataSource = utilisateursListDataSource.stream()
-                .filter(u -> u.getIdUtilisateur().equals(user.getIdUtilisateur()))
-                .map(u -> u = user).collect(Collectors.toList());
-            return user;
+        for (int i = 0; i < utilisateursListDataSource.size(); i++) {
+            if (utilisateursListDataSource.get(i).getIdUtilisateur().equals(user.getIdUtilisateur())) {
+                utilisateursListDataSource.set(i, user);
+            }
+        }
+        return user;
     }
 
     /**
