@@ -5,24 +5,32 @@
  */
 package com.cours.ebenus.dao.manual.list.impl;
 
+import com.cours.ebenus.dao.DataSource;
 import com.cours.ebenus.dao.IUtilisateurDao;
+import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.cours.ebenus.dao.exception.EbenusException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
  * @author ElHadji
  */
-public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ implements IUtilisateurDao {
+public class ManualListUtilisateurDao extends AbstractListDao<Utilisateur> implements IUtilisateurDao {
 
     private static final Log log = LogFactory.getLog(ManualListUtilisateurDao.class);
     private List<Utilisateur> utilisateursListDataSource = null;
 
-    //public ManualListUtilisateurDao() {
-    //    super(Utilisateur.class, DataSource.getInstance().getUtilisateursListDataSource());
-    //}
+    public ManualListUtilisateurDao() {
+        super(Utilisateur.class, DataSource.getInstance().getUtilisateursListDataSource());
+        utilisateursListDataSource = super.findAll();
+    }
+
     /**
      * Méthode qui retourne la liste de tous les utilisateurs de la database
      * (ici utilisateursListDataSource)
@@ -31,7 +39,7 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public List<Utilisateur> findAllUtilisateurs() {
-        return null;
+        return utilisateursListDataSource;
     }
 
     /**
@@ -43,7 +51,9 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public Utilisateur findUtilisateurById(int idUtilisateur) {
-        return null;
+        return utilisateursListDataSource.stream()
+                .filter(u -> u.getIdUtilisateur().equals(idUtilisateur))
+                .findAny().orElse(null);
     }
 
     /**
@@ -57,7 +67,9 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public List<Utilisateur> findUtilisateursByPrenom(String prenom) {
-        return null;
+        return utilisateursListDataSource.stream()
+                .filter(u -> u.getPrenom().equals(prenom))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -70,7 +82,9 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public List<Utilisateur> findUtilisateursByNom(String nom) {
-        return null;
+        return utilisateursListDataSource.stream()
+                .filter(u -> u.getNom().equals(nom))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -84,7 +98,9 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public List<Utilisateur> findUtilisateurByIdentifiant(String identifiant) {
-        return null;
+        return utilisateursListDataSource.stream()
+                .filter(u -> u.getIdentifiant().equals(identifiant))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -96,7 +112,14 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public Utilisateur createUtilisateur(Utilisateur user) {
-        return null;
+
+        boolean exist = this.utilisateursListDataSource.stream().anyMatch(t -> t.getIdentifiant().equals(user.getIdentifiant()));
+        if (exist) {
+            throw new EbenusException("Une erreur s’est produite, il existe déjà un utilisateur avec l’identifiant " + user.getIdentifiant() + " dans l’application");
+        } else {
+            this.utilisateursListDataSource.add(new Utilisateur(utilisateursListDataSource.size() + 1, user.getCivilite(), user.getPrenom(), user.getNom(), user.getIdentifiant(), user.getMotPasse(), user.getDateCreation(), user.getRole()));
+            return user;
+        }
     }
 
     /**
@@ -109,7 +132,10 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
-        return null;
+               utilisateursListDataSource = utilisateursListDataSource.stream()
+                .filter(u -> u.getIdUtilisateur().equals(user.getIdUtilisateur()))
+                .map(u -> u = user).collect(Collectors.toList());
+            return user;
     }
 
     /**
@@ -121,7 +147,7 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public boolean deleteUtilisateur(Utilisateur user) {
-        return false;
+        return utilisateursListDataSource.remove(user);
     }
 
     /**
@@ -135,7 +161,9 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public List<Utilisateur> findUtilisateursByIdRole(int idRole) {
-        return null;
+        return utilisateursListDataSource.stream().
+                filter(u -> u.getRole().getIdRole().equals(idRole))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -149,6 +177,8 @@ public class ManualListUtilisateurDao /*extends AbstractListDao<Utilisateur>*/ i
      */
     @Override
     public List<Utilisateur> findUtilisateursByIdentifiantRole(String identifiantRole) {
-        return null;
+        return utilisateursListDataSource.stream()
+                .filter(u -> u.getRole().getIdentifiant().equals(identifiantRole))
+                .collect(Collectors.toList());
     }
 }
