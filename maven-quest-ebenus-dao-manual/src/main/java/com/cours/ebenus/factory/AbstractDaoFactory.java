@@ -44,6 +44,9 @@ public abstract class AbstractDaoFactory {
             case MANUAL_MAP_DAO_FACTORY:
                 factory = new ManualMapDaoFactory();
                 break;
+            default:
+            	log.debug("Pas de Factory trouvé pour ce type de données");
+            	break;
         }
         return factory;
     }

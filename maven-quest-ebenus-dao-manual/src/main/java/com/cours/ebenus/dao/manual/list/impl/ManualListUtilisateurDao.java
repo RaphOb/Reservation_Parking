@@ -112,12 +112,14 @@ public class ManualListUtilisateurDao extends AbstractListDao<Utilisateur> imple
      */
     @Override
     public Utilisateur createUtilisateur(Utilisateur user) {
-
         boolean exist = this.utilisateursListDataSource.stream().anyMatch(t -> t.getIdentifiant().equals(user.getIdentifiant()));
         if (exist) {
             throw new EbenusException("Une erreur s’est produite, il existe déjà un utilisateur avec l’identifiant " + user.getIdentifiant() + " dans l’application");
         } else {
-            Utilisateur u = new Utilisateur(utilisateursListDataSource.size() + 1, user.getCivilite(), user.getPrenom(), user.getNom(), user.getIdentifiant(), user.getMotPasse(), user.getDateCreation(), user.getRole());
+            Utilisateur u = new Utilisateur(utilisateursListDataSource.size() + 1, user.getCivilite(), user.getPrenom(), user.getNom(), user.getIdentifiant(), user.getMotPasse(), user.getDateNaissance(), user.getRole());
+            Date d = new Date(System.currentTimeMillis());
+            u.setDateCreation(d);
+            u.setDateModification(d);
             this.utilisateursListDataSource.add(u);
             return u;
         }
@@ -136,6 +138,7 @@ public class ManualListUtilisateurDao extends AbstractListDao<Utilisateur> imple
         for (int i = 0; i < utilisateursListDataSource.size(); i++) {
             if (utilisateursListDataSource.get(i).getIdUtilisateur().equals(user.getIdUtilisateur())) {
                 utilisateursListDataSource.set(i, user);
+                utilisateursListDataSource.get(i).setDateModification(new Date(System.currentTimeMillis()));
             }
         }
         return user;

@@ -1,8 +1,8 @@
 package com.cours.ebenus.dao.exception;
 
-public class EbenusException extends RuntimeException {
+public class EbenusException extends CustomException {
 
     public EbenusException(String message){
-        super(message);
+        super(message, -1);
     }
 }
