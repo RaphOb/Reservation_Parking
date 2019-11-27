@@ -167,7 +167,13 @@ public class ManualMapUtilisateurDao extends AbstractMapDao<Utilisateur> impleme
      */
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
-        return user;
+        for (Map.Entry<Integer, Utilisateur> u :utilisateursMapDataSource.entrySet()) {
+            if (user.getIdUtilisateur().equals(u.getKey())) {
+                utilisateursMapDataSource.replace(u.getKey(), user);
+                return  user;
+            }
+        }
+        return null;
     }
 
     /**
