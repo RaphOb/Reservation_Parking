@@ -117,8 +117,9 @@ public class ManualListUtilisateurDao extends AbstractListDao<Utilisateur> imple
         if (exist) {
             throw new EbenusException("Une erreur s’est produite, il existe déjà un utilisateur avec l’identifiant " + user.getIdentifiant() + " dans l’application");
         } else {
-            this.utilisateursListDataSource.add(new Utilisateur(utilisateursListDataSource.size() + 1, user.getCivilite(), user.getPrenom(), user.getNom(), user.getIdentifiant(), user.getMotPasse(), user.getDateCreation(), user.getRole()));
-            return user;
+            Utilisateur u = new Utilisateur(utilisateursListDataSource.size() + 1, user.getCivilite(), user.getPrenom(), user.getNom(), user.getIdentifiant(), user.getMotPasse(), user.getDateCreation(), user.getRole());
+            this.utilisateursListDataSource.add(u);
+            return u;
         }
     }
 

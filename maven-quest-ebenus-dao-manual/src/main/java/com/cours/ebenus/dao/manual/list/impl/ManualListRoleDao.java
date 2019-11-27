@@ -89,8 +89,9 @@ public class ManualListRoleDao extends AbstractListDao<Role> implements IRoleDao
         if (exist) {
             return null;
         } else {
-            this.rolesListDataSource.add(new Role(this.rolesListDataSource.size() + 1, role.getDescription(), role.getIdentifiant()));
-            return role;
+            Role r = new Role(this.rolesListDataSource.size() + 1, role.getDescription(), role.getIdentifiant());
+            this.rolesListDataSource.add(r);
+            return r;
         }
 
     }

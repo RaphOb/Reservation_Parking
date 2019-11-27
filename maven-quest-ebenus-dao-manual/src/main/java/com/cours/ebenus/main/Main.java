@@ -52,9 +52,10 @@ public class Main {
 //	        System.out.println(rDao.findAllRoles());
         	
         	//Users OK sauf update
-//    		Role role = new Role(6, "Dieu", "Créateur");
+    		Role role = new Role( "Dieu", "Créateur");
 //	    	Utilisateur u = new Utilisateur(29, "Francais", "Franck", "Dupont", "Toss01", "passw0rd", new Date(System.currentTimeMillis()), role);
-//	    	rDao.createRole(role);
+	    	rDao.createRole(role);
+        System.out.println( rDao.findAllRoles());
 //	    	uDao.createUtilisateur(u);
 //	      	System.out.println(uDao.findAllUtilisateurs());
 //	      	System.out.println(uDao.findUtilisateursByPrenom("Franck"));

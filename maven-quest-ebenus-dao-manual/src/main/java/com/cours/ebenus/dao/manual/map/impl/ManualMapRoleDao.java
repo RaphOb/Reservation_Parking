@@ -77,8 +77,9 @@ public class ManualMapRoleDao extends AbstractMapDao<Role> implements IRoleDao {
      */
     @Override
     public Role createRole(Role role) {
-        rolesListDataSource.put(rolesListDataSource.size() + 1, new Role(rolesListDataSource.size() + 1, role.getIdentifiant(), role.getDescription()));
-        return role;
+        Role r = new Role(rolesListDataSource.size() + 1, role.getIdentifiant(), role.getDescription());
+        rolesListDataSource.put(rolesListDataSource.size() + 1, r);
+        return r;
 
     }
 

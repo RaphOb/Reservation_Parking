@@ -5,6 +5,7 @@ package com.cours.ebenus.dao.test;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.factory.AbstractDaoFactory;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
