@@ -37,7 +37,7 @@ public class Main {
 //    	AbstractListDao m = new ManualListRoleDao();
 //    	IUtilisateurDao r = new ManualListUtilisateurDao();
 
-        Role role = new Role(1, "Standard", "un autre truc");
+        Role role = new Role( "Standard", "un autre truc");
 //        ((ManualListRoleDao) m).createRole(role);
 //        System.out.println(m.findAll());
 //        Utilisateur u = new Utilisateur(1, "ss", "sasasa", "sasasa", "sasasasa", "passw0rd", new Date(System.currentTimeMillis()),role);
@@ -53,6 +53,8 @@ public class Main {
 
         IRoleDao m = new ManualMapRoleDao();
         m.createRole(role);
+        System.out.println(m.findAllRoles());
+        m.deleteRole(role);
         System.out.println(m.findAllRoles());
 
 
