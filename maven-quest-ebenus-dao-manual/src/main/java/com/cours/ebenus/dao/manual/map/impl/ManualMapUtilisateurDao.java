@@ -167,11 +167,7 @@ public class ManualMapUtilisateurDao extends AbstractMapDao<Utilisateur> impleme
      */
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
-    	if (utilisateursMapDataSource.get(utilisateursMapDataSource.size()) == null) {
-            return null;
-        } else {
-            return user;
-        }
+        return user;
     }
 
     /**
