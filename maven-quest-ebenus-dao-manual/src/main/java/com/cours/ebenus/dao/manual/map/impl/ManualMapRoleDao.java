@@ -93,10 +93,9 @@ public class ManualMapRoleDao extends AbstractMapDao<Role> implements IRoleDao {
      */
     @Override
     public Role updateRole(Role role) {
-        if (rolesListDataSource.get((Object)role) == null) {
+        if (rolesListDataSource.get(rolesListDataSource.size()) == null) {
             return null;
         } else {
-            rolesListDataSource.put(role.getIdRole(), role);
             return role;
         }
     }
@@ -110,12 +109,8 @@ public class ManualMapRoleDao extends AbstractMapDao<Role> implements IRoleDao {
      */
     @Override
     public boolean deleteRole(Role role) {
-        for (Map.Entry<Integer, Role> r: rolesListDataSource.entrySet()) {
-            if (role.getIdentifiant().equals(r.getValue().getIdentifiant())) {
-                rolesListDataSource.remove(r.getKey());
-                return  true;
-            }
-        }
+    	if (rolesListDataSource.remove(rolesListDataSource.size()) != null)
+        	return true;
         return false;
     }
 

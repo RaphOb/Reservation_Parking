@@ -18,7 +18,8 @@ public class JUnitQuestEbenusManualMap extends JUnitQuestEbenus {
     @BeforeClass
     public static void init() throws Exception {
         JUnitQuestEbenus.serviceFacade = new ServiceFacade(AbstractDaoFactory.FactoryDaoType.MANUAL_MAP_DAO_FACTORY);
+        JUnitQuestEbenus.utilisateurs = JUnitQuestEbenus.serviceFacade.getUtilisateurDao().findAllUtilisateurs();
         JUnitQuestEbenus.roles = JUnitQuestEbenus.serviceFacade.getRoleDao().findAllRoles();
-
+        JUnitQuestEbenus.roles.forEach(System.out::println);
     }
 }

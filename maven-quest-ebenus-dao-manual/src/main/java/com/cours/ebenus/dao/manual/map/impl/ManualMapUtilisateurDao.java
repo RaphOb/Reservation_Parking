@@ -7,9 +7,12 @@ package com.cours.ebenus.dao.manual.map.impl;
 
 import com.cours.ebenus.dao.DataSource;
 import com.cours.ebenus.dao.IUtilisateurDao;
+import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.exception.EbenusException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -141,7 +144,17 @@ public class ManualMapUtilisateurDao extends AbstractMapDao<Utilisateur> impleme
      */
     @Override
     public Utilisateur createUtilisateur(Utilisateur user) {
-    	return utilisateursMapDataSource.put(utilisateursMapDataSource.size() + 1, user);
+    	boolean exist = this.utilisateursMapDataSource.entrySet().stream().anyMatch(t -> t.getValue().getIdentifiant().equals(user.getIdentifiant()));
+        if (exist) {
+            throw new EbenusException("Une erreur s’est produite, il existe déjà un utilisateur avec l’identifiant " + user.getIdentifiant() + " dans l’application");
+        } else {
+	        Utilisateur u = new Utilisateur(utilisateursMapDataSource.size() + 1,  user.getCivilite(), user.getPrenom(), user.getNom(), user.getIdentifiant(), user.getMotPasse(), user.getDateNaissance(), user.getRole());
+	        Date d = new Date(System.currentTimeMillis());
+	        u.setDateCreation(d);
+	        u.setDateModification(d);
+	    	utilisateursMapDataSource.put(utilisateursMapDataSource.size() + 1, u);
+	        return u;
+        }
     }
 
     /**
@@ -154,10 +167,10 @@ public class ManualMapUtilisateurDao extends AbstractMapDao<Utilisateur> impleme
      */
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
-    	if (utilisateursMapDataSource.get((Object)user) == null) {
+    	if (utilisateursMapDataSource.get(utilisateursMapDataSource.size()) == null) {
+    		log.debug("in");
             return null;
         } else {
-        	utilisateursMapDataSource.put(user.getIdUtilisateur(), user);
             return user;
         }
     }
@@ -171,7 +184,7 @@ public class ManualMapUtilisateurDao extends AbstractMapDao<Utilisateur> impleme
      */
     @Override
     public boolean deleteUtilisateur(Utilisateur user) {
-        if (utilisateursMapDataSource.remove((Object)user) != null)
+        if (utilisateursMapDataSource.remove(utilisateursMapDataSource.size()) != null)
         	return true;
         return false;
     }
