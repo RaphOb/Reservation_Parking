@@ -14,7 +14,9 @@ import com.cours.ebenus.dao.manual.list.impl.AbstractListDao;
 import com.cours.ebenus.dao.manual.list.impl.ManualListRoleDao;
 import com.cours.ebenus.dao.manual.list.impl.ManualListUtilisateurDao;
 import com.cours.ebenus.dao.manual.map.impl.ManualMapRoleDao;
+import com.cours.ebenus.factory.AbstractDaoFactory;
 import com.cours.ebenus.service.IServiceFacade;
+import com.cours.ebenus.service.ServiceFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -57,19 +59,19 @@ public class Main {
 //	        System.out.println(rDao.findAllRoles());
         	
         	//Users OK sauf update
-    		Role role = new Role(6, "Dieu", "Créateur");
-	    	Utilisateur u = new Utilisateur(29, "Francais", "Franck", "Dupont", "Toss01", "passw0rd", new Date(System.currentTimeMillis()), role);
-	    	rDao.createRole(role);
-	    	uDao.createUtilisateur(u);
-	      	System.out.println(uDao.findAllUtilisateurs());
-	      	System.out.println(uDao.findUtilisateursByPrenom("Franck"));
-	      	System.out.println(uDao.findUtilisateursByNom("Dupont"));
-	      	System.out.println(uDao.findUtilisateurByIdentifiant("Toss01"));
-	      	System.out.println(uDao.findUtilisateursByIdRole(6));
-	      	System.out.println(uDao.findUtilisateursByIdentifiantRole("Créateur"));
-	      	uDao.updateUtilisateur(u);
-	      	uDao.deleteUtilisateur(u);
-	      	System.out.println(uDao.findAllUtilisateurs());
+//    		Role role = new Role(6, "Dieu", "Créateur");
+//	    	Utilisateur u = new Utilisateur(29, "Francais", "Franck", "Dupont", "Toss01", "passw0rd", new Date(System.currentTimeMillis()), role);
+//	    	rDao.createRole(role);
+//	    	uDao.createUtilisateur(u);
+//	      	System.out.println(uDao.findAllUtilisateurs());
+//	      	System.out.println(uDao.findUtilisateursByPrenom("Franck"));
+//	      	System.out.println(uDao.findUtilisateursByNom("Dupont"));
+//	      	System.out.println(uDao.findUtilisateurByIdentifiant("Toss01"));
+//	      	System.out.println(uDao.findUtilisateursByIdRole(6));
+//	      	System.out.println(uDao.findUtilisateursByIdentifiantRole("Créateur"));
+//	      	uDao.updateUtilisateur(u);
+//	      	uDao.deleteUtilisateur(u);
+//	      	System.out.println(uDao.findAllUtilisateurs());
         
 
 		//MAPS
@@ -90,8 +92,9 @@ public class Main {
 	        //Users
         
         
-        
-        IServiceFacade serviceFacade = null;
+        //Test Facade
+        IServiceFacade serviceFacade = new ServiceFacade(AbstractDaoFactory.FactoryDaoType.MANUAL_LIST_DAO_FACTORY);
+        System.out.println(serviceFacade.getUtilisateurDao().findAllUtilisateurs());
 
     }
 }

@@ -7,6 +7,7 @@ package com.cours.ebenus.factory;
 
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
+import com.sun.prism.PixelFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,6 +36,15 @@ public abstract class AbstractDaoFactory {
      * @return AbstractDaoFactory
      */
     public static AbstractDaoFactory getFactory(FactoryDaoType daoType) {
-        return null;
+        AbstractDaoFactory factory = null;
+        switch (daoType) {
+            case MANUAL_LIST_DAO_FACTORY:
+                factory = new ManualListDaoFactory();
+                break;
+            case MANUAL_MAP_DAO_FACTORY:
+                factory = new ManualMapDaoFactory();
+                break;
+        }
+        return factory;
     }
 }
