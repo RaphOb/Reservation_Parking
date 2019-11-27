@@ -68,14 +68,14 @@ public class Main {
         
 
 		//MAPS
-    	IRoleDao rDao2 = new ManualMapRoleDao();
-    	IUtilisateurDao uDao2 = new ManualMapUtilisateurDao();
-	
-	      	//Role
-	    	Role role2 = new Role(1, "Standard", "un autre truc");
-	    	rDao.createRole(role2);
-	        System.out.println(rDao.findAllRoles());
-	        
+//    	IRoleDao rDao2 = new ManualMapRoleDao();
+//    	IUtilisateurDao uDao2 = new ManualMapUtilisateurDao();
+//	
+//	      	//Role
+//	    	Role role2 = new Role(1, "Standard", "un autre truc");
+//	    	rDao.createRole(role2);
+//	        System.out.println(rDao.findAllRoles());
+//	        
 	        //Users
 	        
 	        
