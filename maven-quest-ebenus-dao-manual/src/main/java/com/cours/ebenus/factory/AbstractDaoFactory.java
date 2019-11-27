@@ -5,9 +5,8 @@
  */
 package com.cours.ebenus.factory;
 
-import com.cours.ebenus.dao.IRoleDao;
+import com.cours.ebenus.dao.IRoleDao; 
 import com.cours.ebenus.dao.IUtilisateurDao;
-import com.sun.prism.PixelFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -93,11 +93,7 @@ public class ManualMapRoleDao extends AbstractMapDao<Role> implements IRoleDao {
      */
     @Override
     public Role updateRole(Role role) {
-        if (rolesListDataSource.get(rolesListDataSource.size()) == null) {
-            return null;
-        } else {
-            return role;
-        }
+        return role;
     }
 
     /**
