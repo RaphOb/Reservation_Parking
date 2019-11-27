@@ -124,6 +124,6 @@ public class ManualListRoleDao extends AbstractListDao<Role> implements IRoleDao
      */
     @Override
     public boolean deleteRole(Role role) {
-        		return this.rolesListDataSource.remove(role);
+		return this.rolesListDataSource.remove(role);
     }
 }

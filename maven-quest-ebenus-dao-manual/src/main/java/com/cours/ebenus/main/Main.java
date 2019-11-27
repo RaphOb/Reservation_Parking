@@ -35,27 +35,62 @@ public class Main {
         // TODO code application logic here
     	
 //    	AbstractListDao m = new ManualListRoleDao();
-//    	IUtilisateurDao r = new ManualListUtilisateurDao();
+    	
+    	
+    	//DAO
+    	
+    	//Le contenu des lists sont déja pré-remplis grâce au constructeur
+    	IRoleDao rDao = new ManualListRoleDao();
+    	IUtilisateurDao uDao = new ManualListUtilisateurDao();
+    	
+		//LISTS
+			
+    		//Role OK sauf update
+//	    	Role role = new Role(6, "Dieu", "Créateur");
+//	        rDao.createRole(role);
+//	        System.out.println(rDao.findAllRoles());
+//	        System.out.println(rDao.findRoleById(2));
+//	        System.out.println(rDao.findRoleByIdentifiant("Créateur"));
+//	        rDao.updateRole(role);
+//	        System.out.println(rDao.findRoleById(6));
+//	        rDao.deleteRole(role);
+//	        System.out.println(rDao.findAllRoles());
+        	
+        	//Users OK sauf update
+    		Role role = new Role(6, "Dieu", "Créateur");
+	    	Utilisateur u = new Utilisateur(29, "Francais", "Franck", "Dupont", "Toss01", "passw0rd", new Date(System.currentTimeMillis()), role);
+	    	rDao.createRole(role);
+	    	uDao.createUtilisateur(u);
+	      	System.out.println(uDao.findAllUtilisateurs());
+	      	System.out.println(uDao.findUtilisateursByPrenom("Franck"));
+	      	System.out.println(uDao.findUtilisateursByNom("Dupont"));
+	      	System.out.println(uDao.findUtilisateurByIdentifiant("Toss01"));
+	      	System.out.println(uDao.findUtilisateursByIdRole(6));
+	      	System.out.println(uDao.findUtilisateursByIdentifiantRole("Créateur"));
+	      	uDao.updateUtilisateur(u);
+	      	uDao.deleteUtilisateur(u);
+	      	System.out.println(uDao.findAllUtilisateurs());
+        
 
-        Role role = new Role(1, "Standard", "un autre truc");
-//        ((ManualListRoleDao) m).createRole(role);
-//        System.out.println(m.findAll());
-//        Utilisateur u = new Utilisateur(1, "ss", "sasasa", "sasasa", "sasasasa", "passw0rd", new Date(System.currentTimeMillis()),role);
-//        r.createRole(role);
-//        r.createUtilisateur(u);
-//        System.out.println(r.findAllUtilisateurs());
-
-//        Utilisateur f = new Utilisateur(29, "ss", "rererere", "rerere", "rererere", "passw0rd", new Date(System.currentTimeMillis()),role);
-//        r.updateUtilisateur(f);
-//        System.out.println(r.findAllUtilisateurs());
-//        r.deleteUtilisateur(u);
-//        System.out.println(r.findAllUtilisateurs());
-
-        IRoleDao m = new ManualMapRoleDao();
-        m.createRole(role);
-        System.out.println(m.findAllRoles());
-
-
+		//MAPS
+	
+	      	//Role
+//	    	Role role2 = new Role(1, "Standard", "un autre truc");
+//	    	rDao.createRole(role2);
+//	        System.out.println(rDao.findAllRoles());
+	        
+	        //Users
+	        
+	        
+	
+		//ARRAYS
+    	
+	        //Role
+	        
+	        //Users
+        
+        
+        
         IServiceFacade serviceFacade = null;
 
     }
