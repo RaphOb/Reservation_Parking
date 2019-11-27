@@ -8,7 +8,7 @@ Permet de définir en quoi 2 objets sont égaux (Compare 2 instances de class)
 
 Méthode HashCode:
 Permet de retrouver un résumé d'une instance(plus rapide qu'avec la méthode equals qui elle compare directement les instances)
-
+Elle retourne un entier.
 
 
 Reponse question 2 :
