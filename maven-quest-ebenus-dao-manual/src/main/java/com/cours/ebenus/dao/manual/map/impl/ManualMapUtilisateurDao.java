@@ -5,10 +5,15 @@
  */
 package com.cours.ebenus.dao.manual.map.impl;
 
+import com.cours.ebenus.dao.DataSource;
 import com.cours.ebenus.dao.IUtilisateurDao;
 import com.cours.ebenus.dao.entities.Utilisateur;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,14 +21,15 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author ElHadji
  */
-public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ implements IUtilisateurDao {
+public class ManualMapUtilisateurDao extends AbstractMapDao<Utilisateur> implements IUtilisateurDao {
 
     private static final Log log = LogFactory.getLog(ManualMapUtilisateurDao.class);
     private Map<Integer, Utilisateur> utilisateursMapDataSource = null;
 
-    //public ManualMapUtilisateurDao() {
-    //   super(Utilisateur.class, DataSource.getInstance().getUtilisateursMapDataSource());
-    //}
+    public ManualMapUtilisateurDao() {
+      	super(Utilisateur.class, DataSource.getInstance().getUtilisateursMapDataSource());
+      	utilisateursMapDataSource = super.getmyMap();
+    }
     /**
      * Méthode qui retourne la liste de tous les utilisateurs de la database
      * (ici utilisateursMapDataSource)
@@ -32,7 +38,7 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public List<Utilisateur> findAllUtilisateurs() {
-        return null;
+    	return new ArrayList<>(utilisateursMapDataSource.values());
     }
 
     /**
@@ -44,7 +50,7 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public Utilisateur findUtilisateurById(int idUtilisateur) {
-        return null;
+        return utilisateursMapDataSource.get(idUtilisateur);
     }
 
     /**
@@ -58,7 +64,9 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public List<Utilisateur> findUtilisateursByPrenom(String prenom) {
-        return null;
+    	return utilisateursMapDataSource.values().stream()
+    			.filter(u -> u.getPrenom().equals(prenom))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -71,7 +79,9 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public List<Utilisateur> findUtilisateursByNom(String nom) {
-        return null;
+    	return utilisateursMapDataSource.values().stream()
+    			.filter(u -> u.getNom().equals(nom))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -85,7 +95,9 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public List<Utilisateur> findUtilisateurByIdentifiant(String identifiant) {
-        return null;
+    	return utilisateursMapDataSource.values().stream()
+    			.filter(u -> u.getIdentifiant().equals(identifiant))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -99,7 +111,9 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public List<Utilisateur> findUtilisateursByIdRole(int idRole) {
-        return null;
+    	return utilisateursMapDataSource.values().stream()
+    			.filter(u -> u.getRole().getIdRole().equals(idRole))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -113,7 +127,9 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public List<Utilisateur> findUtilisateursByIdentifiantRole(String identifiantRole) {
-        return null;
+    	return utilisateursMapDataSource.values().stream()
+    			.filter(u -> u.getRole().getIdentifiant().equals(identifiantRole))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -125,12 +141,12 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public Utilisateur createUtilisateur(Utilisateur user) {
-        return null;
+    	return utilisateursMapDataSource.put(utilisateursMapDataSource.size() + 1, user);
     }
 
     /**
      * Méthode qui permet d'update un utilisateur existant dans la database (ici
-     * utilisateursMapDataSource)
+     * utilisateursMapDataSource)return null;
      *
      * @param user L'utilisateur à modifier
      * @return L'utilisateur modifié ou null si ce dernier n'existe pas dans la
@@ -150,6 +166,8 @@ public class ManualMapUtilisateurDao /*extends AbstractMapDao<Utilisateur>*/ imp
      */
     @Override
     public boolean deleteUtilisateur(Utilisateur user) {
+        if (utilisateursMapDataSource.remove((Object)user) != null)
+        	return true;
         return false;
     }
 }

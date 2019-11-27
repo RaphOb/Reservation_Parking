@@ -5,11 +5,8 @@
  */
 package com.cours.ebenus.main;
 
-import com.cours.ebenus.dao.DataSource;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
-import com.cours.ebenus.dao.entities.Role;
-import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.dao.manual.list.impl.AbstractListDao;
 import com.cours.ebenus.dao.manual.list.impl.ManualListRoleDao;
 import com.cours.ebenus.dao.manual.list.impl.ManualListUtilisateurDao;
@@ -39,13 +36,9 @@ public class Main {
 //    	AbstractListDao m = new ManualListRoleDao();
     	
     	
-    	//DAO
-    	
-    	//Le contenu des lists sont déja pré-remplis grâce au constructeur
+		//LISTS
     	IRoleDao rDao = new ManualListRoleDao();
     	IUtilisateurDao uDao = new ManualListUtilisateurDao();
-    	
-		//LISTS
 			
     		//Role OK sauf update
 //	    	Role role = new Role(6, "Dieu", "Créateur");
@@ -75,11 +68,13 @@ public class Main {
         
 
 		//MAPS
+    	IRoleDao rDao2 = new ManualMapRoleDao();
+    	IUtilisateurDao uDao2 = new ManualMapUtilisateurDao();
 	
 	      	//Role
-//	    	Role role2 = new Role(1, "Standard", "un autre truc");
-//	    	rDao.createRole(role2);
-//	        System.out.println(rDao.findAllRoles());
+	    	Role role2 = new Role(1, "Standard", "un autre truc");
+	    	rDao.createRole(role2);
+	        System.out.println(rDao.findAllRoles());
 	        
 	        //Users
 	        
