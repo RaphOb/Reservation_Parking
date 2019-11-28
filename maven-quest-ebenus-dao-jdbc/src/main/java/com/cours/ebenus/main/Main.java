@@ -5,8 +5,14 @@
  */
 package com.cours.ebenus.main;
 
+import com.cours.ebenus.utils.Constants;
+import java.sql.Connection;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -21,5 +27,14 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Connection connection = null;
+        try {
+            Class.forName(Constants.JDBC_DRIVER);
+            connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.DATABASE_USER, Constants.DATABASE_PASSWORD);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
