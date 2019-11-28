@@ -7,6 +7,8 @@ package com.cours.ebenus.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,5 +22,15 @@ public class ConnectionHelper {
     public final static String className = ConnectionHelper.class.getName();
 
     public static void closeSqlResources(PreparedStatement preparedStatement, ResultSet result) {
+    	try
+    	{
+    		/* Closing statement and ResultSet */
+    		preparedStatement.close();
+    		result.close();
+    	}
+    	catch(SQLException e)
+    	{
+    		e.printStackTrace();
+    	}
     }
 }
