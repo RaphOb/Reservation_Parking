@@ -48,7 +48,7 @@ public class DriverManagerSingleton {
     }
     
     // Renvoie une connexion à la base de données
-    public static Connection getConnectionInstance()
+    public synchronized static Connection getConnectionInstance()
     {
         try 
         {
