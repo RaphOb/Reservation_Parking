@@ -55,18 +55,15 @@ public class DriverManagerSingleton {
         	/* Si l'instance du Singleton n'a pas été créer, on peut instancier la connexion */
         	if (MySingletonHolder.connection == null) {
         		log.debug("Création d'une connection");
-	    		Class.forName(Constants.JDBC_DRIVER);
-	    		MySingletonHolder.connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.DATABASE_USER, Constants.DATABASE_PASSWORD);
+	    		Class.forName(jdbcDriver);
+	    		MySingletonHolder.connection = DriverManager.getConnection(url, user, password);
         	}
         	else
         	{
         		log.debug("Utilisation d'une connexion déja existante");
         	}
         } 
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } 
-        catch (SQLException e){
+        catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return MySingletonHolder.connection;
