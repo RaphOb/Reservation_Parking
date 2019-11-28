@@ -11,6 +11,8 @@ import java.sql.Connection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.cours.ebenus.dao.DriverManagerSingleton;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -27,14 +29,18 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Connection connection = null;
-        try {
-            Class.forName(Constants.JDBC_DRIVER);
-            connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.DATABASE_USER, Constants.DATABASE_PASSWORD);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+        
+    	//Pour ta culture :p -> Traite l'auto fermeture de la connexion
+		//		try (Connection connection = DriverManager.getConnection(Constants.DATABASE_URL, Constants.DATABASE_USER, Constants.DATABASE_PASSWORD)){
+		//		//Do stuff
+		//	} 
+		//	catch (SQLException e){
+		//		e.printStackTrace();
+		//	}
+    	
+    	//Test de connexion unique OK
+    	Connection connection = DriverManagerSingleton.getConnectionInstance();
+    	
+    	Connection connection2 = DriverManagerSingleton.getConnectionInstance();
     }
 }
