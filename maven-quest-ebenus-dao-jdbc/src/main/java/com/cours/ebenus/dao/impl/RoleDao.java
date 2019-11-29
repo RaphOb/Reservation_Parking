@@ -61,19 +61,23 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
     public Role findRoleById(int idRole) {
     	rolesListDataSource.clear();
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String selectSQL = "SELECT * FROM Role WHERE id='" + idRole + "\'";
+        String selectSQL = "SELECT * FROM Role WHERE idRole='" + idRole + "\'";
         Role role;
         try {
             PreparedStatement ps = connection.prepareStatement(selectSQL);
             ResultSet rs = ps.executeQuery(selectSQL);
-            //Get fields from DB
-            Integer id = rs.getInt("idRole");
-            String identifiant = rs.getString("identifiant");
-            String description = rs.getString("description");
-            Integer version = rs.getInt("version");
-            //Build Role
-            role = new Role(id, identifiant, description, version);
-            return role;
+            if (rs.next())
+            {
+            	//Get fields from DB
+                Integer id = rs.getInt("idRole");
+                String identifiant = rs.getString("identifiant");
+                String description = rs.getString("description");
+                Integer version = rs.getInt("version");
+                //Build Role
+                role = new Role(id, identifiant, description, version);
+                return role;
+            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
