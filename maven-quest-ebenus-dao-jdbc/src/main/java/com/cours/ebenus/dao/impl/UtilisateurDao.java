@@ -252,8 +252,8 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public boolean deleteUtilisateur(Utilisateur user) {
     	Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "DELETE FROM Utilisateur" + 
-        		"WHERE id = ?";
+        String sql = "DELETE FROM Utilisateur " + 
+        		"WHERE idUtilisateur = ?";
         PreparedStatement prep;
         try {
             prep = connection.prepareStatement(sql);
