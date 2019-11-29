@@ -129,7 +129,6 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                return null;
             }
         }
 
