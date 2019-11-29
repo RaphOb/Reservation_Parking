@@ -92,7 +92,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (users.get(0) != null) {
+        if (!users.isEmpty()) {
             return users.get(0);
         } else {
             return null;
