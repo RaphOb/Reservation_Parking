@@ -226,9 +226,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
     	Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "UPDATE Utilisateur" + 
-        		"SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ?" + 
-        		"WHERE id = ?";
+        String sql = "UPDATE Utilisateur " + 
+        		"SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ? " + 
+        		"WHERE idUtilisateur = ?";
         PreparedStatement prep;
         try {
             prep = connection.prepareStatement(sql);
@@ -238,8 +238,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             prep.setString(4,user.getNom());
             prep.setString(5,user.getIdentifiant());
             prep.setString(6,user.getMotPasse());
-            prep.setInt(7,user.getIdUtilisateur());
-            prep.setDate(8, (java.sql.Date) new Date(System.currentTimeMillis()));
+            Date dateModification = new java.sql.Date(System.currentTimeMillis());
+            prep.setDate(7, (java.sql.Date) dateModification);
+            prep.setInt(8,user.getIdUtilisateur());
             prep.executeUpdate();
             return user;
         } catch (SQLException e) {
