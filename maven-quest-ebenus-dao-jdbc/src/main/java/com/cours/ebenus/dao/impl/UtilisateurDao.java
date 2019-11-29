@@ -62,9 +62,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public List<Utilisateur> findAllUtilisateurs() {
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description " +
-                "FROM utilisateur " +
-                "left join Role r on r.idRole= utilisateur.idRole";
+        String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description " +
+                "FROM Utilisateur " +
+                "left join Role r on r.idRole= Utilisateur.idRole";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         PreparedStatement prep;
         try {
@@ -81,9 +81,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     public Utilisateur findUtilisateurById(int idUtilisateur) {
         List<Utilisateur> users = new ArrayList<>();
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
-                "left join Role r on r.idRole = utilisateur.idRole " +
-                "where utilisateur.idUtilisateur = ? ";
+        String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur" +
+                "left join Role r on r.idRole = Utilisateur.idRole " +
+                "where Utilisateur.idUtilisateur = ? ";
         PreparedStatement prep;
         try {
             prep = connection.prepareStatement(sql);
@@ -102,9 +102,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByPrenom(String prenom) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
-                "left join Role r on r.idRole = utilisateur.idRole " +
-                "where utilisateur.prenom= ? ";
+        String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur" +
+                "left join Role r on r.idRole = Utilisateur.idRole " +
+                "where Utilisateur.prenom= ? ";
         PreparedStatement prep;
         try {
             prep = connection.prepareStatement(sql);
@@ -119,9 +119,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByNom(String nom) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
-                "left join Role r on r.idRole = utilisateur.idRole " +
-                "where utilisateur.nom= ? ";
+        String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur" +
+                "left join Role r on r.idRole = Utilisateur.idRole " +
+                "where Utilisateur.nom= ? ";
         PreparedStatement prep;
         try {
             prep = connection.prepareStatement(sql);
@@ -136,9 +136,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateurByIdentifiant(String identifiant) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
-                "left join Role r on r.idRole = utilisateur.idRole " +
-                "where utilisateur.identifiant= ? ";
+        String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur" +
+                "left join Role r on r.idRole = Utilisateur.idRole " +
+                "where Utilisateur.identifiant= ? ";
         PreparedStatement prep;
         try {
             prep = connection.prepareStatement(sql);
@@ -153,8 +153,8 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByIdRole(int idRole) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
-                "left join Role r on r.idRole = utilisateur.idRole " +
+        String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur" +
+                "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where r.idRole= ? ";
         PreparedStatement prep;
         try {
@@ -170,8 +170,8 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByIdentifiantRole(String identifiantRole) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
-                "left join Role r on r.idRole = utilisateur.idRole " +
+        String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur" +
+                "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where r.identifiant= ? ";
         PreparedStatement prep;
         try {
@@ -187,7 +187,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public Utilisateur createUtilisateur(Utilisateur user) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "INSERT into utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse)" +
+        String sql = "INSERT into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse)" +
                 "values (?,?,?,?,?,?)";
         PreparedStatement prep;
         try {
@@ -217,7 +217,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
     	Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "UPDATE utilisateur" + 
+        String sql = "UPDATE Utilisateur" + 
         		"SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ?" + 
         		"WHERE id = ?";
         PreparedStatement prep;
@@ -242,7 +242,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public boolean deleteUtilisateur(Utilisateur user) {
     	Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "DELETE FROM utilisateur" + 
+        String sql = "DELETE FROM Utilisateur" + 
         		"WHERE id = ?";
         PreparedStatement prep;
         try {
@@ -257,17 +257,17 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     }
 
     /**
-     * Méthode qui vérifie les logs email / password d'un utilisateur dans la
+     * Méthode qui vérifie les logs email / password d'un Utilisateur dans la
      * base de données
      *
-     * @param email    L'email de l'utilisateur
-     * @param password Le password de l'utilisateur
-     * @return L'utilisateur qui tente de se logger si trouvé, null sinon
+     * @param email    L'email de l'Utilisateur
+     * @param password Le password de l'Utilisateur
+     * @return L'Utilisateur qui tente de se logger si trouvé, null sinon
      */
     @Override
     public Utilisateur authenticate(String email, String password) {
     	Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT * FROM utilisateur" + 
+        String sql = "SELECT * FROM Utilisateur" + 
         		"WHERE identifiant = ? AND motPasse = ?";
         PreparedStatement prep;
         try {

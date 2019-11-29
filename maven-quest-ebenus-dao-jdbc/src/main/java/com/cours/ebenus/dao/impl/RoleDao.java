@@ -12,6 +12,7 @@ import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.DriverManagerSingleton;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -23,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
 public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     private static final Log log = LogFactory.getLog(RoleDao.class);
-    private List<Role> rolesListDataSource;
+    private List<Role> rolesListDataSource = new ArrayList<Role>();
     
 
     public RoleDao() {
@@ -139,7 +140,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public Role updateRole(Role role) {
-        String sql = "UPDATE role set identidiant = ?, description = ? where id = ? ";
+        String sql = "UPDATE Role SET identidiant = ?, description = ? where id = ? ";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         PreparedStatement prep;
         try {
@@ -157,7 +158,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public boolean deleteRole(Role role) {
-        String sql = "DELETE FROM role WHERE idRole =?";
+        String sql = "DELETE FROM Role WHERE idRole =?";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         PreparedStatement prep;
         try {
