@@ -41,7 +41,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
                 u.setIdUtilisateur(rs.getInt("idUtilisateur"));
                 r.setIdRole(rs.getInt("idRole"));
                 r.setIdentifiant(rs.getString("roleIdent"));
-                r.setDescription(rs.getString("descp"));
+                r.setDescription(rs.getString("description"));
                 u.setRole(r);
                 u.setCivilite((rs.getString("civilite")));
                 u.setIdentifiant(rs.getString("identifiant"));
@@ -61,7 +61,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public List<Utilisateur> findAllUtilisateurs() {
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole AS idRole, r.description AS descp " +
+        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description " +
                 "FROM utilisateur " +
                 "left join Role r on r.idRole= utilisateur.idRole";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
@@ -80,7 +80,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     public Utilisateur findUtilisateurById(int idUtilisateur) {
         List<Utilisateur> users = new ArrayList<>();
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole AS idRole, r.description AS descp FROM utilisateur" +
+        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
                 "left join Role r on r.idRole = utilisateur.idRole " +
                 "where utilisateur.idUtilisateur = ? ";
         PreparedStatement prep;
@@ -101,7 +101,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByPrenom(String prenom) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole AS idRole, r.description AS descp FROM utilisateur" +
+        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
                 "left join Role r on r.idRole = utilisateur.idRole " +
                 "where utilisateur.prenom= ? ";
         PreparedStatement prep;
@@ -118,7 +118,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByNom(String nom) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole AS idRole, r.description AS descp FROM utilisateur" +
+        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
                 "left join Role r on r.idRole = utilisateur.idRole " +
                 "where utilisateur.nom= ? ";
         PreparedStatement prep;
@@ -135,7 +135,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateurByIdentifiant(String identifiant) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole AS idRole, r.description AS descp FROM utilisateur" +
+        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
                 "left join Role r on r.idRole = utilisateur.idRole " +
                 "where utilisateur.identifiant= ? ";
         PreparedStatement prep;
@@ -152,7 +152,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByIdRole(int idRole) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole AS idRole, r.description AS descp FROM utilisateur" +
+        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
                 "left join Role r on r.idRole = utilisateur.idRole " +
                 "where r.idRole= ? ";
         PreparedStatement prep;
@@ -169,7 +169,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByIdentifiantRole(String identifiantRole) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole AS idRole, r.description AS descp FROM utilisateur" +
+        String sql = "SELECT utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM utilisateur" +
                 "left join Role r on r.idRole = utilisateur.idRole " +
                 "where r.identifiant= ? ";
         PreparedStatement prep;
