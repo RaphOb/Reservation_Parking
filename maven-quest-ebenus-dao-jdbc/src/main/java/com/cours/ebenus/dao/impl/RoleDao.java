@@ -24,7 +24,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     private static final Log log = LogFactory.getLog(RoleDao.class);
     private List<Role> rolesListDataSource;
-
+    
 
     public RoleDao() {
         super(Role.class);
@@ -32,6 +32,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public List<Role> findAllRoles() {
+    	rolesListDataSource.clear();
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         String selectSQL = "SELECT * FROM Role;";
         try {
@@ -57,6 +58,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public Role findRoleById(int idRole) {
+    	rolesListDataSource.clear();
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         String selectSQL = "SELECT * FROM Role WHERE id='" + idRole + "\'";
         Role role;
@@ -79,6 +81,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public List<Role> findRoleByIdentifiant(String identifiantRole) {
+    	rolesListDataSource.clear();
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         String selectSQL = "SELECT * FROM Role WHERE identifiant='" + identifiantRole + "\'";
         Role role;
@@ -105,7 +108,6 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public Role createRole(Role role) {
-
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         if (role != null) {
             //Je sais plus si il faut calculer l'id, en recréant un nouveau role comme la step d'avant
