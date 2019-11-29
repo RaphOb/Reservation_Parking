@@ -111,30 +111,33 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
     public Role createRole(Role role) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         if (role != null) {
-            //Je sais plus si il faut calculer l'id, en recréant un nouveau role comme la step d'avant
-            //non il faut pas calculer l'id c auto incremente
-            //TODO et le return?
-
             String identifiant = role.getIdentifiant();
             String description = role.getDescription();
-            Integer version = role.getVersion();
+            Integer version = 1;
 
-            String selectSQL = "INSERT INTO Role (identifiant, description, version) VALUES ('" + identifiant + "\', '" + description + "\', '" + version + "');";
+            String insertSQL = "INSERT INTO Role (identifiant, description, version) VALUES (?,?,?);";
+            String lastId = "SELECT LAST_INSERT_ID() AS id;";
+            
             try {
-                PreparedStatement ps = connection.prepareStatement(selectSQL);
-                ResultSet rs = ps.executeQuery(selectSQL);
-                while (rs.next()){
-                    Role r = new Role();
-                    r.setIdRole(rs.getInt("idRole"));
-                    r.setDescription(rs.getString("description"));
-                    r.setIdentifiant(rs.getString("identifiant"));
-                return r;
+                PreparedStatement psInsert = connection.prepareStatement(insertSQL);
+                
+                psInsert.setString(1, identifiant);
+                psInsert.setString(2, description);
+                psInsert.setInt(3, version);
+                psInsert.executeUpdate();
+                
+                //Récupération de l'id courant
+                PreparedStatement psLastId = connection.prepareStatement(lastId);
+                ResultSet rsLastId = psLastId.executeQuery();
+                while(rsLastId.next())
+                {
+                	role.setIdRole(rsLastId.getInt("id"));
                 }
+                return role;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-
         return null;
     }
 
