@@ -20,7 +20,6 @@ public abstract class AbstractDaoFactory {
     private static final Log log = LogFactory.getLog(AbstractDaoFactory.class);
 
     public enum FactoryDaoType {
-
         JDBC_DAO_FACTORY;
     }
 
@@ -35,6 +34,15 @@ public abstract class AbstractDaoFactory {
      * @return AbstractDaoFactory
      */
     public static AbstractDaoFactory getFactory(FactoryDaoType daoType) {
-        return null;
+    	AbstractDaoFactory factory = null;
+        switch (daoType) {
+            case JDBC_DAO_FACTORY:
+                factory = new DaoFactory();
+                break;
+            default:
+            	log.debug("Pas de Factory trouvé pour ce type de données");
+            	break;
+        }
+        return factory;
     }
 }

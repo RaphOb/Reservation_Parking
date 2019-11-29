@@ -37,10 +37,5 @@ public class Main {
 		//	catch (SQLException e){
 		//		e.printStackTrace();
 		//	}
-    	
-    	//Test de connexion unique OK
-    	Connection connection = DriverManagerSingleton.getConnectionInstance();
-    	
-    	Connection connection2 = DriverManagerSingleton.getConnectionInstance();
     }
 }
