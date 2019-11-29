@@ -147,7 +147,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public Role updateRole(Role role) {
-        String sql = "UPDATE Role SET identidiant = ?, description = ? where id = ? ";
+        String sql = "UPDATE Role SET identifiant = ?, description = ? where idRole = ? ";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         PreparedStatement prep;
         try {

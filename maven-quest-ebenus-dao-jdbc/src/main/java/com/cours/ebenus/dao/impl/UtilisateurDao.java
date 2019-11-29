@@ -187,8 +187,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public Utilisateur createUtilisateur(Utilisateur user) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "INSERT into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse)" +
-                "values (?,?,?,?,?,?)";
+        String sql = "INSERT into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse, dateCreation , dateModification) " +
+                "VALUES (?,?,?,?,?,?,?,?)";
+        String lastId = "SELECT LAST_INSERT_ID() AS id;";
         PreparedStatement prep;
         try {
             prep = connection.prepareStatement(sql);
@@ -198,16 +199,24 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             prep.setString(4,user.getNom());
             prep.setString(5,user.getIdentifiant());
             prep.setString(6,user.getMotPasse());
-            ResultSet rs = prep.executeQuery(sql);
-            while (rs.next()){
-                Utilisateur u = new Utilisateur();
-                u.setIdUtilisateur(rs.getInt("idUtilisateur"));
-                u.setPrenom(rs.getString("prenom"));
-                u.setNom(rs.getString("nom"));
-                u.setDateCreation(rs.getTimestamp("dateCreation"));
-                u.setDateModification(rs.getTime("dateModification"));
-                return u;
+            Date dateCreation = new java.sql.Date(System.currentTimeMillis());
+            Date dateModification = new java.sql.Date(System.currentTimeMillis());
+            prep.setDate(7, (java.sql.Date) dateCreation);
+            prep.setDate(8, (java.sql.Date) dateModification);
+            prep.executeUpdate();
+            
+            user.setDateCreation((dateCreation));
+            user.setDateModification(dateModification);
+            
+            //Récupération de l'id courant
+            PreparedStatement psLastId = connection.prepareStatement(lastId);
+            ResultSet rsLastId = psLastId.executeQuery();
+            while(rsLastId.next())
+            {
+            	user.setIdUtilisateur(rsLastId.getInt("id"));
             }
+            return user;
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
