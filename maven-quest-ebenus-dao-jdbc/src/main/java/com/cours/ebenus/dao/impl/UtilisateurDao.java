@@ -209,7 +209,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
         String sql = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse, dateCreation , dateModification) " +
                 "select ?,?,?,?,?,?,?,? " +
-                "from  utilisateur " +
+                "from  Utilisateur " +
                 "where not exists (select 1 from Utilisateur where " +
                 " identifiant = ?) LIMIT 1";
         String lastId = "SELECT LAST_INSERT_ID() AS id;";
