@@ -66,14 +66,6 @@ public class JUnitQuestEbenus {
     private static List<Role> roles = null;
 
     @BeforeClass
-    public static void init() throws Exception {
-        // Configuration de l'application
-    	serviceFacade = new ServiceFacade(AbstractDaoFactory.FactoryDaoType.JDBC_DAO_FACTORY);
-    	utilisateurs = serviceFacade.getUtilisateurDao().findAllUtilisateurs();
-    	roles = serviceFacade.getRoleDao().findAllRoles();
-    }
-
-    @BeforeClass
     public static void initDataBase() throws FileNotFoundException, IOException, SQLException {
         String scriptSqlPath = Constants.SQL_JUNIT_PATH_FILE;
         ScriptRunner sr = new ScriptRunner(DriverManagerSingleton.getConnectionInstance(), false, false);
@@ -81,6 +73,14 @@ public class JUnitQuestEbenus {
         //Running the script
         sr.runScript(reader);
     }
+    @BeforeClass
+    public static void init() throws Exception {
+        // Configuration de l'application
+    	serviceFacade = new ServiceFacade(AbstractDaoFactory.FactoryDaoType.JDBC_DAO_FACTORY);
+    	utilisateurs = serviceFacade.getUtilisateurDao().findAllUtilisateurs();
+    	roles = serviceFacade.getRoleDao().findAllRoles();
+    }
+
 
     public void verifyRoleData(Role role) {
         log.debug("Entree de la methode");
