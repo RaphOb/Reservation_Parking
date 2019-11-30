@@ -189,8 +189,8 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     public Utilisateur createUtilisateur(Utilisateur user) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
 
-        String sql1 = "SELECT count(*) from Utilisateur " +
-                "where identifiant = ?";
+        String sql1 = "SELECT count(*) FROM Utilisateur " +
+                "WHERE identifiant = ?";
         PreparedStatement p;
         try {
             p = connection.prepareStatement(sql1);
@@ -208,9 +208,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
 
         String sql = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse, dateCreation , dateModification) " +
-                "select ?,?,?,?,?,?,?,? " +
-                "from  Utilisateur " +
-                "where not exists (select 1 from Utilisateur where " +
+                "SELECT ?,?,?,?,?,?,?,? " +
+                "FROM  Utilisateur " +
+                "WHERE NOT EXISTS (SELECT 1 FROM Utilisateur WHERE " +
                 " identifiant = ?) LIMIT 1";
         String lastId = "SELECT LAST_INSERT_ID() AS id;";
         PreparedStatement prep;
