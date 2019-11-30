@@ -67,15 +67,20 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
                 "FROM Utilisateur " +
                 "LEFT JOIN Role r on r.idRole= Utilisateur.idRole";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        PreparedStatement prep;
+        PreparedStatement prep = null;
+        ResultSet rs = null;
+        List<Utilisateur> u = new ArrayList<>();
+
         try {
             prep = connection.prepareStatement(sql);
-            ResultSet rs = prep.executeQuery();
-            return queryManagerResponse(rs);
+            rs = prep.executeQuery();
+            u = queryManagerResponse(rs);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionHelper.closeSqlResources(prep, rs);
         }
-        return null;
+        return u;
     }
 
     @Override
@@ -85,13 +90,21 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
                 "where Utilisateur.idUtilisateur = ? ";
-        PreparedStatement prep;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setInt(1, idUtilisateur);
             users = queryManagerResponse(prep.executeQuery());
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         if (!users.isEmpty()) {
             return users.get(0);
@@ -103,18 +116,27 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public List<Utilisateur> findUtilisateursByPrenom(String prenom) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
+        List<Utilisateur> u = null;
         String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
                 "where Utilisateur.prenom= ? ";
-        PreparedStatement prep;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setString(1, prenom);
-            return queryManagerResponse(prep.executeQuery());
+            u = queryManagerResponse(prep.executeQuery());
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException xe) {
+                xe.printStackTrace();
+            }
         }
-        return null;
+        return u;
     }
 
     @Override
@@ -123,15 +145,25 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where Utilisateur.nom= ? ";
-        PreparedStatement prep;
+        List<Utilisateur> u = null;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setString(1, nom);
-            return queryManagerResponse(prep.executeQuery());
+            u = queryManagerResponse(prep.executeQuery());
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException xe) {
+                xe.printStackTrace();
+            }
         }
-        return null;
+
+        return u;
     }
 
     @Override
@@ -140,15 +172,24 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where Utilisateur.identifiant= ? ";
-        PreparedStatement prep;
+        List<Utilisateur> u = null;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setString(1, identifiant);
-            return queryManagerResponse(prep.executeQuery());
+            u = queryManagerResponse(prep.executeQuery());
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException xe) {
+                xe.printStackTrace();
+            }
         }
-        return null;
+        return u;
     }
 
     @Override
@@ -157,15 +198,24 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where r.idRole= ? ";
-        PreparedStatement prep;
+        List<Utilisateur> u = null;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setInt(1, idRole);
-            return queryManagerResponse(prep.executeQuery());
+            u = queryManagerResponse(prep.executeQuery());
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException xe) {
+                xe.printStackTrace();
+            }
         }
-        return null;
+        return u;
     }
 
     @Override
@@ -174,15 +224,24 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         String sql = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where r.identifiant= ? ";
-        PreparedStatement prep;
+        List<Utilisateur> u = null;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setString(1, identifiantRole);
-            return queryManagerResponse(prep.executeQuery());
+            u = queryManagerResponse(prep.executeQuery());
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException xe) {
+                xe.printStackTrace();
+            }
         }
-        return null;
+        return u;
     }
 
     @Override
@@ -191,11 +250,12 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
         String sql1 = "SELECT count(*) FROM Utilisateur " +
                 "WHERE identifiant = ?";
-        PreparedStatement p;
+        PreparedStatement p = null;
+        ResultSet r = null;
         try {
             p = connection.prepareStatement(sql1);
             p.setString(1, user.getIdentifiant());
-            ResultSet r = p.executeQuery();
+            r = p.executeQuery();
             while (r.next()) {
                 if (r.getInt(1) > 0) {
                     throw new EbenusException("Already exist", -1);
@@ -205,6 +265,9 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         } catch (SQLException a) {
             a.printStackTrace();
         }
+        finally {
+            ConnectionHelper.closeSqlResources(p,r);
+        }
 
 
         String sql = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse, dateCreation , dateModification) " +
@@ -213,7 +276,10 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
                 "WHERE NOT EXISTS (SELECT 1 FROM Utilisateur WHERE " +
                 " identifiant = ?) LIMIT 1";
         String lastId = "SELECT LAST_INSERT_ID() AS id;";
-        PreparedStatement prep;
+        PreparedStatement prep = null;
+        PreparedStatement psLastId = null;
+        ResultSet rsLastId = null;
+
         try {
             prep = connection.prepareStatement(sql);
             prep.setInt(1, user.getRole().getIdRole());
@@ -233,18 +299,26 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             user.setDateModification(dateModification);
 
             //Récupération de l'id courant
-            PreparedStatement psLastId = connection.prepareStatement(lastId);
-            ResultSet rsLastId = psLastId.executeQuery();
+            psLastId = connection.prepareStatement(lastId);
+            rsLastId = psLastId.executeQuery();
             while (rsLastId.next()) {
                 System.out.println(rsLastId.getInt("id"));
                 user.setIdUtilisateur(rsLastId.getInt("id"));
             }
-            return user;
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionHelper.closeSqlResources(psLastId,rsLastId);
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        return user;
     }
 
     @Override
@@ -253,7 +327,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         String sql = "UPDATE Utilisateur " +
                 "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ? " +
                 "WHERE idUtilisateur = ?";
-        PreparedStatement prep;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setInt(1, user.getRole().getIdRole());
@@ -266,11 +340,18 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             prep.setDate(7, (java.sql.Date) dateModification);
             prep.setInt(8, user.getIdUtilisateur());
             prep.executeUpdate();
-            return user;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                if (prep != null) {
+                    prep.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        return user;
     }
 
     @Override
@@ -278,12 +359,20 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         String sql = "DELETE FROM Utilisateur " +
                 "WHERE idUtilisateur = ?";
-        PreparedStatement prep;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setInt(1, user.getIdUtilisateur());
             prep.executeUpdate();
+            prep.close();
             return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (prep != null) {
+                prep.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -303,19 +392,23 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         String sql = "SELECT * FROM Utilisateur" +
                 "WHERE identifiant = ? AND motPasse = ?";
-        PreparedStatement prep;
+        PreparedStatement prep = null;
+        ResultSet rs = null;
+        Utilisateur u = null;
         try {
             prep = connection.prepareStatement(sql);
-            ResultSet rs = prep.executeQuery();
+            rs = prep.executeQuery();
             if (rs.next() != false) {
-                return findUtilisateurById(rs.getInt("idUtilisateur"));
+                u = findUtilisateurById(rs.getInt("idUtilisateur"));
             } else {
                 log.debug("No user found with theses identifiers...");
-                return null;
+                u = null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionHelper.closeSqlResources(prep,rs);
         }
-        return null;
+        return u;
     }
 }

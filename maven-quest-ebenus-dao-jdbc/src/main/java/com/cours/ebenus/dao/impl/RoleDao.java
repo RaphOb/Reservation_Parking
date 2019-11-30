@@ -67,7 +67,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
         rolesListDataSource.clear();
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         String selectSQL = "SELECT * FROM Role WHERE idRole='" + idRole + "\'";
-        Role role;
+        Role role = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -81,7 +81,6 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
                 Integer version = rs.getInt("version");
                 //Build Role
                 role = new Role(id, identifiant, description, version);
-                return role;
             }
 
         } catch (SQLException e) {
@@ -89,7 +88,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
         } finally {
             ConnectionHelper.closeSqlResources(ps, rs);
         }
-        return null;
+        return role;
     }
 
     @Override
@@ -124,7 +123,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
     }
 
     @Override
-    public Role createRole(Role role)  {
+    public Role createRole(Role role) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         if (role != null) {
             String identifiant = role.getIdentifiant();
@@ -150,7 +149,6 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
                 while (rsLastId.next()) {
                     role.setIdRole(rsLastId.getInt("id"));
                 }
-                return role;
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
@@ -165,39 +163,52 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
                 }
             }
         }
-        return null;
+        return role;
     }
 
     @Override
     public Role updateRole(Role role) {
         String sql = "UPDATE Role SET identifiant = ?, description = ? where idRole = ? ";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        PreparedStatement prep;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setString(1, role.getIdentifiant());
             prep.setString(2, role.getDescription());
             prep.setInt(3, role.getIdRole());
             prep.executeUpdate();
-            return role;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        finally {
+            try {
+                prep.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+            return role;
     }
 
     @Override
     public boolean deleteRole(Role role) {
         String sql = "DELETE FROM Role WHERE idRole =?";
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        PreparedStatement prep;
+        PreparedStatement prep = null;
         try {
             prep = connection.prepareStatement(sql);
             prep.setInt(1, role.getIdRole());
             prep.executeUpdate();
+            prep.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                prep.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             return false;
         }
     }
