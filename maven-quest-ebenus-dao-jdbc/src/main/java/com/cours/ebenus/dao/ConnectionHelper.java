@@ -25,8 +25,10 @@ public class ConnectionHelper {
     	try
     	{
     		/* Closing statement and ResultSet */
-    		preparedStatement.close();
-    		result.close();
+			if (preparedStatement != null  && result != null ) {
+				preparedStatement.close();
+				result.close();
+			}
     	}
     	catch(SQLException e)
     	{
