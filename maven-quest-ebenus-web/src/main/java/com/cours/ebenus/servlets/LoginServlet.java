@@ -11,22 +11,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import java.util.logging.*;
 
 
 /**
- *
  * @author elhad
  */
 // @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
-    private static final Log log = LogFactory.getLog(LoginServlet.class);
+//    private static final Log log = LogFactory.getLog(LoginServlet.class);
+    private static IServiceFacade service = null;
 
     @Override
     public void init() throws ServletException {
+        service = new ServiceFacade();
 
     }
 
@@ -39,7 +42,15 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        if (service.getUtilisateurDao().authenticate(email, password) != null) {
+            response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+        } else {
+             response.sendRedirect("LoginServlet");
+        }
+
     }
 
     /**
