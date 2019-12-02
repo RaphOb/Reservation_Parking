@@ -10,6 +10,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.cours.ebenus.service.IServiceFacade;
+import com.cours.ebenus.service.ServiceFacade;
 
 /**
  *
@@ -18,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 // @WebServlet(name = "CrudUserServlet", urlPatterns = {"/CrudUserServlet"})
 public class CrudUserServlet extends HttpServlet {
 
+	private static final Log log = LogFactory.getLog(LoginServlet.class);
+	
     /**
      * Méthode d'initialisation de la Servlet
      *
@@ -25,7 +34,6 @@ public class CrudUserServlet extends HttpServlet {
      */
     @Override
     public void init() throws ServletException {
-
     }
 
     /**
@@ -40,7 +48,20 @@ public class CrudUserServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
+    	
+    	HttpSession session = request.getSession(false);
+    	
+    	if(session == null)
+    	{
+    		log.debug("No session found... Redirecting to login page");
+    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    	}
+    	else
+    	{
+    		log.debug("Session exists");
+    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
+    	}
+    	
     }
 
     /**
@@ -55,7 +76,6 @@ public class CrudUserServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     /**

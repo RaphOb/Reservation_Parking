@@ -30,7 +30,7 @@
                     <div class="User export">
                         <h2 style="margin-top: 20px;display: inline-block;"> Bonjour <strong> Mr Dupond </strong> avec le rôle Administrateur.</h2>
 
-                        <h1 class="logout"> <a href="#" role="button">Se Deconnecter</a></h1> 
+                        <h1 class="logout"> <a href="LogoutServlet" role="button">Se Deconnecter</a></h1> 
                         <ul class="User f-left">
                             <li>
                                 <a href="#" role="button">Export des Utilisateurs au format Csv</a>

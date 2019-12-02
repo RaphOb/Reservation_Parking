@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-    	if(request.getSession() == null)
+    	if(request.getSession(false) == null)
     	{
     		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
     	}
@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         
         /* Verifier si l'utilisateur est déja connecté à partir de son mail*/
         if(session.getAttribute(email) != null)
