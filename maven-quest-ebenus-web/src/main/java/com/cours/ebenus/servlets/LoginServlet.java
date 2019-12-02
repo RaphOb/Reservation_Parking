@@ -10,9 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.cours.ebenus.dao.entities.Utilisateur;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.util.logging.*;
@@ -24,19 +27,27 @@ import java.util.logging.*;
 // @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
-//    private static final Log log = LogFactory.getLog(LoginServlet.class);
+	private static final Log log = LogFactory.getLog(LoginServlet.class);
     private static IServiceFacade service = null;
 
     @Override
     public void init() throws ServletException {
         service = new ServiceFacade();
-
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    	
+    	if(request.getSession() == null)
+    	{
+    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    	}
+    	else
+    	{
+    		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+    	}
+        
     }
 
     @Override
@@ -45,12 +56,27 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        if (service.getUtilisateurDao().authenticate(email, password) != null) {
-            response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
-        } else {
-             response.sendRedirect("LoginServlet");
+        HttpSession session = request.getSession();
+        
+        /* Verifier si l'utilisateur est déja connecté à partir de son mail*/
+        if(session.getAttribute(email) != null)
+        {
+        	log.debug("User already authenticate");
+        	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
         }
-
+        else
+        {
+        	/* Sinon, lancer la méthode d'authentification */
+            Utilisateur user = service.getUtilisateurDao().authenticate(email, password);
+            if (user != null) {
+            	log.debug("Authentification succeed");
+            	session.setAttribute(email, user);
+                response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+            } else {
+            	/* Failed to authenticate */
+                response.sendRedirect("LoginServlet");
+            }
+        }
     }
 
     /**
