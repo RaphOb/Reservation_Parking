@@ -390,13 +390,15 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     @Override
     public Utilisateur authenticate(String email, String password) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
-        String sql = "SELECT * FROM Utilisateur" +
+        String sql = "SELECT * FROM Utilisateur " +
                 "WHERE identifiant = ? AND motPasse = ?";
         PreparedStatement prep = null;
         ResultSet rs = null;
         Utilisateur u = null;
         try {
             prep = connection.prepareStatement(sql);
+            prep.setString(1,  email);
+            prep.setString(2,  password);
             rs = prep.executeQuery();
             if (rs.next() != false) {
                 u = findUtilisateurById(rs.getInt("idUtilisateur"));
