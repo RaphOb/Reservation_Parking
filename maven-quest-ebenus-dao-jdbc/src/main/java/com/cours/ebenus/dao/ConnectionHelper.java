@@ -13,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
  * @author ElHadji
  */
 public class ConnectionHelper {
@@ -22,17 +21,17 @@ public class ConnectionHelper {
     public final static String className = ConnectionHelper.class.getName();
 
     public static void closeSqlResources(PreparedStatement preparedStatement, ResultSet result) {
-    	try
-    	{
-    		/* Closing statement and ResultSet */
-			if (preparedStatement != null  && result != null ) {
-				preparedStatement.close();
-				result.close();
-			}
-    	}
-    	catch(SQLException e)
-    	{
-    		e.printStackTrace();
-    	}
+        try {
+            /* Closing statement and ResultSet */
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (result != null) {
+                result.close();
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
