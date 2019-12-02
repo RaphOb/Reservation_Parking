@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
             } else {
             	/* Failed to authenticate */
-                response.sendRedirect("LoginServlet");
+            	this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
             }
         }
     }

@@ -61,75 +61,21 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
+                                
                                 <tbody>
-                                    <tr> 
-                                        <td>Mr</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@mail.com</td>
-                                        <td> 20/10/1990</td>
-                                        <td>15/10/2017</td>
-                                        <td>20/11/2017</td>
-                                        <td>Administrateur</td>
-                                        <td>Le rôle administrateur</td>
-                                        <td><a href="#"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="no-style-btn"><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mr</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@mail.com</td>
-                                        <td> 20/10/1990</td>
-                                        <td>15/10/2017</td>
-                                        <td>20/11/2017</td>
-                                        <td>Directeur</td>
-                                        <td>Le rôle de directeur de magasin</td>
-                                        <td>
-                                            <a href="#"><i class="fa fa-edit"></i></a>
-
-                                            <a href="#" class="no-style-btn"><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mr</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@mail.com</td>
-                                        <td> 20/10/1990</td>
-                                        <td>15/10/2017</td>
-                                        <td>20/11/2017</td>
-                                        <td>Standard</td>
-                                        <td>Le rôle standard</td>
-                                        <td><a href="#"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="no-style-btn"><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mr</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@mail.com</td>
-                                        <td> 20/10/1990</td>
-                                        <td>15/10/2017</td>
-                                        <td>20/11/2017</td>
-                                        <td>Vendeur</td>
-                                        <td>Le rôle Vendeur</td>
-                                        <td><a href="#"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="no-style-btn"><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mr</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@mail.com</td>
-                                        <td> 20/10/1990</td>
-                                        <td>15/10/2017</td>
-                                        <td>20/11/2017</td>
-                                        <td>Acheteur</td>
-                                        <td>Le rôle Acheteur</td>
-                                        <td><a href="#"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="no-style-btn"><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
-
+	                                <c:forEach items = "${users}" var = "user">
+	                                	<tr> 
+							        		<td> <c:out value = "${user.getCivilite()}"/> </td>
+								        	<td> <c:out value = "${user.getPrenom()}"/> </td>
+								        	<td> <c:out value = "${user.getNom()}"/> </td>
+								        	<td> <c:out value = "${user.getIdentifiant()}"/> </td>
+								        	<td> <c:out value = "${user.getDateNaissance()}"/> </td>
+								        	<td> <c:out value = "${user.getDateCreation()}"/> </td>
+								        	<td> <c:out value = "${user.getDateModification()}"/> </td>
+								        	<td> <c:out value = "${user.getRole().getIdentifiant()}"/> </td>
+								        	<td> <c:out value = "${user.getRole().getDescription()}"/> </td>
+						          		</tr>
+							        </c:forEach>
                                 </tbody>
                             </table>
                             <ul class="User">

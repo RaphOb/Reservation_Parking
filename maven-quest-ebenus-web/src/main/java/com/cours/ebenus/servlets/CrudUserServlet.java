@@ -6,6 +6,8 @@
 package com.cours.ebenus.servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 
@@ -26,6 +29,7 @@ import com.cours.ebenus.service.ServiceFacade;
 public class CrudUserServlet extends HttpServlet {
 
 	private static final Log log = LogFactory.getLog(LoginServlet.class);
+	private static IServiceFacade service = null;
 	
     /**
      * Méthode d'initialisation de la Servlet
@@ -34,6 +38,7 @@ public class CrudUserServlet extends HttpServlet {
      */
     @Override
     public void init() throws ServletException {
+    	service = new ServiceFacade();
     }
 
     /**
@@ -59,6 +64,8 @@ public class CrudUserServlet extends HttpServlet {
     	else
     	{
     		log.debug("Session exists");
+    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+        	request.setAttribute("users", users);
     		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
     	}
     	
@@ -76,6 +83,10 @@ public class CrudUserServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+    	request.setAttribute("users", users);
+    	this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
     }
 
     /**
