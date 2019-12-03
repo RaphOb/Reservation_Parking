@@ -63,10 +63,17 @@ public class CrudUserServlet extends HttpServlet {
     	}
     	else
     	{
-    		log.debug("Session exists");
-    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
-        	request.setAttribute("users", users);
-    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
+    		if (request.getSession(false).getAttribute("user") != null)
+    		{
+	    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+	        	request.setAttribute("users", users);
+	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
+    		}
+    		else
+    		{
+    			log.debug("No session found... Redirecting to login page");
+    			response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
+    		}
     	}
     	
     }
