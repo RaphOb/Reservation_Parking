@@ -38,16 +38,24 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
+    	/* Verifiy session is not null to avoid NullPointer at getAttribute */
     	if(request.getSession(false) == null)
     	{
-    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    		
+    			this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
     	}
     	else
     	{
-    		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+    		/* Verify connexion on refresh */
+    		if (request.getSession(false).getAttribute("user") != null)
+    		{
+    			response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+    		}
+    		else
+    		{
+    			this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    		}
     	}
-        
     }
 
     @Override
@@ -58,24 +66,14 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         
-        /* Verifier si l'utilisateur est déja connecté à partir de son mail*/
-        if(session.getAttribute(email) != null)
-        {
-        	log.debug("User already authenticate");
-        	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
-        }
-        else
-        {
-        	/* Sinon, lancer la méthode d'authentification */
-            Utilisateur user = service.getUtilisateurDao().authenticate(email, password);
-            if (user != null) {
-            	log.debug("Authentification succeed");
-            	session.setAttribute(email, user);
-                response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
-            } else {
-            	/* Failed to authenticate */
-            	this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
-            }
+    	/* Lancement de la méthode d'authentification */
+        Utilisateur user = service.getUtilisateurDao().authenticate(email, password);
+        if (user != null) {
+        	session.setAttribute("user", user);
+            response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+        } else {
+        	/* Failed to authenticate */
+        	this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
         }
     }
 

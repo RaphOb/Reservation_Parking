@@ -302,7 +302,6 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             psLastId = connection.prepareStatement(lastId);
             rsLastId = psLastId.executeQuery();
             while (rsLastId.next()) {
-                System.out.println(rsLastId.getInt("id"));
                 user.setIdUtilisateur(rsLastId.getInt("id"));
             }
 

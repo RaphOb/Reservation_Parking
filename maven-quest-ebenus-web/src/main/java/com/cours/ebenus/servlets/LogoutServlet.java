@@ -40,6 +40,7 @@ public class LogoutServlet extends HttpServlet {
 		{
 			log.debug("Logout...");
 			session.invalidate();
+			session = null;
 			response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
 		}
 		else

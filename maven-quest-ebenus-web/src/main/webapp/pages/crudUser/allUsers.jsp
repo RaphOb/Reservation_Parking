@@ -74,6 +74,9 @@
 								        	<td> <c:out value = "${user.getDateModification()}"/> </td>
 								        	<td> <c:out value = "${user.getRole().getIdentifiant()}"/> </td>
 								        	<td> <c:out value = "${user.getRole().getDescription()}"/> </td>
+								        	<td> 
+								        		<a href="#"><i class="fa fa-edit"></i></a>
+								        		<a href="#" class="no-style-btn"><i class="fa fa-trash-o"></i></a>
 						          		</tr>
 							        </c:forEach>
                                 </tbody>
@@ -83,7 +86,7 @@
                                 <li>
                                     <!-- <a href="#" role="button">Import d'utilisateurs à partir d'un fichier CSV</a> -->
                                     <div class="col-lg-12 no-padding">
-                                        <a href="#" role="button">Ajouter Utilisateur</a>
+                                        <a href="AddUserServlet" role="button" type="submit">Ajouter Utilisateur</a>
                                         <!-- Select Basic -->
                                         <div class="form-group selectexport-box">
                                             <div class="input-file-box"> 
