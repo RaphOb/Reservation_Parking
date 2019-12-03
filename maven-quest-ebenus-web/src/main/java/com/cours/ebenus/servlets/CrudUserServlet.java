@@ -59,7 +59,7 @@ public class CrudUserServlet extends HttpServlet {
     	if(session == null)
     	{
     		log.debug("No session found... Redirecting to login page");
-    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    		response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
     	}
     	else
     	{
