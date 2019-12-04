@@ -52,7 +52,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
                 u.setMotPasse(rs.getString("motPasse"));
                 u.setDateCreation(rs.getTimestamp("dateCreation"));
                 u.setDateNaissance(rs.getTimestamp("dateNaissance"));
-                u.setDateCreation(rs.getTimestamp("dateModification"));
+                u.setDateModification(rs.getTimestamp("dateModification"));
                 utilisateurs.add(u);
             }
         } catch (SQLException e) {
