@@ -33,13 +33,19 @@
                         <h1 class="logout"> <a href="<c:url value="LogoutServlet"/>"  role="button">Se Deconnecter</a></h1> 
                         <ul class="User f-left">
                             <li>
-                                <a href="#" role="button">Export des Utilisateurs au format Csv</a>
+                            	<form action="<c:url value="CrudUserServlet?action=exportCSV"/>" method="post">
+                            		<button type="submit">Export des Utilisateurs au format Csv</button>
+                            	</form>
                             </li>
                             <li>
-                                <a href="#" role="button">Export des Utilisateurs au format XML</a>
+                            	<form action="<c:url value="CrudUserServlet?action=exportXML"/>" method="post">
+                            		<button type="submit">Export des Utilisateurs au format XML</button>
+                            	</form>
                             </li>
                             <li>
-                                <a href="#" role="button">Export des Utilisateurs au format Json</a>
+                            	<form action="<c:url value="CrudUserServlet?action=exportJSON"/>" method="post">
+                            		<button type="submit">Export des Utilisateurs au format Json</button>
+                            	</form>
                             </li>
                         </ul>
                         <h1 class="clearfix">liste des utilisateurs</h1>
@@ -76,8 +82,7 @@
 								        	<td> <c:out value = "${user.getRole().getDescription()}"/> </td>
 								        	<td> 
 								        		<a href="#"><i class="fa fa-edit"></i></a>
-								        		<a href="<c:url value="/DeleteUserServlet"/>" 
-								        		   class="no-style-btn">
+								        		<a href="<c:url value="/DeleteUserServlet"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
 												</a>
 							        		</td>

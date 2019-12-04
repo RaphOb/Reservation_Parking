@@ -90,10 +90,19 @@ public class CrudUserServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	if(request.getParameter("action").equals("exportJSON"))
+    	{
+    		log.debug("exporting users to JSON");
+    	}
+    	if(request.getParameter("action").equals("exportXML"))
+    	{
+    		log.debug("exporting users to XML");
+    	}
+    	if(request.getParameter("action").equals("exportCSV"))
+    	{
+    		log.debug("exporting users to CSV");
+    	}
     	
-    	List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
-    	request.setAttribute("users", users);
-    	this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
     }
 
     /**
