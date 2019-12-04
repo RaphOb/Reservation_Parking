@@ -29,7 +29,7 @@
                     <div class="content">
                         <div class="User quest">
                             <h1>Créer un utilisateur</h1>
-                            <form  method="post" action="allUsers.html" id="customer-info-form" class="no-gutters">
+                            <form action="${pageContext.request.contextPath}/AddUserServlet" method="Post" id="customer-info-form" class="no-gutters">
                                 <div class="account-container row">
                                     <fieldset class=" common-form-controls col-md-3">
                                         <div >
@@ -59,7 +59,6 @@
                                                         <input type="password" name="password_confirm" class="input-text" id="pass" title="Password">
                                                     </div>
                                             </div>
-                                            
     
                                     </fieldset>
                                     <div class="offset-md-2"></div>   
@@ -72,24 +71,22 @@
                                         </div>
                                         <div class="sel-container">
                                                 <div class="sel">
-                                                    <select  class="required" name="select_city" id="select_city"> 
+                                                    <select  class="required" name="select_role" id="select_role"> 
                                                         <option value="rôle" selected disabled>Rôle</option>
-                                                <option value="Administrateur ">Administrateur </option>
-                                                <option value="Directeur ">Directeur </option>
-                                                <option value="Standard ">Standard </option>
-                                                <option value="Vendeur ">Vendeur </option>
-                                                <option value="Acheteur ">Acheteur </option>
+                                                        	<c:forEach items="${roles}" var="item" varStatus="loop">
+                                                        		<option value="${item.getIdRole()}">${item.getIdentifiant()} </option>
+												    		</c:forEach>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="input-wrapper">
                                                 <label>Civilité</label>
                                                 <div class="gender">
-                                                    <input  autocomplete="off" type="radio" id="male" name="sex" checked="checked"/>
+                                                    <input  autocomplete="off" type="radio" id="male" name="sex" value="Mr" checked="checked"/>
                                                     <label for="male">
                                                         <i class="fa fa-male" aria-hidden="true"></i>
                                                     </label>
-                                                    <input  autocomplete="off" type="radio" id="female" name="sex"/>
+                                                    <input  autocomplete="off" type="radio" id="female" name="sex" value="Mme"/>
                                                     <label for="female">
                                                         <i class="fa fa-female" aria-hidden="true"></i>
                                                     </label>

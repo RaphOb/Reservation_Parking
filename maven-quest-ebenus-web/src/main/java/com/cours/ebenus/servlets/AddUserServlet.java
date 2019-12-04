@@ -57,7 +57,7 @@ public class AddUserServlet extends HttpServlet {
     		List<Role> list = service.getRoleDao().findAllRoles();
     		request.setAttribute("roles", list);
     		/* Gives page to create user which call post method*/
-    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUser.jsp").forward(request, response);
+    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUpdateUser.jsp").forward(request, response);
     	}
 	}
 
@@ -68,16 +68,17 @@ public class AddUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		/* Get data from form */
-		String idRole = request.getParameter("role");
-		String civilite = request.getParameter("civilite");
-		String prenom = request.getParameter("prenom");
-		String nom = request.getParameter("nom");
+		String idRole = request.getParameter("select_role");
+		String civilite = request.getParameter("sex");
+		String prenom = request.getParameter("firstname");
+		String nom = request.getParameter("lastname");
 		String email = request.getParameter("email");
 		String motPasse = request.getParameter("password");
-		String dateNaissance = request.getParameter("dateNaissance");
+		String confirmMotPasse = request.getParameter("password_confirm");
+		String dateNaissance = request.getParameter("dteNaiss");
 		
 		/* Build Date object */
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date date;
 		try {
 			date = sdf.parse(dateNaissance);
