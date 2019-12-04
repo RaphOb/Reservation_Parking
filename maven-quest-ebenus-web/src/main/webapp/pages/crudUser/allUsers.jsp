@@ -30,7 +30,7 @@
                     <div class="User export">
                         <h2 style="margin-top: 20px;display: inline-block;"> Bonjour <strong> Mr Dupond </strong> avec le rôle Administrateur.</h2>
 
-                        <h1 class="logout"> <a href="LogoutServlet" role="button">Se Deconnecter</a></h1> 
+                        <h1 class="logout"> <a href="<c:url value="LogoutServlet"/>"  role="button">Se Deconnecter</a></h1> 
                         <ul class="User f-left">
                             <li>
                                 <a href="#" role="button">Export des Utilisateurs au format Csv</a>
@@ -76,7 +76,11 @@
 								        	<td> <c:out value = "${user.getRole().getDescription()}"/> </td>
 								        	<td> 
 								        		<a href="#"><i class="fa fa-edit"></i></a>
-								        		<a href="#" class="no-style-btn"><i class="fa fa-trash-o"></i></a>
+								        		<a href="<c:url value="/DeleteUserServlet"/>" 
+								        		   class="no-style-btn">
+								        			<i class="fa fa-trash-o"></i>
+												</a>
+							        		</td>
 						          		</tr>
 							        </c:forEach>
                                 </tbody>

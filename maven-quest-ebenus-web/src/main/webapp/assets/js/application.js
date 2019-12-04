@@ -154,7 +154,8 @@ $('[data-toggle="datepicker"]').datepicker({
 
 $('.fa-trash,.fa-trash-o').each(function(index, el) {
   $(this).click(function(event) {
-    event.preventDefault();
+	//Empêche le call au href lors d'un clic sur l'icone de suppression
+    //event.preventDefault();
     $(this).closest('tr').remove();
     $(this).closest('.product').remove();
 
