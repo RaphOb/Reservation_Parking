@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.opencsv.CSVWriter;
 
 /**
  *
@@ -98,17 +99,19 @@ public class CrudUserServlet extends HttpServlet {
     @SuppressWarnings("unchecked")
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+    	
     	if(request.getParameter("action").equals("exportJSON"))
     	{
     		log.debug("exporting users to JSON");
-    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+    		File file = new File(downloadPath, "export_user.json");
     		JSONObject globalJSON = new JSONObject();
     		JSONArray usersArray = new JSONArray();
     		/* Build each user object as Json */
     		for(Utilisateur user : users)
     		{
     			JSONObject userJSON = new JSONObject();
-    			userJSON.put("idUtilisateur", user.getIdUtilisateur());
+    			userJSON.put("Id Utilisateur", user.getIdUtilisateur());
     			userJSON.put("Civilité", user.getCivilite());
     			userJSON.put("Prénom", user.getPrenom() );
     			userJSON.put("Nom", user.getNom());
@@ -123,20 +126,57 @@ public class CrudUserServlet extends HttpServlet {
     		globalJSON.put("Utilisateurs", usersArray);
     		
     		/* Create file to home directory */
-    		File file = new File(downloadPath, "export_user.json");
+    		
     		file.createNewFile();
     		try (FileWriter writer = new FileWriter(file)) {
     			writer.write(globalJSON.toJSONString());
     			System.out.println("\nJSON Object: " + globalJSON);
     		}
     	}
-    	if(request.getParameter("action").equals("exportXML"))
-    	{
-    		log.debug("exporting users to XML");
-    	}
-    	if(request.getParameter("action").equals("exportCSV"))
+    	else if(request.getParameter("action").equals("exportCSV"))
     	{
     		log.debug("exporting users to CSV");
+    		
+    	    try { 
+    	    	File file = new File(downloadPath, "export_user.csv");
+    	        FileWriter outputfile = new FileWriter(file); 
+    	  
+    	        // create CSVWriter object filewriter object as parameter 
+    	        CSVWriter writer = new CSVWriter(outputfile); 
+    	  
+    	        // Adding header to csv 
+    	        String[] header = { "Id Utilisateur",
+			    	        		"Civilité",
+			    	        		"Prénom",
+			    	        		"Nom",
+			    	        		"Identifiant",
+			    	        		"Date de naissance",
+			    	        		"Date de création",
+			    	        		"Date de modification"
+			    	        	}; 
+    	        writer.writeNext(header); 
+    	  
+    	        for(Utilisateur user : users)
+    	        {
+    	        	 // Add data to csv 
+        	        String[] user_info = { user.getIdUtilisateur().toString(),
+        	        						user.getCivilite(),
+        	        						user.getPrenom(),
+        	        						user.getNom(),
+        	        						user.getIdentifiant(),
+        	        						user.getDateNaissance().toString(),
+        	        						user.getDateCreation().toString(),
+        	        						user.getDateModification().toString()
+        	        					}; 
+        	        writer.writeNext(user_info); 
+    	        }
+    	        // closing writer connection 
+    	        writer.close(); 
+    	    } 
+    	    catch (IOException e) { 
+    	        // TODO Auto-generated catch block 
+    	        e.printStackTrace(); 
+    	    } 
     	}
     	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     }
