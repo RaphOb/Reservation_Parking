@@ -32,12 +32,12 @@ import com.cours.ebenus.service.ServiceFacade;
 // @WebServlet(name = "CrudUserServlet", urlPatterns = {"/CrudUserServlet"})
 public class CrudUserServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	private static final Log log = LogFactory.getLog(LoginServlet.class);
 	private static IServiceFacade service = null;
 	
 	//Pas trouvé de moyen de donner un path relatif avec ~
-	private static String downloadPath = "/home/augustin/Téléchargements";
-	
+	private static String downloadPath = System.getProperty("user.home");
     /**
      * Méthode d'initialisation de la Servlet
      *
@@ -95,32 +95,40 @@ public class CrudUserServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	if(request.getParameter("action").equals("exportJSON"))
     	{
     		log.debug("exporting users to JSON");
+    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+    		JSONObject globalJSON = new JSONObject();
+    		JSONArray usersArray = new JSONArray();
+    		/* Build each user object as Json */
+    		for(Utilisateur user : users)
+    		{
+    			JSONObject userJSON = new JSONObject();
+    			userJSON.put("idUtilisateur", user.getIdUtilisateur());
+    			userJSON.put("Civilité", user.getCivilite());
+    			userJSON.put("Prénom", user.getPrenom() );
+    			userJSON.put("Nom", user.getNom());
+    			userJSON.put("Identifiant", user.getIdentifiant());
+    			userJSON.put("Date de naissance", user.getDateNaissance());
+    			userJSON.put("Date de création", user.getDateCreation());
+    			userJSON.put("Date de modification", user.getDateModification());
+    		/* Put each object in array JSON */
+    			usersArray.add(userJSON);
+    		}
+    		/* Put Array to global JSON */
+    		globalJSON.put("Utilisateurs", usersArray);
     		
-    		/* TEST TO EXPORT AS JSON */
-    		
+    		/* Create file to home directory */
     		File file = new File(downloadPath, "export_user.json");
     		file.createNewFile();
-    		
-    		JSONObject obj = new JSONObject();
-    		obj.put("Name", "crunchify.com");
-    		obj.put("Author", "App Shah");
-     
-    		JSONArray company = new JSONArray();
-    		company.add("Compnay: eBay");
-    		company.add("Compnay: Paypal");
-    		company.add("Compnay: Google");
-    		obj.put("Company List", company);
-     
     		try (FileWriter writer = new FileWriter(file)) {
-    			writer.write(obj.toJSONString());
-    			System.out.println("\nJSON Object: " + obj);
+    			writer.write(globalJSON.toJSONString());
+    			System.out.println("\nJSON Object: " + globalJSON);
     		}
-    		
     	}
     	if(request.getParameter("action").equals("exportXML"))
     	{
