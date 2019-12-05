@@ -138,7 +138,7 @@ public class CrudUserServlet extends HttpServlet {
     	{
     		log.debug("exporting users to CSV");
     	}
-    	
+    	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     }
 
     /**
