@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.opencsv.CSVWriter;
 
 /**
  *
@@ -32,12 +33,12 @@ import com.cours.ebenus.service.ServiceFacade;
 // @WebServlet(name = "CrudUserServlet", urlPatterns = {"/CrudUserServlet"})
 public class CrudUserServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	private static final Log log = LogFactory.getLog(LoginServlet.class);
 	private static IServiceFacade service = null;
 	
 	//Pas trouvé de moyen de donner un path relatif avec ~
-	private static String downloadPath = "/home/augustin/Téléchargements";
-	
+	private static String downloadPath = System.getProperty("user.home");
     /**
      * Méthode d'initialisation de la Servlet
      *
@@ -95,42 +96,89 @@ public class CrudUserServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+    	
     	if(request.getParameter("action").equals("exportJSON"))
     	{
     		log.debug("exporting users to JSON");
-    		
-    		/* TEST TO EXPORT AS JSON */
-    		
     		File file = new File(downloadPath, "export_user.json");
-    		file.createNewFile();
-    		
-    		JSONObject obj = new JSONObject();
-    		obj.put("Name", "crunchify.com");
-    		obj.put("Author", "App Shah");
-     
-    		JSONArray company = new JSONArray();
-    		company.add("Compnay: eBay");
-    		company.add("Compnay: Paypal");
-    		company.add("Compnay: Google");
-    		obj.put("Company List", company);
-     
-    		try (FileWriter writer = new FileWriter(file)) {
-    			writer.write(obj.toJSONString());
-    			System.out.println("\nJSON Object: " + obj);
+    		JSONObject globalJSON = new JSONObject();
+    		JSONArray usersArray = new JSONArray();
+    		/* Build each user object as Json */
+    		for(Utilisateur user : users)
+    		{
+    			JSONObject userJSON = new JSONObject();
+    			userJSON.put("Id Utilisateur", user.getIdUtilisateur());
+    			userJSON.put("Civilité", user.getCivilite());
+    			userJSON.put("Prénom", user.getPrenom() );
+    			userJSON.put("Nom", user.getNom());
+    			userJSON.put("Identifiant", user.getIdentifiant());
+    			userJSON.put("Date de naissance", user.getDateNaissance());
+    			userJSON.put("Date de création", user.getDateCreation());
+    			userJSON.put("Date de modification", user.getDateModification());
+    		/* Put each object in array JSON */
+    			usersArray.add(userJSON);
     		}
+    		/* Put Array to global JSON */
+    		globalJSON.put("Utilisateurs", usersArray);
     		
+    		/* Create file to home directory */
+    		
+    		file.createNewFile();
+    		try (FileWriter writer = new FileWriter(file)) {
+    			writer.write(globalJSON.toJSONString());
+    			System.out.println("\nJSON Object: " + globalJSON);
+    		}
     	}
-    	if(request.getParameter("action").equals("exportXML"))
-    	{
-    		log.debug("exporting users to XML");
-    	}
-    	if(request.getParameter("action").equals("exportCSV"))
+    	else if(request.getParameter("action").equals("exportCSV"))
     	{
     		log.debug("exporting users to CSV");
+    		
+    	    try { 
+    	    	File file = new File(downloadPath, "export_user.csv");
+    	        FileWriter outputfile = new FileWriter(file); 
+    	  
+    	        // create CSVWriter object filewriter object as parameter 
+    	        CSVWriter writer = new CSVWriter(outputfile); 
+    	  
+    	        // Adding header to csv 
+    	        String[] header = { "Id Utilisateur",
+			    	        		"Civilité",
+			    	        		"Prénom",
+			    	        		"Nom",
+			    	        		"Identifiant",
+			    	        		"Date de naissance",
+			    	        		"Date de création",
+			    	        		"Date de modification"
+			    	        	}; 
+    	        writer.writeNext(header); 
+    	  
+    	        for(Utilisateur user : users)
+    	        {
+    	        	 // Add data to csv 
+        	        String[] user_info = { user.getIdUtilisateur().toString(),
+        	        						user.getCivilite(),
+        	        						user.getPrenom(),
+        	        						user.getNom(),
+        	        						user.getIdentifiant(),
+        	        						user.getDateNaissance().toString(),
+        	        						user.getDateCreation().toString(),
+        	        						user.getDateModification().toString()
+        	        					}; 
+        	        writer.writeNext(user_info); 
+    	        }
+    	        // closing writer connection 
+    	        writer.close(); 
+    	    } 
+    	    catch (IOException e) { 
+    	        // TODO Auto-generated catch block 
+    	        e.printStackTrace(); 
+    	    } 
     	}
-    	
+    	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     }
 
     /**
