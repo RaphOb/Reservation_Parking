@@ -270,8 +270,8 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         }
 
 
-        String sql = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse, dateCreation , dateModification) " +
-                "SELECT ?,?,?,?,?,?,?,? " +
+        String sql = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse,dateNaissance, dateCreation , dateModification) " +
+                "SELECT ?,?,?,?,?,?,?,?,? " +
                 "FROM  Utilisateur " +
                 "WHERE NOT EXISTS (SELECT 1 FROM Utilisateur WHERE " +
                 " identifiant = ?) LIMIT 1";
@@ -288,11 +288,12 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             prep.setString(4, user.getNom());
             prep.setString(5, user.getIdentifiant());
             prep.setString(6, user.getMotPasse());
+            prep.setDate(7,new java.sql.Date(user.getDateNaissance().getTime()));
             Date dateCreation = new java.sql.Date(System.currentTimeMillis());
             Date dateModification = new java.sql.Date(System.currentTimeMillis());
-            prep.setDate(7, (java.sql.Date) dateCreation);
-            prep.setDate(8, (java.sql.Date) dateModification);
-            prep.setString(9, user.getIdentifiant());
+            prep.setDate(8, (java.sql.Date) dateCreation);
+            prep.setDate(9, (java.sql.Date) dateModification);
+            prep.setString(10,user.getIdentifiant());
             prep.executeUpdate();
 
             user.setDateCreation((dateCreation));
