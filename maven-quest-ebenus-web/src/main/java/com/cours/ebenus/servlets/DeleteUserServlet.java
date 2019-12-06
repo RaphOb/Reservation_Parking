@@ -59,6 +59,7 @@ public class DeleteUserServlet extends HttpServlet {
 				else
 				{
 					log.debug("You have no right to delete a user");
+					response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 				}
 			}
 			else
@@ -76,7 +77,11 @@ public class DeleteUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		/* Delete selected user */
+		Integer userID = Integer.parseInt(request.getParameter("user"));
+		Utilisateur user = service.getUtilisateurDao().findUtilisateurById(userID);
+		service.getUtilisateurDao().deleteUtilisateur(user);
 		log.debug("User deleted");
+		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 
 }
