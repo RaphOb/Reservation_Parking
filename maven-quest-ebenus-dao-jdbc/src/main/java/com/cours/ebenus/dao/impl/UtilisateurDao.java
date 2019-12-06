@@ -289,10 +289,10 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             prep.setString(5, user.getIdentifiant());
             prep.setString(6, user.getMotPasse());
             prep.setDate(7,new java.sql.Date(user.getDateNaissance().getTime()));
-            Date dateCreation = new java.sql.Date(System.currentTimeMillis());
-            Date dateModification = new java.sql.Date(System.currentTimeMillis());
-            prep.setDate(8, (java.sql.Date) dateCreation);
-            prep.setDate(9, (java.sql.Date) dateModification);
+            Date dateCreation = new java.sql.Timestamp(System.currentTimeMillis());
+            Date dateModification = new java.sql.Timestamp(System.currentTimeMillis());
+            prep.setTimestamp(8, (java.sql.Timestamp) dateCreation);
+            prep.setTimestamp(9, (java.sql.Timestamp) dateModification);
             prep.setString(10,user.getIdentifiant());
             prep.executeUpdate();
 
