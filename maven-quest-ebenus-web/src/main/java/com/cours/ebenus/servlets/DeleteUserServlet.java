@@ -58,7 +58,7 @@ public class DeleteUserServlet extends HttpServlet {
 				}
 				else
 				{
-					log.debug("You have no right to delete a user");
+					log.debug("You have no right to delete a user. Connect as admin");
 					response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 				}
 			}

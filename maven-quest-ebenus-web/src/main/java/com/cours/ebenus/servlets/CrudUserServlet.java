@@ -5,16 +5,20 @@
  */
 package com.cours.ebenus.servlets;
 
-import java.io.File; 
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,6 +28,8 @@ import org.json.simple.JSONObject;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
 
 /**
@@ -31,14 +37,17 @@ import com.opencsv.CSVWriter;
  * @author elhad
  */
 // @WebServlet(name = "CrudUserServlet", urlPatterns = {"/CrudUserServlet"})
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
+maxFileSize=1024*1024*10,      // 10MB
+maxRequestSize=1024*1024*50)   // 50MB
 public class CrudUserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final Log log = LogFactory.getLog(LoginServlet.class);
 	private static IServiceFacade service = null;
 	
-	//Pas trouvé de moyen de donner un path relatif avec ~
-	private static String downloadPath = System.getProperty("user.home");
+	private static String uploadPath = System.getProperty("user.home");
+	
     /**
      * Méthode d'initialisation de la Servlet
      *
@@ -104,7 +113,7 @@ public class CrudUserServlet extends HttpServlet {
     	if(request.getParameter("action").equals("exportJSON"))
     	{
     		log.debug("exporting users to JSON");
-    		File file = new File(downloadPath, "export_user.json");
+    		File file = new File(uploadPath, "export_user.json");
     		JSONObject globalJSON = new JSONObject();
     		JSONArray usersArray = new JSONArray();
     		/* Build each user object as Json */
@@ -138,7 +147,7 @@ public class CrudUserServlet extends HttpServlet {
     		log.debug("exporting users to CSV");
     		
     	    try { 
-    	    	File file = new File(downloadPath, "export_user.csv");
+    	    	File file = new File(uploadPath, "export_user.csv");
     	        FileWriter outputfile = new FileWriter(file); 
     	  
     	        // create CSVWriter object filewriter object as parameter 
@@ -178,7 +187,44 @@ public class CrudUserServlet extends HttpServlet {
     	        e.printStackTrace(); 
     	    } 
     	}
+    	else if (request.getParameter("action").equals("importCSV"))
+		{
+    		// gets absolute path of the web application
+    		String appPath = request.getServletContext().getRealPath("");
+            // constructs path of the directory to save uploaded file
+            String savePath = appPath + "/UploadedFiles";
+             
+            log.debug(savePath);
+            
+            // creates the save directory if it does not exists
+            File fileSaveDir = new File(savePath);
+            if (!fileSaveDir.exists()) {
+            	log.debug(fileSaveDir.mkdir());
+            }
+             
+            for (Part part : request.getParts()) {
+                String fileName = extractFileName(part);
+                log.debug(fileName);
+                // refines the fileName in case it is an absolute path
+                fileName = new File(fileName).getName();
+                part.write(savePath + File.separator + fileName);
+            }
+		}
     	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+    }
+    
+    /**
+     * Extracts file name from HTTP header content-disposition
+     */
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
 
     /**
