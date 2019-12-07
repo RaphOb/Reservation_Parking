@@ -46,7 +46,8 @@ public class CrudUserServlet extends HttpServlet {
 	private static final Log log = LogFactory.getLog(LoginServlet.class);
 	private static IServiceFacade service = null;
 	
-	private static String uploadPath = System.getProperty("user.home");
+	private static String downloadPath = System.getProperty("user.home");
+	private static String uploadDirectory = "UplaodedFiles";
 	
     /**
      * Méthode d'initialisation de la Servlet
@@ -113,7 +114,8 @@ public class CrudUserServlet extends HttpServlet {
     	if(request.getParameter("action").equals("exportJSON"))
     	{
     		log.debug("exporting users to JSON");
-    		File file = new File(uploadPath, "export_user.json");
+    		Utilisateur currentUser = (Utilisateur) request.getSession(false).getAttribute("user");
+	    	File file = new File(downloadPath, "export_user_" + currentUser.getPrenom() + "_" + currentUser.getNom() + ".json");
     		JSONObject globalJSON = new JSONObject();
     		JSONArray usersArray = new JSONArray();
     		/* Build each user object as Json */
@@ -147,7 +149,9 @@ public class CrudUserServlet extends HttpServlet {
     		log.debug("exporting users to CSV");
     		
     	    try { 
-    	    	File file = new File(uploadPath, "export_user.csv");
+    	    	Utilisateur currentUser = (Utilisateur) request.getSession(false).getAttribute("user");
+    	    	 
+    	    	File file = new File(downloadPath, "export_user_" + currentUser.getPrenom() + "_" + currentUser.getNom() + ".csv");
     	        FileWriter outputfile = new FileWriter(file); 
     	  
     	        // create CSVWriter object filewriter object as parameter 
@@ -192,7 +196,7 @@ public class CrudUserServlet extends HttpServlet {
     		// gets absolute path of the web application
     		String appPath = request.getServletContext().getRealPath("");
             // constructs path of the directory to save uploaded file
-            String savePath = appPath + "/UploadedFiles";
+            String savePath = appPath + uploadDirectory;
              
             log.debug(savePath);
             
