@@ -204,9 +204,14 @@ public class CrudUserServlet extends HttpServlet {
              
             for (Part part : request.getParts()) {
                 String fileName = extractFileName(part);
-                log.debug(fileName);
                 // refines the fileName in case it is an absolute path
                 fileName = new File(fileName).getName();
+                if (fileName.contentEquals(""))
+                {
+                	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+                	return;
+                }
+                log.debug(fileName);
                 part.write(savePath + File.separator + fileName);
             }
 		}
