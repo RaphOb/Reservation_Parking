@@ -81,7 +81,7 @@
 								        	<td> <c:out value = "${user.getRole().getIdentifiant()}"/> </td>
 								        	<td> <c:out value = "${user.getRole().getDescription()}"/> </td>
 								        	<td> 
-								        		<a href="#"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i class="fa fa-edit"></i></a>
 								        		<a href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
 												</a>
