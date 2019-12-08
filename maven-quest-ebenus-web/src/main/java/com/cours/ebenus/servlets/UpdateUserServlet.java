@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/UpdateUserServlet")
@@ -53,14 +55,27 @@ public class UpdateUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
 
-        /* Get data from form */
         String idRole = request.getParameter("select_role");
+        String civilite = request.getParameter("sex");
+        String prenom = request.getParameter("firstname");
+        String nom = request.getParameter("lastname");
         String email = request.getParameter("email");
-        String motPasse = request.getParameter("password");
-        String confirmMotPasse = request.getParameter("password_confirm");
+        String dateNaissance = request.getParameter("dteNaiss");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = sdf.parse(dateNaissance);
+        } catch (ParseException e) {
+            e.getErrorOffset();
+        }
         Utilisateur user = (Utilisateur) request.getSession(false).getAttribute("user");
         user.setIdentifiant(email);
-        user.setMotPasse(motPasse);
+        user.setMotPasse(civilite);
+        user.setPrenom(prenom);
+        user.setNom(nom);
+        user.setDateNaissance(date);
+
         Role role = service.getRoleDao().findRoleById(Integer.parseInt(idRole));
         user.setRole(role);
 
