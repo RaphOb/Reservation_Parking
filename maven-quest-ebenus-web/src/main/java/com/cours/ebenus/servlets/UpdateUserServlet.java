@@ -33,25 +33,44 @@ public class UpdateUserServlet extends HttpServlet {
         service = new ServiceFacade();
     }
 
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            Utilisateur user = (Utilisateur) request.getSession(false).getAttribute("user");
+        if (session == null) {
 
-           Integer u = Integer.parseInt(request.getParameter("user"));
-            if (u == user.getIdUtilisateur()) {
-                List<Role> roles = service.getRoleDao().findAllRoles();
-                request.setAttribute("roles",roles);
-                this.getServletContext().getRequestDispatcher("/pages/crudUser/updateUser.jsp").forward(request, response);
+            log.debug("No session found... Redirecting to login page");
+            response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
 
+        } else {
+            if (request.getSession(false).getAttribute("user") != null) {
+                {
+                    Utilisateur user = (Utilisateur) request.getSession(false).getAttribute("user");
+
+                    Integer u = Integer.parseInt(request.getParameter("user"));
+                    if (u == user.getIdUtilisateur() || user.getRole().getIdentifiant().equals("Administrateur")) {
+                        List<Role> roles = service.getRoleDao().findAllRoles();
+                        request.setAttribute("roles", roles);
+                        this.getServletContext().getRequestDispatcher("/pages/crudUser/updateUser.jsp").forward(request, response);
+                    } else {
+                        log.debug("You cant update another user sorry bro");
+                        response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+                    }
+                }
             } else {
-                log.debug("You cant update another user sorry bro");
-                response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+                log.debug("Ba noon brooo");
+                response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
             }
         }
 
+
     }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
 
