@@ -45,9 +45,9 @@ public abstract class AbstractDao<T> implements IDao<T> {
 	            for(int i =0; i < myClass.getDeclaredFields().length; i++)
 	            {
 	            	//Get each field of represented class <T>
-	            	System.out.println(myClass.getDeclaredFields()[i]);
+	            	System.out.println(myClass.getDeclaredFields()[i].getName());
+	            	
 	            }
-	            //objects = Utilisateur.queryManagerResponse(rs);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        } finally {

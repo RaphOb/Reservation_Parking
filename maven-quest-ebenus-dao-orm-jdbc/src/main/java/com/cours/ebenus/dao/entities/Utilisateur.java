@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class Utilisateur {
 
-    private static final long serialVersionUID = 1L;
     private Integer idUtilisateur;
+    private Role role;
     private String civilite;
     private String prenom;
     private String nom;
@@ -26,7 +26,7 @@ public class Utilisateur {
     private Boolean actif = true;
     private Boolean marquerEffacer = false;
     private Integer version = 0;
-    private Role role;
+    
 
     public Utilisateur() {
     }
