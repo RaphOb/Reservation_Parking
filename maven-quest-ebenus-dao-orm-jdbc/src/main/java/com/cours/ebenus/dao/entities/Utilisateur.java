@@ -5,6 +5,8 @@
  */
 package com.cours.ebenus.dao.entities;
 
+import com.cours.ebenus.dao.annotations.DBTable;
+
 import java.util.Date;
 
 /**
@@ -13,18 +15,31 @@ import java.util.Date;
  */
 public class Utilisateur {
 
+    @DBTable(columnName = "idUtilisateur")
     private Integer idUtilisateur;
+    @DBTable(columnName = "idRole")
     private Role role;
+    @DBTable(columnName = "civilite")
     private String civilite;
+    @DBTable(columnName = "prenom")
     private String prenom;
+    @DBTable(columnName = "nom")
     private String nom;
+    @DBTable(columnName = "identifiant")
     private String identifiant;
+    @DBTable(columnName = "motPasse")
     private String motPasse;
+    @DBTable(columnName = "dateNaissance")
     private Date dateNaissance;
+    @DBTable(columnName = "dateCreation")
     private Date dateCreation;
+    @DBTable(columnName = "dateModification")
     private Date dateModification;
+    @DBTable(columnName = "actif")
     private Boolean actif = true;
+    @DBTable(columnName = "marquerEffacer")
     private Boolean marquerEffacer = false;
+    @DBTable(columnName = "version")
     private Integer version = 0;
     
 
