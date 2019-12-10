@@ -50,9 +50,11 @@ public class UpdateUserServlet extends HttpServlet {
                     Utilisateur user = (Utilisateur) request.getSession(false).getAttribute("user");
 
                     Integer u = Integer.parseInt(request.getParameter("user"));
+                    Utilisateur uUpdate = service.getUtilisateurDao().findUtilisateurById(u);
                     if (u == user.getIdUtilisateur() || user.getRole().getIdentifiant().equals("Administrateur")) {
                         List<Role> roles = service.getRoleDao().findAllRoles();
                         request.setAttribute("roles", roles);
+                        request.setAttribute("userU",uUpdate);
                         this.getServletContext().getRequestDispatcher("/pages/crudUser/updateUser.jsp").forward(request, response);
                     } else {
                         log.debug("You cant update another user sorry bro");
@@ -88,7 +90,8 @@ public class UpdateUserServlet extends HttpServlet {
         } catch (ParseException e) {
             e.getErrorOffset();
         }
-        Utilisateur user = (Utilisateur) request.getSession(false).getAttribute("user");
+        Integer u = Integer.parseInt(request.getParameter("userU"));
+        Utilisateur user = service.getUtilisateurDao().findUtilisateurById(u);
         user.setIdentifiant(email);
         user.setMotPasse(civilite);
         user.setPrenom(prenom);

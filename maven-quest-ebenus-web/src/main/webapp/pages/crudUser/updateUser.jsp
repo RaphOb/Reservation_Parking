@@ -33,24 +33,23 @@
                 <h3>Bonjour </h3> <c:out value="${user.getCivilite()}"/> <c:out value="${user.getPrenom()}"/>
                 vous pouvez modifier vos données.
                 <c:out value="${user.getNom()}"/>
-                <form action="${pageContext.request.contextPath}/UpdateUserServlet" method="Post" id="customer-info-form"
+                <form action="${pageContext.request.contextPath}/UpdateUserServlet?userU=${userU.getIdUtilisateur()}" method="Post" id="customer-info-form"
                       class="no-gutters">
                     <div class="account-container row">
                         <fieldset class=" common-form-controls col-md-3">
                             <div>
                                 <p>Informations Personnelles</p>
-
                                 <div class="input-wrapper">
                                     <label for="firstname">Prénom<em>*</em></label>
-                                    <input autocomplete="off" name="firstname" id="firstname" type="text">
+                                    <input autocomplete="off" name="firstname" id="firstname" type="text" value="${userU.getPrenom()}">
                                 </div>
                                 <div class="input-wrapper">
                                     <label for="lastname">Nom<em>*</em></label>
-                                    <input autocomplete="off" name="lastname" id="lastname" type="text">
+                                    <input autocomplete="off" name="lastname" id="lastname" type="text" value="${userU.getNom()}">
                                 </div>
                                 <div class="input-wrapper">
                                     <label for="email">Identifiant<em>*</em></label>
-                                    <input autocomplete="off" name="email" id="email" type="email">
+                                    <input autocomplete="off" name="email" id="email" type="email" value="${userU.getIdentifiant()}">
                                 </div>
 
                         </fieldset>
@@ -67,7 +66,7 @@
                                     <select class="required" name="select_role" id="select_role">
                                         <option value="rôle" selected disabled>Rôle</option>
                                         <c:forEach items="${roles}" var="item" varStatus="loop">
-                                            <option value="${item.getIdRole()}">${item.getIdentifiant()} </option>
+                                            <option value="${item.getIdRole()}" >${item.getIdentifiant()} </option>
                                         </c:forEach>
                                     </select>
                                 </div>
