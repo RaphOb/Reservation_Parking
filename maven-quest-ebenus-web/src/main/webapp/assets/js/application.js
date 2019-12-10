@@ -148,7 +148,8 @@ $(".chb2").change(function() {
 
 
 $('[data-toggle="datepicker"]').datepicker({
-    language: 'fr-FR'
+    language: 'fr-FR',
+
   });
 
 
