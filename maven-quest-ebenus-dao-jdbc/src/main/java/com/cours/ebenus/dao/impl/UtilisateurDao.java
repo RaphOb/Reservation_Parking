@@ -325,7 +325,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     public Utilisateur updateUtilisateur(Utilisateur user) {
         Connection connection = DriverManagerSingleton.getConnectionInstance();
         String sql = "UPDATE Utilisateur " +
-                "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ? " +
+                "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, dateModification = ? " +
                 "WHERE idUtilisateur = ?";
         PreparedStatement prep = null;
         try {
@@ -335,10 +335,10 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
             prep.setString(3, user.getPrenom());
             prep.setString(4, user.getNom());
             prep.setString(5, user.getIdentifiant());
-            prep.setString(6, user.getMotPasse());
+//            prep.setString(6, user.getMotPasse());
             Date dateModification = new java.sql.Date(System.currentTimeMillis());
-            prep.setDate(7, (java.sql.Date) dateModification);
-            prep.setInt(8, user.getIdUtilisateur());
+            prep.setDate(6, (java.sql.Date) dateModification);
+            prep.setInt(7, user.getIdUtilisateur());
             prep.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
