@@ -46,8 +46,7 @@ public class CrudUserServlet extends HttpServlet {
 	private static final Log log = LogFactory.getLog(LoginServlet.class);
 	private static IServiceFacade service = null;
 	
-	private static String downloadPath = System.getProperty("user.home");
-	private static String uploadDirectory = "UplaodedFiles";
+	private static String uploadDirectory = "UploadedFiles";
 	
     /**
      * Méthode d'initialisation de la Servlet
@@ -69,6 +68,7 @@ public class CrudUserServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
+    @SuppressWarnings("unchecked")
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
@@ -83,9 +83,86 @@ public class CrudUserServlet extends HttpServlet {
     	{
     		if (request.getSession(false).getAttribute("user") != null)
     		{
+    			/* Give to JSP list of users */
 	    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
 	        	request.setAttribute("users", users);
 	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
+	    		
+	    		/* Rebuild Export files */
+	    			//JSON CASE
+	    		log.debug("Creating JSON users file ");
+		    	File file = new File(this.getServletContext().getRealPath("/"), "/export_user.json");
+	    		JSONObject globalJSON = new JSONObject();
+	    		JSONArray usersArray = new JSONArray();
+	    		/* Build each user object as Json */
+	    		for(Utilisateur user : users)
+	    		{
+	    			JSONObject userJSON = new JSONObject();
+	    			userJSON.put("Id Utilisateur", user.getIdUtilisateur());
+	    			userJSON.put("Civilité", user.getCivilite());
+	    			userJSON.put("Prénom", user.getPrenom() );
+	    			userJSON.put("Nom", user.getNom());
+	    			userJSON.put("Identifiant", user.getIdentifiant());
+	    			userJSON.put("Date de naissance", user.getDateNaissance());
+	    			userJSON.put("Date de création", user.getDateCreation());
+	    			userJSON.put("Date de modification", user.getDateModification());
+	    		/* Put each object in array JSON */
+	    			usersArray.add(userJSON);
+	    		}
+	    		/* Put Array to global JSON */
+	    		globalJSON.put("Utilisateurs", usersArray);
+	    		
+	    		/* Create file to home directory */
+	    		
+	    		file.createNewFile();
+	    		try (FileWriter writer = new FileWriter(file)) {
+	    			writer.write(globalJSON.toJSONString());
+	    			System.out.println("\nJSON Object: " + globalJSON);
+	    		}
+	    		
+	    		log.debug("Creating CSV users file ");
+	    			//CSV CASE
+	    	    try { 
+	    	    	File file2 = new File(this.getServletContext().getRealPath("/"), "/export_user.csv");
+	    	    	file2.createNewFile();
+	    	        FileWriter outputfile = new FileWriter(file2); 
+	    	  
+	    	        // create CSVWriter object filewriter object as parameter 
+	    	        CSVWriter writer = new CSVWriter(outputfile); 
+	    	  
+	    	        // Adding header to csv 
+	    	        String[] header = { "Id Utilisateur",
+				    	        		"Civilité",
+				    	        		"Prénom",
+				    	        		"Nom",
+				    	        		"Identifiant",
+				    	        		"Date de naissance",
+				    	        		"Date de création",
+				    	        		"Date de modification"
+				    	        	}; 
+	    	        writer.writeNext(header); 
+	    	  
+	    	        for(Utilisateur user : users)
+	    	        {
+	    	        	// Add data to csv 
+	        	        String[] user_info = { user.getIdUtilisateur().toString(),
+	        	        						user.getCivilite(),
+	        	        						user.getPrenom(),
+	        	        						user.getNom(),
+	        	        						user.getIdentifiant(),
+	        	        						user.getDateNaissance().toString(),
+	        	        						user.getDateCreation().toString(),
+	        	        						user.getDateModification().toString()
+	        	        					}; 
+	        	        writer.writeNext(user_info); 
+	    	        }
+	    	        // closing writer connection 
+	    	        writer.close(); 
+	    	    } 
+	    	    catch (IOException e) { 
+	    	        // TODO Auto-generated catch block 
+	    	        e.printStackTrace(); 
+	    	    } 
     		}
     		else
     		{
@@ -106,92 +183,14 @@ public class CrudUserServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    @SuppressWarnings("unchecked")
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
     	
-    	if(request.getParameter("action").equals("exportJSON"))
-    	{
-    		log.debug("exporting users to JSON");
-    		Utilisateur currentUser = (Utilisateur) request.getSession(false).getAttribute("user");
-	    	File file = new File(downloadPath, "export_user_" + currentUser.getPrenom() + "_" + currentUser.getNom() + ".json");
-    		JSONObject globalJSON = new JSONObject();
-    		JSONArray usersArray = new JSONArray();
-    		/* Build each user object as Json */
-    		for(Utilisateur user : users)
-    		{
-    			JSONObject userJSON = new JSONObject();
-    			userJSON.put("Id Utilisateur", user.getIdUtilisateur());
-    			userJSON.put("Civilité", user.getCivilite());
-    			userJSON.put("Prénom", user.getPrenom() );
-    			userJSON.put("Nom", user.getNom());
-    			userJSON.put("Identifiant", user.getIdentifiant());
-    			userJSON.put("Date de naissance", user.getDateNaissance());
-    			userJSON.put("Date de création", user.getDateCreation());
-    			userJSON.put("Date de modification", user.getDateModification());
-    		/* Put each object in array JSON */
-    			usersArray.add(userJSON);
-    		}
-    		/* Put Array to global JSON */
-    		globalJSON.put("Utilisateurs", usersArray);
-    		
-    		/* Create file to home directory */
-    		
-    		file.createNewFile();
-    		try (FileWriter writer = new FileWriter(file)) {
-    			writer.write(globalJSON.toJSONString());
-    			System.out.println("\nJSON Object: " + globalJSON);
-    		}
-    	}
-    	else if(request.getParameter("action").equals("exportCSV"))
-    	{
-    		log.debug("exporting users to CSV");
-    		
-    	    try { 
-    	    	Utilisateur currentUser = (Utilisateur) request.getSession(false).getAttribute("user");
-    	    	 
-    	    	File file = new File(downloadPath, "export_user_" + currentUser.getPrenom() + "_" + currentUser.getNom() + ".csv");
-    	        FileWriter outputfile = new FileWriter(file); 
-    	  
-    	        // create CSVWriter object filewriter object as parameter 
-    	        CSVWriter writer = new CSVWriter(outputfile); 
-    	  
-    	        // Adding header to csv 
-    	        String[] header = { "Id Utilisateur",
-			    	        		"Civilité",
-			    	        		"Prénom",
-			    	        		"Nom",
-			    	        		"Identifiant",
-			    	        		"Date de naissance",
-			    	        		"Date de création",
-			    	        		"Date de modification"
-			    	        	}; 
-    	        writer.writeNext(header); 
-    	  
-    	        for(Utilisateur user : users)
-    	        {
-    	        	 // Add data to csv 
-        	        String[] user_info = { user.getIdUtilisateur().toString(),
-        	        						user.getCivilite(),
-        	        						user.getPrenom(),
-        	        						user.getNom(),
-        	        						user.getIdentifiant(),
-        	        						user.getDateNaissance().toString(),
-        	        						user.getDateCreation().toString(),
-        	        						user.getDateModification().toString()
-        	        					}; 
-        	        writer.writeNext(user_info); 
-    	        }
-    	        // closing writer connection 
-    	        writer.close(); 
-    	    } 
-    	    catch (IOException e) { 
-    	        // TODO Auto-generated catch block 
-    	        e.printStackTrace(); 
-    	    } 
-    	}
-    	else if (request.getParameter("action").equals("importCSV"))
+    	log.debug(this.getServletContext().getContextPath());
+    	log.debug(this.getServletContext().getRealPath("/"));
+    	
+    	if (request.getParameter("action").equals("importCSV"))
 		{
     		// gets absolute path of the web application
     		String appPath = request.getServletContext().getRealPath("");

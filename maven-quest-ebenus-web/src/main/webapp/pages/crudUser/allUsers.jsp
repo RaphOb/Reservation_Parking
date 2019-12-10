@@ -33,19 +33,13 @@
                         <h1 class="logout"> <a href="<c:url value="LogoutServlet"/>"  role="button">Se Deconnecter</a></h1> 
                         <ul class="User f-left">
                             <li>
-                            	<form action="<c:url value="CrudUserServlet?action=exportCSV"/>" method="post">
-                            		<button type="submit">Export des Utilisateurs au format Csv</button>
-                            	</form>
+                            	<a href="<c:url value="export_user.json"/>" download="export_user.json"> Export des Utilisateurs au format Json </a>
                             </li>
                             <li>
-                            	<form action="<c:url value="CrudUserServlet?action=exportXML"/>" method="post">
-                            		<button type="submit">Export des Utilisateurs au format XML</button>
-                            	</form>
+                            	<a href="<c:url value="export_user.xml"/>" download="export_user.xml"> Export des Utilisateurs au format XML </a>
                             </li>
                             <li>
-                            	<form action="<c:url value="CrudUserServlet?action=exportJSON"/>" method="post">
-                            		<button type="submit">Export des Utilisateurs au format Json</button>
-                            	</form>
+                            	<a href="<c:url value="export_user.csv"/>" download="export_user.csv"> Export des Utilisateurs au format CSV </a>
                             </li>
                         </ul>
                         <h1 class="clearfix">liste des utilisateurs</h1>
