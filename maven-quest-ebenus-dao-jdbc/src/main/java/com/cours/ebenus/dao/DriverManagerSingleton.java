@@ -60,7 +60,7 @@ public class DriverManagerSingleton {
         	}
         	else
         	{
-        		log.debug("Utilisation d'une connexion déja existante");
+        		//log.debug("Utilisation d'une connexion déja existante");
         	}
         } 
         catch (ClassNotFoundException | SQLException e) {

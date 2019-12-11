@@ -5,13 +5,22 @@
  */
 package com.cours.ebenus.servlets;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
@@ -106,28 +116,67 @@ public class CrudUserServlet extends HttpServlet {
      * http
      * @param response L'objet réponse contenant les informations de la réponse
      * http
+     * @return 
      * @throws ServletException
      * @throws IOException
      */
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+    	
     	
     	log.debug(this.getServletContext().getRealPath("/"));
     	
+    	//Import case
     	if (request.getParameter("action").equals("importCSV"))
 		{
+    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+
+    		
+    		String[] current_user_tab = usersAsEmailLines(users);
             for (Part part : request.getParts()) {
-                String fileName = extractFileName(part);
-                // refines the fileName in case it is an absolute path
-                fileName = new File(fileName).getName();
-                if (fileName.contentEquals(""))
-                {
-                	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
-                	return;
+                InputStream is = part.getInputStream();
+                if (is != null) {
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader reader = new BufferedReader(isr);
+                    String line;
+                    
+                    reader.readLine();  //To ignore first line, columns names
+                    
+                    /* Get each line of the file */
+                    while ((line = reader.readLine()) != null) {
+                    	String currentEmailFromLine = line.split(";")[5];
+                    	/* If current user already exist */
+                    	if(Arrays.stream(current_user_tab).parallel().anyMatch(currentEmailFromLine::contains))
+                    	{
+                    		log.debug(currentEmailFromLine + " already exists");
+                    	}
+                    	else
+                    	{
+                    		/* New user to add detected, building new Utilisateur */
+                    		log.debug("New user to add : " + currentEmailFromLine);
+                    		String civilite = line.split(";")[0];
+                    		String prenom = line.split(";")[1];
+                    		String nom = line.split(";")[2];
+                    		String strDate = line.split(";")[3];
+                    		Date dateNaissance = null;
+							try {
+								dateNaissance = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}  
+                    		String role_identifiant = line.split(";")[4];
+                    		List<Role> role = service.getRoleDao().findRoleByIdentifiant(role_identifiant);
+                    		String identifiant = line.split(";")[5];
+                    		String motPasse = line.split(";")[6];
+                    		Utilisateur new_user = new Utilisateur(civilite, prenom, nom, identifiant, motPasse, dateNaissance, role.get(0));
+                    		service.getUtilisateurDao().createUtilisateur(new_user);	
+                    	}
+                    }
                 }
-                log.debug(fileName);
             }
+            
+            
 		}
     	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     }
@@ -162,7 +211,7 @@ public class CrudUserServlet extends HttpServlet {
 		file.createNewFile();
 		try (FileWriter writer = new FileWriter(file)) {
 			writer.write(globalJSON.toJSONString());
-			System.out.println("\nJSON Object: " + globalJSON);
+			//System.out.println("\nJSON Object: " + globalJSON);
 		}
     }
     
@@ -212,20 +261,21 @@ public class CrudUserServlet extends HttpServlet {
 	    } 
     }
     
-    /**
-     * Extracts file name from HTTP header content-disposition
-     */
-    private String extractFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        String[] items = contentDisp.split(";");
-        for (String s : items) {
-            if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length()-1);
-            }
-        }
-        return "";
+    private String[] usersAsEmailLines(List<Utilisateur> users)
+    {
+    	String[] current_user_tab = new String[users.size()];
+		int cpt = 0;
+		/* Build identifers tab to compare*/
+		log.debug("Currents users");
+		for(Utilisateur user : users)
+		{
+			current_user_tab[cpt] = user.getIdentifiant();
+			log.debug(current_user_tab[cpt]);
+			cpt++;
+		}
+		return current_user_tab;
     }
-
+    
     /**
      * Méthode appelée lors de la fin de la Servlet
      */
