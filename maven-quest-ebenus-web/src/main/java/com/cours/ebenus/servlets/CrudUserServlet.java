@@ -46,8 +46,6 @@ public class CrudUserServlet extends HttpServlet {
 	private static final Log log = LogFactory.getLog(LoginServlet.class);
 	private static IServiceFacade service = null;
 	
-	private static String uploadDirectory = "UploadedFiles";
-	
     /**
      * Méthode d'initialisation de la Servlet
      *
@@ -68,7 +66,7 @@ public class CrudUserServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    @SuppressWarnings("unchecked")
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
@@ -89,80 +87,8 @@ public class CrudUserServlet extends HttpServlet {
 	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
 	    		
 	    		/* Rebuild Export files */
-	    			//JSON CASE
-	    		log.debug("Creating JSON users file ");
-		    	File file = new File(this.getServletContext().getRealPath("/"), "/export_user.json");
-	    		JSONObject globalJSON = new JSONObject();
-	    		JSONArray usersArray = new JSONArray();
-	    		/* Build each user object as Json */
-	    		for(Utilisateur user : users)
-	    		{
-	    			JSONObject userJSON = new JSONObject();
-	    			userJSON.put("Id Utilisateur", user.getIdUtilisateur());
-	    			userJSON.put("Civilité", user.getCivilite());
-	    			userJSON.put("Prénom", user.getPrenom() );
-	    			userJSON.put("Nom", user.getNom());
-	    			userJSON.put("Identifiant", user.getIdentifiant());
-	    			userJSON.put("Date de naissance", user.getDateNaissance());
-	    			userJSON.put("Date de création", user.getDateCreation());
-	    			userJSON.put("Date de modification", user.getDateModification());
-	    		/* Put each object in array JSON */
-	    			usersArray.add(userJSON);
-	    		}
-	    		/* Put Array to global JSON */
-	    		globalJSON.put("Utilisateurs", usersArray);
-	    		
-	    		/* Create file to home directory */
-	    		
-	    		file.createNewFile();
-	    		try (FileWriter writer = new FileWriter(file)) {
-	    			writer.write(globalJSON.toJSONString());
-	    			System.out.println("\nJSON Object: " + globalJSON);
-	    		}
-	    		
-	    		log.debug("Creating CSV users file ");
-	    			//CSV CASE
-	    	    try { 
-	    	    	File file2 = new File(this.getServletContext().getRealPath("/"), "/export_user.csv");
-	    	    	file2.createNewFile();
-	    	        FileWriter outputfile = new FileWriter(file2); 
-	    	  
-	    	        // create CSVWriter object filewriter object as parameter 
-	    	        CSVWriter writer = new CSVWriter(outputfile); 
-	    	  
-	    	        // Adding header to csv 
-	    	        String[] header = { "Id Utilisateur",
-				    	        		"Civilité",
-				    	        		"Prénom",
-				    	        		"Nom",
-				    	        		"Identifiant",
-				    	        		"Date de naissance",
-				    	        		"Date de création",
-				    	        		"Date de modification"
-				    	        	}; 
-	    	        writer.writeNext(header); 
-	    	  
-	    	        for(Utilisateur user : users)
-	    	        {
-	    	        	// Add data to csv 
-	        	        String[] user_info = { user.getIdUtilisateur().toString(),
-	        	        						user.getCivilite(),
-	        	        						user.getPrenom(),
-	        	        						user.getNom(),
-	        	        						user.getIdentifiant(),
-	        	        						user.getDateNaissance().toString(),
-	        	        						user.getDateCreation().toString(),
-	        	        						user.getDateModification().toString()
-	        	        					}; 
-	        	        writer.writeNext(user_info); 
-	    	        }
-	    	        // closing writer connection 
-	    	        writer.close(); 
-	    	    } 
-	    	    catch (IOException e) { 
-	    	        // TODO Auto-generated catch block 
-	    	        e.printStackTrace(); 
-	    	    } 
+	    		reBuildExportJSON(users);
+	    		reBuildExportCSV(users);
     		}
     		else
     		{
@@ -187,24 +113,10 @@ public class CrudUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
     	
-    	log.debug(this.getServletContext().getContextPath());
     	log.debug(this.getServletContext().getRealPath("/"));
     	
     	if (request.getParameter("action").equals("importCSV"))
 		{
-    		// gets absolute path of the web application
-    		String appPath = request.getServletContext().getRealPath("");
-            // constructs path of the directory to save uploaded file
-            String savePath = appPath + uploadDirectory;
-             
-            log.debug(savePath);
-            
-            // creates the save directory if it does not exists
-            File fileSaveDir = new File(savePath);
-            if (!fileSaveDir.exists()) {
-            	log.debug(fileSaveDir.mkdir());
-            }
-             
             for (Part part : request.getParts()) {
                 String fileName = extractFileName(part);
                 // refines the fileName in case it is an absolute path
@@ -215,10 +127,89 @@ public class CrudUserServlet extends HttpServlet {
                 	return;
                 }
                 log.debug(fileName);
-                part.write(savePath + File.separator + fileName);
             }
 		}
     	response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void reBuildExportJSON(List<Utilisateur> users) throws IOException
+    {
+    	//JSON CASE
+    	File file = new File(this.getServletContext().getRealPath("/"), "/export_user.json");
+		JSONObject globalJSON = new JSONObject();
+		JSONArray usersArray = new JSONArray();
+		/* Build each user object as Json */
+		for(Utilisateur user : users)
+		{
+			JSONObject userJSON = new JSONObject();
+			userJSON.put("Id Utilisateur", user.getIdUtilisateur());
+			userJSON.put("Civilité", user.getCivilite());
+			userJSON.put("Prénom", user.getPrenom() );
+			userJSON.put("Nom", user.getNom());
+			userJSON.put("Identifiant", user.getIdentifiant());
+			userJSON.put("Date de naissance", user.getDateNaissance());
+			userJSON.put("Date de création", user.getDateCreation());
+			userJSON.put("Date de modification", user.getDateModification());
+		/* Put each object in array JSON */
+			usersArray.add(userJSON);
+		}
+		/* Put Array to global JSON */
+		globalJSON.put("Utilisateurs", usersArray);
+		
+		/* Create file to home directory */
+		
+		file.createNewFile();
+		try (FileWriter writer = new FileWriter(file)) {
+			writer.write(globalJSON.toJSONString());
+			System.out.println("\nJSON Object: " + globalJSON);
+		}
+    }
+    
+    private void reBuildExportCSV(List<Utilisateur> users)
+    {
+    	//CSV CASE
+	    try { 
+	    	File file2 = new File(this.getServletContext().getRealPath("/"), "/export_user.csv");
+	    	file2.createNewFile();
+	        FileWriter outputfile = new FileWriter(file2); 
+	  
+	        // create CSVWriter object filewriter object as parameter 
+	        CSVWriter writer = new CSVWriter(outputfile); 
+	  
+	        // Adding header to csv 
+	        String[] header = { "Id Utilisateur",
+		    	        		"Civilité",
+		    	        		"Prénom",
+		    	        		"Nom",
+		    	        		"Identifiant",
+		    	        		"Date de naissance",
+		    	        		"Date de création",
+		    	        		"Date de modification"
+		    	        	}; 
+	        writer.writeNext(header); 
+	  
+	        for(Utilisateur user : users)
+	        {
+	        	// Add data to csv 
+    	        String[] user_info = { user.getIdUtilisateur().toString(),
+    	        						user.getCivilite(),
+    	        						user.getPrenom(),
+    	        						user.getNom(),
+    	        						user.getIdentifiant(),
+    	        						user.getDateNaissance().toString(),
+    	        						user.getDateCreation().toString(),
+    	        						user.getDateModification().toString()
+    	        					}; 
+    	        writer.writeNext(user_info); 
+	        }
+	        // closing writer connection 
+	        writer.close(); 
+	    } 
+	    catch (IOException e) { 
+	        // TODO Auto-generated catch block 
+	        e.printStackTrace(); 
+	    } 
     }
     
     /**
