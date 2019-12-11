@@ -68,6 +68,7 @@
                                         <c:forEach items="${roles}" var="item" varStatus="loop">
                                             <option value="${item.getIdRole()}" >${item.getIdentifiant()} </option>
                                         </c:forEach>
+                                        <option value="${userU.getRole().getIdRole()}" selected>${userU.getRole().getIdentifiant()} </option>
                                     </select>
                                 </div>
                             </div>
