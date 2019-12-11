@@ -53,6 +53,8 @@ public class UpdateUserServlet extends HttpServlet {
                     Utilisateur uUpdate = service.getUtilisateurDao().findUtilisateurById(u);
                     if (u == user.getIdUtilisateur() || user.getRole().getIdentifiant().equals("Administrateur")) {
                         List<Role> roles = service.getRoleDao().findAllRoles();
+                        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                        request.setAttribute("date", df.format(uUpdate.getDateNaissance()));
                         request.setAttribute("roles", roles);
                         request.setAttribute("userU",uUpdate);
                         this.getServletContext().getRequestDispatcher("/pages/crudUser/updateUser.jsp").forward(request, response);
