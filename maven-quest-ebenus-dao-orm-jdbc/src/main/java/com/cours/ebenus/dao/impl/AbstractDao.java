@@ -77,6 +77,22 @@ public abstract class AbstractDao<T> implements IDao<T> {
                         		Field roleField = myClass.getDeclaredField("role");
                         		roleField.setAccessible(true);
                         		Role r = new Role((int)value);
+                        		
+                        		/* Récup des champs de role */
+                        		Field roleIdentifiantField = r.getClass().getDeclaredField("identifiantRole");
+                        		Field roleDescriptionField = r.getClass().getDeclaredField("description");
+                        		roleIdentifiantField.setAccessible(true);
+                        		roleDescriptionField.setAccessible(true);
+                        		
+                        		DBTable annotation2 =  roleIdentifiantField.getAnnotation(DBTable.class);
+                        		DBTable annotation3 =  roleDescriptionField.getAnnotation(DBTable.class);
+                        		
+                        		Object value2 = rs.getObject(annotation2.columnName());
+        	                    Object value3 = rs.getObject(annotation3.columnName());
+                        		
+        	                    r.setIdentifiant((String) value2);
+        	                    r.setDescription((String) value3);
+        	                    
 								roleField.set(obj, r);
 							} 
                         	catch (NoSuchFieldException e) {
