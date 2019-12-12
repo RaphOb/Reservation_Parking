@@ -15,7 +15,7 @@ public class Role {
 
     @DBTable(columnName = "idRole")
     private Integer idRole;
-    @DBTable(columnName = "identifiant")
+    @DBTable(columnName = "roleIdent")
     private String identifiant;
     @DBTable(columnName = "description")
     private String description;

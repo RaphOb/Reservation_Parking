@@ -12,6 +12,7 @@ import com.cours.ebenus.dao.annotations.DBTable;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -79,7 +81,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
                         		Role r = new Role((int)value);
                         		
                         		/* Récup des champs de role */
-                        		Field roleIdentifiantField = r.getClass().getDeclaredField("identifiantRole");
+
+                                Field roleIdentifiantField = r.getClass().getDeclaredField("identifiant");
                         		Field roleDescriptionField = r.getClass().getDeclaredField("description");
                         		roleIdentifiantField.setAccessible(true);
                         		roleDescriptionField.setAccessible(true);
