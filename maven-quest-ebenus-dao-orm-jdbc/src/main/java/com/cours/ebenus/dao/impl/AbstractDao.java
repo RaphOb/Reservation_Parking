@@ -40,6 +40,79 @@ public abstract class AbstractDao<T> implements IDao<T> {
         this.myClass = myClass;
     }
 
+    public List<T> getFieldObject(ResultSet rs) throws SQLException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        List<T> objects = new ArrayList<>();
+        while (rs.next()) {
+            //Récupération de l'instance T
+            T obj = myClass.getDeclaredConstructor().newInstance();
+
+            // Parcourt de tous les fields de la class
+            for (Field field : myClass.getDeclaredFields()) {
+                //Avoir accés à la classe utilisateur meme en privé
+                field.setAccessible(true);
+
+                //Récupération de l'annotation à partir des champs déclarées dans la class T
+                DBTable annotation =  field.getAnnotation(DBTable.class);
+                log.debug("Annotation: " + annotation);
+
+                //Récupération de la valeur de la colonne spécifié dans l'annotation
+                Object value = rs.getObject(annotation.columnName());
+                log.debug("Valeur: " + value);
+
+                //Récupération du type de la valeur
+                Class<?> type = field.getType();
+                log.debug("Type: " + type);
+
+
+                if (type == Role.class) {
+
+                    try {
+                        Field roleField = myClass.getDeclaredField("role");
+                        roleField.setAccessible(true);
+                        Role r = new Role((int)value);
+
+                        /* Récup des champs de role */
+
+                        Field roleIdentifiantField = r.getClass().getDeclaredField("identifiant");
+                        Field roleDescriptionField = r.getClass().getDeclaredField("description");
+                        roleIdentifiantField.setAccessible(true);
+                        roleDescriptionField.setAccessible(true);
+
+                        DBTable annotation2 =  roleIdentifiantField.getAnnotation(DBTable.class);
+                        DBTable annotation3 =  roleDescriptionField.getAnnotation(DBTable.class);
+
+                        Object value2 = rs.getObject(annotation2.columnName());
+                        Object value3 = rs.getObject(annotation3.columnName());
+
+                        r.setIdentifiant((String) value2);
+                        r.setDescription((String) value3);
+
+                        roleField.set(obj, r);
+                    }
+                    catch (NoSuchFieldException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    field.set(obj, value);
+                }
+
+                //A quoi ça sert?
+//                        if (isPrimitive(type)) {//check primitive type
+//                            Class<?> boxed = boxPrimitiveClass(type);//box if primitive
+//                            value = boxed.cast(value);
+//                            log.debug("Valeur (primitif): " + value);
+//                        }
+
+
+            }
+            objects.add(obj);
+
+        }
+        return objects;
+    }
     @Override
     public List<T> findAll(String query) {
         List<T> objects = new ArrayList<>();
@@ -51,75 +124,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
             try {
                 prep = connection.prepareStatement(query);
                 rs = prep.executeQuery();
-                while (rs.next()) {
-                	//Récupération de l'instance T
-                    T obj = myClass.getDeclaredConstructor().newInstance();
-                    
-                    // Parcourt de tous les fields de la class
-                    for (Field field : myClass.getDeclaredFields()) {
-                        //Avoir accés à la classe utilisateur meme en privé
-	                    field.setAccessible(true);
-	                    
-	                    //Récupération de l'annotation à partir des champs déclarées dans la class T
-                        DBTable annotation =  field.getAnnotation(DBTable.class);
-                        log.debug("Annotation: " + annotation);
-                        
-                        //Récupération de la valeur de la colonne spécifié dans l'annotation
-	                    Object value = rs.getObject(annotation.columnName());
-	                    log.debug("Valeur: " + value);
-	                    
-	                    //Récupération du type de la valeur 
-                        Class<?> type = field.getType();
-                        log.debug("Type: " + type);
-                        
-                        
-                        if (type == Role.class) {
-                        	
-                        	try {
-                        		Field roleField = myClass.getDeclaredField("role");
-                        		roleField.setAccessible(true);
-                        		Role r = new Role((int)value);
-                        		
-                        		/* Récup des champs de role */
+               objects = getFieldObject(rs);
 
-                                Field roleIdentifiantField = r.getClass().getDeclaredField("identifiant");
-                        		Field roleDescriptionField = r.getClass().getDeclaredField("description");
-                        		roleIdentifiantField.setAccessible(true);
-                        		roleDescriptionField.setAccessible(true);
-                        		
-                        		DBTable annotation2 =  roleIdentifiantField.getAnnotation(DBTable.class);
-                        		DBTable annotation3 =  roleDescriptionField.getAnnotation(DBTable.class);
-                        		
-                        		Object value2 = rs.getObject(annotation2.columnName());
-        	                    Object value3 = rs.getObject(annotation3.columnName());
-                        		
-        	                    r.setIdentifiant((String) value2);
-        	                    r.setDescription((String) value3);
-        	                    
-								roleField.set(obj, r);
-							} 
-                        	catch (NoSuchFieldException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-                        }
-                        else
-                        {
-                        	field.set(obj, value);
-                        }
-                        
-                        //A quoi ça sert? 
-//                        if (isPrimitive(type)) {//check primitive type
-//                            Class<?> boxed = boxPrimitiveClass(type);//box if primitive
-//                            value = boxed.cast(value);
-//                            log.debug("Valeur (primitif): " + value);
-//                        }
-                        
-                        
-                    }
-                    objects.add(obj);
-
-                }
             } catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
