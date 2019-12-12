@@ -62,7 +62,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                         DBTable annotation =  field.getAnnotation(DBTable.class);
                         log.debug("Annotation: " + annotation);
                         
-                        //Récupération de la valeur spécifié dans l'annotation
+                        //Récupération de la valeur de la colonne spécifié dans l'annotation
 	                    Object value = rs.getObject(annotation.columnName());
 	                    log.debug("Valeur: " + value);
 	                    
@@ -70,10 +70,23 @@ public abstract class AbstractDao<T> implements IDao<T> {
                         Class<?> type = field.getType();
                         log.debug("Type: " + type);
                         
+                        
                         if (type == Role.class) {
                         	
-                        	continue;// TODO J'ai pas encore reussi custom class
-
+                        	try {
+                        		Field roleField = myClass.getDeclaredField("role");
+                        		roleField.setAccessible(true);
+                        		Role r = new Role((int)value);
+								roleField.set(obj, r);
+							} 
+                        	catch (NoSuchFieldException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                        }
+                        else
+                        {
+                        	field.set(obj, value);
                         }
                         
                         //A quoi ça sert? 
@@ -83,7 +96,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 //                            log.debug("Valeur (primitif): " + value);
 //                        }
                         
-                        field.set(obj, value);
+                        
                     }
                     objects.add(obj);
 
