@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -92,13 +93,18 @@ public class UpdateUserServlet extends HttpServlet {
         } catch (ParseException e) {
             e.getErrorOffset();
         }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE,1);
+        Date d = cal.getTime();
+
         Integer u = Integer.parseInt(request.getParameter("userU"));
         Utilisateur user = service.getUtilisateurDao().findUtilisateurById(u);
         user.setIdentifiant(email);
         user.setMotPasse(civilite);
         user.setPrenom(prenom);
         user.setNom(nom);
-        user.setDateNaissance(date);
+        user.setDateNaissance(d);
 
         Role role = service.getRoleDao().findRoleById(Integer.parseInt(idRole));
         user.setRole(role);
