@@ -25,7 +25,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public List<Role> findAllRoles() {
-    	String query = "SELECT * FROM Role;";
+    	String query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role;";
     	return super.findAll(query);
     }
 

@@ -28,7 +28,8 @@ public class Main {
         // TODO code application logic here
     	ServiceFacade s = new ServiceFacade();
     	List<Utilisateur> users =  s.getUtilisateurDao().findAllUtilisateurs();
-    	users.forEach(System.out::println);
+    	List<Role> roles = s.getRoleDao().findAllRoles();
+    	roles.forEach(System.out::println);
     	
 //    	List<Role> roles =  s.getRoleDao().findAllRoles();
 //    	roles.forEach(System.out::println);
