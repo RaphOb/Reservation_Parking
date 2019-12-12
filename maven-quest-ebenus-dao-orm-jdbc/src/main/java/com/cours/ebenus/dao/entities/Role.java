@@ -5,16 +5,21 @@
  */
 package com.cours.ebenus.dao.entities;
 
+import com.cours.ebenus.dao.annotations.DBTable;
+
 /**
  *
  * @author elhad
  */
 public class Role {
 
-    private static final long serialVersionUID = 1L;
+    @DBTable(columnName = "idRole")
     private Integer idRole;
+    @DBTable(columnName = "identifiant")
     private String identifiant;
+    @DBTable(columnName = "description")
     private String description;
+    @DBTable(columnName = "version")
     private Integer version = 0;
 
     public Role() {

@@ -13,12 +13,16 @@ import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -28,6 +32,7 @@ import java.util.List;
 public abstract class AbstractDao<T> implements IDao<T> {
 
     private Class<T> myClass = null;
+    private static final Log log = LogFactory.getLog(AbstractDao.class);
 
     public AbstractDao(Class<T> myClass) {
         this.myClass = myClass;
@@ -45,15 +50,28 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 prep = connection.prepareStatement(query);
                 rs = prep.executeQuery();
                 while (rs.next()) {
-                    T obj = myClass.newInstance();
-                    // Parcour tous les fields de la class
+                	//Récupération de l'instance T
+                    T obj = myClass.getDeclaredConstructor().newInstance();
+                    
+                    // Parcourt de tous les fields de la class
                     for (Field field : myClass.getDeclaredFields()) {
                         //Avoir accés à la classe utilisateur meme en privé
 	                    field.setAccessible(true);
-                        DBTable column =  field.getAnnotation(DBTable.class);
-	                    Object value = rs.getObject(column.columnName());
+	                    
+	                    //Récupération de l'annotation à partir des champs déclarées dans la class T
+                        DBTable annotation =  field.getAnnotation(DBTable.class);
+                        //log.debug(annotation);
+                        
+                        //Récupération de la valeur spécifié dans l'annotation
+	                    Object value = rs.getObject(annotation.columnName());
+	                    //log.debug(value);
+	                    
+	                    //Récupération du type de la valeur 
                         Class<?> type = field.getType();
+                        //log.debug(type);
+                        
                         if (type == Role.class) {
+                        	
                           continue;// TODO J'ai pas encore reussi custom class
 
                         }
@@ -61,21 +79,30 @@ public abstract class AbstractDao<T> implements IDao<T> {
                             Class<?> boxed = boxPrimitiveClass(type);//box if primitive
                             value = boxed.cast(value);
                         }
+                        
                         field.set(obj, value);
                     }
                     objects.add(obj);
 
                 }
-                for (int i = 0; i < myClass.getDeclaredFields().length; i++) {
-                    //Get each field of represented class <T>
-                    System.out.println(myClass.getDeclaredFields()[i].getType());
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
             } finally {
                 ConnectionHelper.closeSqlResources(connection, prep, rs);
             }

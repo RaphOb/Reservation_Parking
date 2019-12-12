@@ -5,6 +5,7 @@
  */
 package com.cours.ebenus.main;
 
+import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,7 +27,10 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
     	ServiceFacade s = new ServiceFacade();
-    	List<Utilisateur> user =  s.getUtilisateurDao().findAllUtilisateurs();
-    	user.forEach(System.out::println);
+    	List<Utilisateur> users =  s.getUtilisateurDao().findAllUtilisateurs();
+    	users.forEach(System.out::println);
+    	
+//    	List<Role> roles =  s.getRoleDao().findAllRoles();
+//    	roles.forEach(System.out::println);
     }
 }
