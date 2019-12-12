@@ -60,25 +60,28 @@ public abstract class AbstractDao<T> implements IDao<T> {
 	                    
 	                    //Récupération de l'annotation à partir des champs déclarées dans la class T
                         DBTable annotation =  field.getAnnotation(DBTable.class);
-                        //log.debug(annotation);
+                        log.debug("Annotation: " + annotation);
                         
                         //Récupération de la valeur spécifié dans l'annotation
 	                    Object value = rs.getObject(annotation.columnName());
-	                    //log.debug(value);
+	                    log.debug("Valeur: " + value);
 	                    
 	                    //Récupération du type de la valeur 
                         Class<?> type = field.getType();
-                        //log.debug(type);
+                        log.debug("Type: " + type);
                         
                         if (type == Role.class) {
                         	
-                          continue;// TODO J'ai pas encore reussi custom class
+                        	continue;// TODO J'ai pas encore reussi custom class
 
                         }
-                        if (isPrimitive(type)) {//check primitive type
-                            Class<?> boxed = boxPrimitiveClass(type);//box if primitive
-                            value = boxed.cast(value);
-                        }
+                        
+                        //A quoi ça sert? 
+//                        if (isPrimitive(type)) {//check primitive type
+//                            Class<?> boxed = boxPrimitiveClass(type);//box if primitive
+//                            value = boxed.cast(value);
+//                            log.debug("Valeur (primitif): " + value);
+//                        }
                         
                         field.set(obj, value);
                     }
