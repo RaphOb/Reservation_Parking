@@ -55,6 +55,8 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public boolean deleteRole(Role role) {
-        return false;
+
+        String query = "DELETE FROM Role WHERE idRole = ?";
+        return super.delete(query,role);
     }
 }
