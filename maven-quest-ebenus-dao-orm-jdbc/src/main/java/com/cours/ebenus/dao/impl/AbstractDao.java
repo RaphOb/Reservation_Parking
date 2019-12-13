@@ -53,15 +53,15 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
                 //Récupération de l'annotation à partir des champs déclarées dans la class T
                 DBTable annotation =  field.getAnnotation(DBTable.class);
-                log.debug("Annotation: " + annotation);
+//                log.debug("Annotation: " + annotation);
 
                 //Récupération de la valeur de la colonne spécifié dans l'annotation
                 Object value = rs.getObject(annotation.columnName());
-                log.debug("Valeur: " + value);
+//                log.debug("Valeur: " + value);
 
                 //Récupération du type de la valeur
                 Class<?> type = field.getType();
-                log.debug("Type: " + type);
+//                log.debug("Type: " + type);
 
 
                 if (type == Role.class) {
@@ -113,8 +113,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
         }
         return objects;
     }
-    @Override
-    public List<T> findAll(String query) {
+
+    public <E>List<T> getQuery(String query,E param) {
         List<T> objects = new ArrayList<>();
         Connection connection;
         try {
@@ -123,27 +123,30 @@ public abstract class AbstractDao<T> implements IDao<T> {
             ResultSet rs = null;
             try {
                 prep = connection.prepareStatement(query);
+                if (param != null) {
+                    prep.setObject(1,param);
+                }
                 rs = prep.executeQuery();
-               objects = getFieldObject(rs);
+                objects = getFieldObject(rs);
 
             } catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }catch (InstantiationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             } finally {
                 ConnectionHelper.closeSqlResources(connection, prep, rs);
             }
@@ -151,10 +154,16 @@ public abstract class AbstractDao<T> implements IDao<T> {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-
         return objects;
     }
 
+    //SI jamais type primitif prochaines etapes
+    public static boolean isPrimitive(Class<?> type) {
+        return (type == int.class || type == long.class || type == double.class || type == float.class
+                || type == boolean.class || type == byte.class || type == char.class || type == short.class);
+    }
+
+    //SI jamais on a type primitif plus tard
     public static Class<?> boxPrimitiveClass(Class<?> type) {
         if (type == int.class) {
             return Integer.class;
@@ -178,14 +187,21 @@ public abstract class AbstractDao<T> implements IDao<T> {
         }
     }
 
-    public static boolean isPrimitive(Class<?> type) {
-        return (type == int.class || type == long.class || type == double.class || type == float.class
-                || type == boolean.class || type == byte.class || type == char.class || type == short.class);
+    @Override
+    public List<T> findAll(String query) {
+        Integer i = null;
+        return getQuery(query,i);
     }
+
+
 
     @Override
     public T findById(String query, int id) {
-        return null;
+        if(!getQuery(query,id).isEmpty()) {
+            return getQuery(query, id).get(0);
+        } else {
+            return null;
+        }
     }
 
     @Override
