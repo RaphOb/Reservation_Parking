@@ -44,7 +44,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
                 "where Utilisateur.prenom= ? ";
-        return super.findByCriteria(query, prenom, Utilisateur.class);
+        return super.findByCriteria(query, prenom);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where Utilisateur.nom= ? ";
-    	return super.findByCriteria(query, nom, Utilisateur.class);
+    	return super.findByCriteria(query, nom);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where Utilisateur.identifiant= ? ";
-    	return super.findByCriteria(query, identifiant, Utilisateur.class);
+    	return super.findByCriteria(query, identifiant);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where r.idRole= ? ";
-    	return super.findByCriteria(query, Integer.toString(idRole), Utilisateur.class);
+    	return super.findByCriteria(query, Integer.toString(idRole));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                 "left join Role r on r.idRole = Utilisateur.idRole " +
                 "where r.identifiant= ? ";
-    	return super.findByCriteria(query, identifiantRole, Utilisateur.class);
+    	return super.findByCriteria(query, identifiantRole);
     }
 
     @Override

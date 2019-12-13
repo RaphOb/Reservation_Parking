@@ -31,12 +31,16 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public Role findRoleById(int idRole) {
-        return null;
+        String query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
+                " WHERE idRole = ?;";
+        return super.findById(query,idRole);
     }
 
     @Override
     public List<Role> findRoleByIdentifiant(String identifiantRole) {
-        return null;
+        String query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
+                " WHERE identifiant = ?;";
+        return super.findByCriteria(query,identifiantRole);
     }
 
     @Override

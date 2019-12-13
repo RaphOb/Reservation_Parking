@@ -99,7 +99,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     field.set(obj, value);
                 }
 
-                //A quoi ça sert?
+                //A quoi ça sert? Si Type primitif
 //                        if (isPrimitive(type)) {//check primitive type
 //                            Class<?> boxed = boxPrimitiveClass(type);//box if primitive
 //                            value = boxed.cast(value);
@@ -129,22 +129,9 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 rs = prep.executeQuery();
                 objects = getFieldObject(rs);
 
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }catch (InstantiationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (IllegalArgumentException | InvocationTargetException
+                    | NoSuchMethodException | SecurityException
+                    | InstantiationException | IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             } finally {
@@ -197,16 +184,22 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public T findById(String query, int id) {
-        if(!getQuery(query,id).isEmpty()) {
-            return getQuery(query, id).get(0);
+        List<T> obj = getQuery(query, id);
+        if(!obj.isEmpty()) {
+            return obj.get(0);
         } else {
             return null;
         }
     }
 
-    @Override
-    public List<T> findByCriteria(String query, String criteria, Object valueCriteria) {
-        return null;
+
+    public List<T> findByCriteria(String query, String criteria) {
+        List<T> obj = getQuery(query,criteria);
+        if(!obj.isEmpty()) {
+            return obj;
+        } else {
+            return null;
+        }
     }
 
     @Override

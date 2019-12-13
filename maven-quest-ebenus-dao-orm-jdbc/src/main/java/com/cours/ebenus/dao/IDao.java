@@ -17,7 +17,7 @@ public interface IDao<T> {
 
     public T findById(String query, int id);
 
-    public List<T> findByCriteria(String query, String criteria, Object valueCriteria);
+    public List<T> findByCriteria(String query, String criteria);
 
     public T create(String query, T t);
 
