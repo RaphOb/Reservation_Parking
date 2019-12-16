@@ -30,7 +30,11 @@ public class Main {
     	
     	Utilisateur user = s.getUtilisateurDao().findUtilisateurById(6);
     	System.out.println(user);
-    	s.getUtilisateurDao().deleteUtilisateur(user);
+    	s.getUtilisateurDao().updateUtilisateur(user);
+    	
+//    	s.getUtilisateurDao().deleteUtilisateur(user);
+    	
+    	
     	
 //    	List<Utilisateur> users =  s.getUtilisateurDao().findUtilisateursByPrenom("Eric");
 //    	users.forEach(System.out::println);

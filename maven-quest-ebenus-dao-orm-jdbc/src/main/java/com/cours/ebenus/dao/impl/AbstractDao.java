@@ -153,6 +153,31 @@ public abstract class AbstractDao<T> implements IDao<T> {
         }
         return objects;
     }
+    
+    
+    public void applyQueryFromParameters(String query, List<Object> params) {
+        Connection connection = null;
+        try {
+			connection = DataSourceSingleton.getInstance().getConnection();
+            PreparedStatement prep = null;
+			prep = connection.prepareStatement(query);
+            if (params != null && !params.isEmpty()) {
+            	//Prépare la requête 
+            	int cpt = 1;
+            	for (Object param : params)
+            	{
+            		//Pour chaque paramètre
+					prep.setObject(cpt, param);
+            		cpt ++;
+            	}
+            }
+        }
+        catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
 
     //SI jamais type primitif prochaines etapes
     public static boolean isPrimitive(Class<?> type) {
@@ -218,7 +243,40 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public T update(String query, T t) {
-        return null;
+    	Field[] fields = t.getClass().getDeclaredFields();
+    	
+		try {
+			List<Object> parameters = new ArrayList<Object>();
+			//Build only necessary parameters
+			if (t.getClass() == Utilisateur.class)
+			{
+				//Builds Parameters for Utilisateur query
+				for(Field field : fields)
+				{
+					//Role, civilité, nom, prénom, identifiant, motPasse, dateModif, idUtilisateur
+					field.setAccessible(true);
+					System.out.println(field);
+					parameters.add(field.get(t));
+				}
+			}
+			else if(t.getClass() == Role.class)
+			{
+				//Builds Parameters for Role query
+				for(Field field : fields)
+				{
+					//Identifiant, description, idRole
+					field.setAccessible(true);
+					System.out.println(field);
+					parameters.add(field.get(t));
+				}
+			}
+			//applyQueryFromParameters(query, parameters);
+			
+		} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
     }
 
     
@@ -235,18 +293,19 @@ public abstract class AbstractDao<T> implements IDao<T> {
 			{
 				field = t.getClass().getDeclaredField("idRole");
 			}
-			
 			field.setAccessible(true);
-    		try {
-				applyQueryFromParameter(query, field.get(t));
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			applyQueryFromParameter(query, field.get(t));
+			
 		} catch (NoSuchFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
