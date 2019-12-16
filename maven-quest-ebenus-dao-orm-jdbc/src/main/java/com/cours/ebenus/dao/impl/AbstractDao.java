@@ -114,7 +114,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
         return objects;
     }
 
-    public <E>List<T> getQuery(String query,E param) {
+    public <E>List<T> applyQueryFromParameter(String query, E param) {
         List<T> objects = new ArrayList<>();
         Connection connection;
         try {
@@ -124,11 +124,21 @@ public abstract class AbstractDao<T> implements IDao<T> {
             try {
                 prep = connection.prepareStatement(query);
                 if (param != null) {
-                    prep.setObject(1,param);
+                    prep.setObject(1, param);
                 }
-                rs = prep.executeQuery();
-                objects = getFieldObject(rs);
-
+                
+                //Check start of sql request
+                if (query.startsWith("UPDATE") || query.startsWith("DELETE") || query.startsWith("INSERT"))
+                {
+                	prep.executeUpdate();
+                }
+                else
+                {
+                	rs = prep.executeQuery();
+                	objects = getFieldObject(rs);
+                }
+                
+                
             } catch (IllegalArgumentException | InvocationTargetException
                     | NoSuchMethodException | SecurityException
                     | InstantiationException | IllegalAccessException e) {
@@ -176,15 +186,14 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public List<T> findAll(String query) {
-        Integer i = null;
-        return getQuery(query,i);
+        return applyQueryFromParameter(query, null);
     }
 
 
 
     @Override
     public T findById(String query, int id) {
-        List<T> obj = getQuery(query, id);
+        List<T> obj = applyQueryFromParameter(query, id);
         if(!obj.isEmpty()) {
             return obj.get(0);
         } else {
@@ -194,7 +203,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     public List<T> findByCriteria(String query, String criteria) {
-        List<T> obj = getQuery(query,criteria);
+        List<T> obj = applyQueryFromParameter(query, criteria);
         if(!obj.isEmpty()) {
             return obj;
         } else {
@@ -212,8 +221,35 @@ public abstract class AbstractDao<T> implements IDao<T> {
         return null;
     }
 
+    
     @Override
     public boolean delete(String query, T t) {
+    	Field field = null;
+		try {
+			//Detect which class work with and find field
+			if (t.getClass() == Utilisateur.class)
+			{
+				field = t.getClass().getDeclaredField("idUtilisateur");
+			}
+			else if(t.getClass() == Role.class)
+			{
+				field = t.getClass().getDeclaredField("idRole");
+			}
+			
+			field.setAccessible(true);
+    		try {
+				applyQueryFromParameter(query, field.get(t));
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
         return false;
     }
 }

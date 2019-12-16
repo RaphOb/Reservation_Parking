@@ -27,13 +27,25 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
     	ServiceFacade s = new ServiceFacade();
-    	List<Utilisateur> users =  s.getUtilisateurDao().findUtilisateursByPrenom("Eric");
-    	Utilisateur user = s.getUtilisateurDao().findUtilisateurById(2);
-    	List<Role> roles = s.getRoleDao().findRoleByIdentifiant("Directeur");
-        users.forEach(System.out::println);
-//        System.out.println(user);
     	
-//    	List<Role> roles =  s.getRoleDao().findAllRoles();
-//    	roles.forEach(System.out::println);
+    	Utilisateur user = s.getUtilisateurDao().findUtilisateurById(6);
+    	System.out.println(user);
+    	s.getUtilisateurDao().deleteUtilisateur(user);
+    	
+//    	List<Utilisateur> users =  s.getUtilisateurDao().findUtilisateursByPrenom("Eric");
+//    	users.forEach(System.out::println);
+    	
+    	
+//    	List<Utilisateur> users2 =  s.getUtilisateurDao().findAllUtilisateurs();
+//    	
+//    	List<Role> roles = s.getRoleDao().findRoleByIdentifiant("Directeur");
+//    	List<Role> roles2 = s.getRoleDao().findAllRoles();
+    	
+    	
+    	
+//    	users.forEach(System.out::println);
+//        roles.forEach(System.out::println);
+//        roles2.forEach(System.out::println);
+    	
     }
 }
