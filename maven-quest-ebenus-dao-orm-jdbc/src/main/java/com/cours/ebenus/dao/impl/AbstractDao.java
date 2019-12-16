@@ -170,6 +170,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 					prep.setObject(cpt, param);
             		cpt ++;
             	}
+            	prep.executeUpdate();
             }
         }
         catch (SQLException e) {
@@ -243,36 +244,63 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public T update(String query, T t) {
-    	Field[] fields = t.getClass().getDeclaredFields();
     	
 		try {
 			List<Object> parameters = new ArrayList<Object>();
 			//Build only necessary parameters
 			if (t.getClass() == Utilisateur.class)
 			{
-				//Builds Parameters for Utilisateur query
-				for(Field field : fields)
-				{
-					//Role, civilité, nom, prénom, identifiant, motPasse, dateModif, idUtilisateur
-					field.setAccessible(true);
-					System.out.println(field);
-					parameters.add(field.get(t));
-				}
+				
+				Field role = t.getClass().getDeclaredField("role");
+				Field civilite = t.getClass().getDeclaredField("civilite");
+				Field prenom = t.getClass().getDeclaredField("prenom");
+				Field nom = t.getClass().getDeclaredField("nom");
+				Field identifiant = t.getClass().getDeclaredField("identifiant");
+				Field motPasse = t.getClass().getDeclaredField("motPasse");
+				Field dateModif = t.getClass().getDeclaredField("dateModification");
+				Field idUtilisateur = t.getClass().getDeclaredField("idUtilisateur");
+				
+				role.setAccessible(true);
+				System.out.println(role.get(t).getClass());
+				Field roleID = role.get(t).getClass().getDeclaredField("idRole");
+				
+				roleID.setAccessible(true);
+				civilite.setAccessible(true);
+				prenom.setAccessible(true);
+				nom.setAccessible(true);
+				identifiant.setAccessible(true);
+				motPasse.setAccessible(true);
+				dateModif.setAccessible(true);
+				idUtilisateur.setAccessible(true);
+				
+				parameters.add(roleID.get(role.get(t)));
+				parameters.add(civilite.get(t));
+				parameters.add(prenom.get(t));
+				parameters.add(nom.get(t));
+				parameters.add(identifiant.get(t));
+				parameters.add(motPasse.get(t));
+				parameters.add(dateModif.get(t));
+				parameters.add(idUtilisateur.get(t));
+				
 			}
 			else if(t.getClass() == Role.class)
 			{
-				//Builds Parameters for Role query
-				for(Field field : fields)
-				{
-					//Identifiant, description, idRole
-					field.setAccessible(true);
-					System.out.println(field);
-					parameters.add(field.get(t));
-				}
+				Field identifiant = t.getClass().getDeclaredField("identifiant");
+				Field description = t.getClass().getDeclaredField("description");
+				Field idRole = t.getClass().getDeclaredField("idRole");
+				
+				identifiant.setAccessible(true);
+				description.setAccessible(true);
+				idRole.setAccessible(true);
+				
+				parameters.add(identifiant.get(t));
+				parameters.add(description.get(t));
+				parameters.add(idRole.get(t));
 			}
-			//applyQueryFromParameters(query, parameters);
 			
-		} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			applyQueryFromParameters(query, parameters);
+			
+		} catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

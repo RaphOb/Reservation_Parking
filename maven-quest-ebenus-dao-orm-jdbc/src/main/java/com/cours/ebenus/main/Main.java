@@ -29,27 +29,16 @@ public class Main {
     	ServiceFacade s = new ServiceFacade();
     	
     	Utilisateur user = s.getUtilisateurDao().findUtilisateurById(6);
-    	System.out.println(user);
-    	s.getUtilisateurDao().updateUtilisateur(user);
+    	Role role = s.getRoleDao().findRoleById(1);
+    	
+//    	role.setDescription("Le rôle administrateur");
+//    	s.getRoleDao().updateRole(role);
+//    	
+//    	user.setPrenom("Jimmy");
+//    	s.getUtilisateurDao().updateUtilisateur(user);
     	
 //    	s.getUtilisateurDao().deleteUtilisateur(user);
     	
-    	
-    	
-//    	List<Utilisateur> users =  s.getUtilisateurDao().findUtilisateursByPrenom("Eric");
-//    	users.forEach(System.out::println);
-    	
-    	
-//    	List<Utilisateur> users2 =  s.getUtilisateurDao().findAllUtilisateurs();
-//    	
-//    	List<Role> roles = s.getRoleDao().findRoleByIdentifiant("Directeur");
-//    	List<Role> roles2 = s.getRoleDao().findAllRoles();
-    	
-    	
-    	
-//    	users.forEach(System.out::println);
-//        roles.forEach(System.out::println);
-//        roles2.forEach(System.out::println);
     	
     }
 }
