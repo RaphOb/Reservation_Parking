@@ -15,6 +15,8 @@ import com.cours.ebenus.dao.entities.Utilisateur;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,7 +54,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 field.setAccessible(true);
 
                 //Récupération de l'annotation à partir des champs déclarées dans la class T
-                DBTable annotation =  field.getAnnotation(DBTable.class);
+                DBTable annotation = field.getAnnotation(DBTable.class);
 //                log.debug("Annotation: " + annotation);
 
                 //Récupération de la valeur de la colonne spécifié dans l'annotation
@@ -69,7 +71,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     try {
                         Field roleField = myClass.getDeclaredField("role");
                         roleField.setAccessible(true);
-                        Role r = new Role((int)value);
+                        Role r = new Role((int) value);
 
                         /* Récup des champs de role */
 
@@ -78,8 +80,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
                         roleIdentifiantField.setAccessible(true);
                         roleDescriptionField.setAccessible(true);
 
-                        DBTable annotation2 =  roleIdentifiantField.getAnnotation(DBTable.class);
-                        DBTable annotation3 =  roleDescriptionField.getAnnotation(DBTable.class);
+                        DBTable annotation2 = roleIdentifiantField.getAnnotation(DBTable.class);
+                        DBTable annotation3 = roleDescriptionField.getAnnotation(DBTable.class);
 
                         Object value2 = rs.getObject(annotation2.columnName());
                         Object value3 = rs.getObject(annotation3.columnName());
@@ -88,14 +90,11 @@ public abstract class AbstractDao<T> implements IDao<T> {
                         r.setDescription((String) value3);
 
                         roleField.set(obj, r);
-                    }
-                    catch (NoSuchFieldException e) {
+                    } catch (NoSuchFieldException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                }
-                else
-                {
+                } else {
                     field.set(obj, value);
                 }
 
@@ -114,7 +113,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
         return objects;
     }
 
-    public <E>List<T> applyQueryFromParameter(String query, E param) {
+    public <E> List<T> applyQueryFromParameter(String query, E param) {
         List<T> objects = new ArrayList<>();
         Connection connection;
         try {
@@ -126,19 +125,16 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 if (param != null) {
                     prep.setObject(1, param);
                 }
-                
+
                 //Check start of sql request
-                if (query.startsWith("UPDATE") || query.startsWith("DELETE") || query.startsWith("INSERT"))
-                {
-                	prep.executeUpdate();
+                if (query.startsWith("UPDATE") || query.startsWith("DELETE") || query.startsWith("INSERT")) {
+                    prep.executeUpdate();
+                } else {
+                    rs = prep.executeQuery();
+                    objects = getFieldObject(rs);
                 }
-                else
-                {
-                	rs = prep.executeQuery();
-                	objects = getFieldObject(rs);
-                }
-                
-                
+
+
             } catch (IllegalArgumentException | InvocationTargetException
                     | NoSuchMethodException | SecurityException
                     | InstantiationException | IllegalAccessException e) {
@@ -153,32 +149,30 @@ public abstract class AbstractDao<T> implements IDao<T> {
         }
         return objects;
     }
-    
-    
+
+
     public void applyQueryFromParameters(String query, List<Object> params) {
         Connection connection = null;
         try {
-			connection = DataSourceSingleton.getInstance().getConnection();
+            connection = DataSourceSingleton.getInstance().getConnection();
             PreparedStatement prep = null;
-			prep = connection.prepareStatement(query);
+            prep = connection.prepareStatement(query);
             if (params != null && !params.isEmpty()) {
-            	//Prépare la requête 
-            	int cpt = 1;
-            	for (Object param : params)
-            	{
-            		//Pour chaque paramètre
-					prep.setObject(cpt, param);
-            		cpt ++;
-            	}
-            	prep.executeUpdate();
+                //Prépare la requête
+                int cpt = 1;
+                for (Object param : params) {
+                    //Pour chaque paramètre
+                    prep.setObject(cpt, param);
+                    cpt++;
+                }
+                prep.executeUpdate();
             }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
-    
+
 
     //SI jamais type primitif prochaines etapes
     public static boolean isPrimitive(Class<?> type) {
@@ -211,16 +205,33 @@ public abstract class AbstractDao<T> implements IDao<T> {
     }
 
     @Override
-    public List<T> findAll(String query) {
+    public List<T> findAll() {
+        String query = null;
+        if (myClass.getName().equals(Utilisateur.class.getName())) {
+            query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description " +
+                    "FROM Utilisateur " +
+                    "LEFT JOIN Role r on r.idRole= Utilisateur.idRole";
+        } else if (myClass.getName().equals(Role.class.getName())) {
+            query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role;";
+        }
         return applyQueryFromParameter(query, null);
     }
 
 
-
     @Override
-    public T findById(String query, int id) {
+    public T findById(int id) {
+        String query = null;
+        if (myClass.getName().equals(Utilisateur.class.getName())) {
+            query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
+                    "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
+                    "where Utilisateur.idUtilisateur = ? ";
+        } else if (myClass.getName().equals(Role.class.getName())) {
+            query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
+                    " WHERE idRole = ?;";
+        }
+
         List<T> obj = applyQueryFromParameter(query, id);
-        if(!obj.isEmpty()) {
+        if (!obj.isEmpty()) {
             return obj.get(0);
         } else {
             return null;
@@ -228,9 +239,23 @@ public abstract class AbstractDao<T> implements IDao<T> {
     }
 
 
-    public List<T> findByCriteria(String query, String criteria) {
+    public List<T> findByCriteria(Object ob, String criteria) {
+        String query = null;
+        if (myClass.getName().equals(Utilisateur.class.getName())) {
+            query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
+                    "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
+                    "where ";
+            System.out.println(ob.toString());
+            String[] fieldNames = ob.toString().split("\\.");
+            query += fieldNames[fieldNames.length - 2] + "." + fieldNames[fieldNames.length - 1]
+                    + " = ?";
+            System.out.println(query);
+
+
+        } else if (myClass.getName().equals(Role.class.getName())) {
+        }
         List<T> obj = applyQueryFromParameter(query, criteria);
-        if(!obj.isEmpty()) {
+        if (!obj.isEmpty()) {
             return obj;
         } else {
             return null;
@@ -244,99 +269,93 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public T update(String query, T t) {
-    	
-		try {
-			List<Object> parameters = new ArrayList<Object>();
-			//Build only necessary parameters
-			if (t.getClass() == Utilisateur.class)
-			{
-				
-				Field role = t.getClass().getDeclaredField("role");
-				Field civilite = t.getClass().getDeclaredField("civilite");
-				Field prenom = t.getClass().getDeclaredField("prenom");
-				Field nom = t.getClass().getDeclaredField("nom");
-				Field identifiant = t.getClass().getDeclaredField("identifiant");
-				Field motPasse = t.getClass().getDeclaredField("motPasse");
-				Field dateModif = t.getClass().getDeclaredField("dateModification");
-				Field idUtilisateur = t.getClass().getDeclaredField("idUtilisateur");
-				
-				role.setAccessible(true);
-				System.out.println(role.get(t).getClass());
-				Field roleID = role.get(t).getClass().getDeclaredField("idRole");
-				
-				roleID.setAccessible(true);
-				civilite.setAccessible(true);
-				prenom.setAccessible(true);
-				nom.setAccessible(true);
-				identifiant.setAccessible(true);
-				motPasse.setAccessible(true);
-				dateModif.setAccessible(true);
-				idUtilisateur.setAccessible(true);
-				
-				parameters.add(roleID.get(role.get(t)));
-				parameters.add(civilite.get(t));
-				parameters.add(prenom.get(t));
-				parameters.add(nom.get(t));
-				parameters.add(identifiant.get(t));
-				parameters.add(motPasse.get(t));
-				parameters.add(dateModif.get(t));
-				parameters.add(idUtilisateur.get(t));
-				
-			}
-			else if(t.getClass() == Role.class)
-			{
-				Field identifiant = t.getClass().getDeclaredField("identifiant");
-				Field description = t.getClass().getDeclaredField("description");
-				Field idRole = t.getClass().getDeclaredField("idRole");
-				
-				identifiant.setAccessible(true);
-				description.setAccessible(true);
-				idRole.setAccessible(true);
-				
-				parameters.add(identifiant.get(t));
-				parameters.add(description.get(t));
-				parameters.add(idRole.get(t));
-			}
-			
-			applyQueryFromParameters(query, parameters);
-			
-		} catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+
+        try {
+            List<Object> parameters = new ArrayList<Object>();
+            //Build only necessary parameters
+            if (t.getClass() == Utilisateur.class) {
+
+                Field role = t.getClass().getDeclaredField("role");
+                Field civilite = t.getClass().getDeclaredField("civilite");
+                Field prenom = t.getClass().getDeclaredField("prenom");
+                Field nom = t.getClass().getDeclaredField("nom");
+                Field identifiant = t.getClass().getDeclaredField("identifiant");
+                Field motPasse = t.getClass().getDeclaredField("motPasse");
+                Field dateModif = t.getClass().getDeclaredField("dateModification");
+                Field idUtilisateur = t.getClass().getDeclaredField("idUtilisateur");
+
+                role.setAccessible(true);
+                System.out.println(role.get(t).getClass());
+                Field roleID = role.get(t).getClass().getDeclaredField("idRole");
+
+                roleID.setAccessible(true);
+                civilite.setAccessible(true);
+                prenom.setAccessible(true);
+                nom.setAccessible(true);
+                identifiant.setAccessible(true);
+                motPasse.setAccessible(true);
+                dateModif.setAccessible(true);
+                idUtilisateur.setAccessible(true);
+
+                parameters.add(roleID.get(role.get(t)));
+                parameters.add(civilite.get(t));
+                parameters.add(prenom.get(t));
+                parameters.add(nom.get(t));
+                parameters.add(identifiant.get(t));
+                parameters.add(motPasse.get(t));
+                parameters.add(dateModif.get(t));
+                parameters.add(idUtilisateur.get(t));
+
+            } else if (t.getClass() == Role.class) {
+                Field identifiant = t.getClass().getDeclaredField("identifiant");
+                Field description = t.getClass().getDeclaredField("description");
+                Field idRole = t.getClass().getDeclaredField("idRole");
+
+                identifiant.setAccessible(true);
+                description.setAccessible(true);
+                idRole.setAccessible(true);
+
+                parameters.add(identifiant.get(t));
+                parameters.add(description.get(t));
+                parameters.add(idRole.get(t));
+            }
+
+            applyQueryFromParameters(query, parameters);
+
+        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchFieldException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    
+
     @Override
     public boolean delete(String query, T t) {
-    	Field field = null;
-		try {
-			//Detect which class work with and find field
-			if (t.getClass() == Utilisateur.class)
-			{
-				field = t.getClass().getDeclaredField("idUtilisateur");
-			}
-			else if(t.getClass() == Role.class)
-			{
-				field = t.getClass().getDeclaredField("idRole");
-			}
-			field.setAccessible(true);
-			applyQueryFromParameter(query, field.get(t));
-			
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+        Field field = null;
+        try {
+            //Detect which class work with and find field
+            if (t.getClass() == Utilisateur.class) {
+                field = t.getClass().getDeclaredField("idUtilisateur");
+            } else if (t.getClass() == Role.class) {
+                field = t.getClass().getDeclaredField("idRole");
+            }
+            field.setAccessible(true);
+            applyQueryFromParameter(query, field.get(t));
+
+        } catch (NoSuchFieldException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return false;
     }
 }

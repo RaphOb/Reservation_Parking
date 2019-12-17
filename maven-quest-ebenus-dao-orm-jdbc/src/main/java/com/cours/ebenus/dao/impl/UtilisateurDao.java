@@ -25,50 +25,56 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public List<Utilisateur> findAllUtilisateurs() {
-    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description " +
-                "FROM Utilisateur " +
-                "LEFT JOIN Role r on r.idRole= Utilisateur.idRole";
-    	return super.findAll(query);
+    	return super.findAll();
     }
 
     @Override
     public Utilisateur findUtilisateurById(int idUtilisateur) {
-    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
-                "where Utilisateur.idUtilisateur = ? ";
-        return super.findById(query, idUtilisateur);
+        return super.findById(idUtilisateur);
     }
 
     @Override
     public List<Utilisateur> findUtilisateursByPrenom(String prenom) {
-    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
-                "where Utilisateur.prenom= ? ";
-        return super.findByCriteria(query, prenom);
+        Object obj = null;
+        try {
+            obj = Utilisateur.class.getDeclaredField("prenom");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return super.findByCriteria(obj, prenom);
     }
 
     @Override
     public List<Utilisateur> findUtilisateursByNom(String nom) {
-    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                "left join Role r on r.idRole = Utilisateur.idRole " +
-                "where Utilisateur.nom= ? ";
-    	return super.findByCriteria(query, nom);
+        Object obj = null;
+        try {
+            obj = Utilisateur.class.getDeclaredField("nom");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    	return super.findByCriteria(obj, nom);
     }
 
     @Override
     public List<Utilisateur> findUtilisateurByIdentifiant(String identifiant) {
-    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                "left join Role r on r.idRole = Utilisateur.idRole " +
-                "where Utilisateur.identifiant= ? ";
-    	return super.findByCriteria(query, identifiant);
+        Object obj = null;
+        try {
+            obj = Utilisateur.class.getDeclaredField("identifiant");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    	return super.findByCriteria(obj, identifiant);
     }
 
     @Override
     public List<Utilisateur> findUtilisateursByIdRole(int idRole) {
-    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                "left join Role r on r.idRole = Utilisateur.idRole " +
-                "where r.idRole= ? ";
-    	return super.findByCriteria(query, Integer.toString(idRole));
+        Object obj = null;
+        try {
+            obj = Utilisateur.class.getDeclaredField("role");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    	return super.findByCriteria(obj, Integer.toString(idRole));
     }
 
     @Override

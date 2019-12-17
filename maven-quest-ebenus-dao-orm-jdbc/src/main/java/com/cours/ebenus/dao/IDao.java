@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface IDao<T> {
 
-    public List<T> findAll(String query);
+    public List<T> findAll();
 
-    public T findById(String query, int id);
+    public T findById(int id);
 
-    public List<T> findByCriteria(String query, String criteria);
+    public List<T> findByCriteria(Object object, String criteria);
 
     public T create(String query, T t);
 
