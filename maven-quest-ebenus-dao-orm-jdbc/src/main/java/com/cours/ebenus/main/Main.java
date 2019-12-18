@@ -27,14 +27,37 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
     	ServiceFacade s = new ServiceFacade();
-    	List<Role>ros = s.getRoleDao().findAllRoles();
-    	List<Utilisateur> us = s.getUtilisateurDao().findUtilisateursByPrenom("raph");
+    	
+    	List<Utilisateur> u = s.getUtilisateurDao().findAllUtilisateurs();
+    	List<Utilisateur> u2 = s.getUtilisateurDao().findUtilisateurByIdentifiant("nicolas.berger@gmail.com");
+    	
+    	List<Utilisateur> u3 = s.getUtilisateurDao().findUtilisateursByNom("Berger");
+		List<Utilisateur> u4 = s.getUtilisateurDao().findUtilisateursByPrenom("Nicolas");
+		List<Utilisateur> u5 = s.getUtilisateurDao().findUtilisateursByIdRole(1);
+		List<Utilisateur> u6 = s.getUtilisateurDao().findUtilisateursByIdentifiantRole("Administrateur");
+		
+//    	Utilisateur u7 = s.getUtilisateurDao().findUtilisateurById(14);
+		
+    	System.out.println("1");
+    	u.forEach(System.out::println);
+    	System.out.println("2");
+    	u2.forEach(System.out::println);
+    	System.out.println("3");
+    	u3.forEach(System.out::println);
+    	System.out.println("4");
+    	u4.forEach(System.out::println);
+    	System.out.println("5");
+    	u5.forEach(System.out::println);
+    	System.out.println("6");
+    	u6.forEach(System.out::println);
+//    	System.out.println(u7.toString());
+    	
+    	
 //    	us.forEach(System.out::println);
 //        ros.forEach(System.out::println);
 //        List<Utilisateur> u = s.getUtilisateurDao().findUtilisateursByIdRole(1);
 //        Role r = s.getRoleDao().findRoleById(1);
 //        System.out.println(r.getDescription());
-        us.forEach(item->System.out.println(item.getNom()));
 
 //    	Utilisateur user = s.getUtilisateurDao().findUtilisateurById(6);
 //    	Role role = s.getRoleDao().findRoleById(1);

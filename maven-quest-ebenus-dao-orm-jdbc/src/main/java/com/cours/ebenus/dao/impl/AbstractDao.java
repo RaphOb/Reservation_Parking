@@ -244,12 +244,16 @@ public abstract class AbstractDao<T> implements IDao<T> {
         if (myClass.getName().equals(Utilisateur.class.getName())) {
             query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                     "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
-                    "where ";
-            System.out.println(ob.toString());
+                    "WHERE ";
+            
+            DBTable annotation = ((Field) ob).getAnnotation(DBTable.class);
+            String columnName = annotation.columnName();
+            
             String[] fieldNames = ob.toString().split("\\.");
-            query += fieldNames[fieldNames.length - 2] + "." + fieldNames[fieldNames.length - 1]
+            
+            query += fieldNames[fieldNames.length - 2] + "." + columnName
                     + " = ?";
-            System.out.println(query);
+            System.out.println("FINAL QUERY : " + query);
 
 
         } else if (myClass.getName().equals(Role.class.getName())) {

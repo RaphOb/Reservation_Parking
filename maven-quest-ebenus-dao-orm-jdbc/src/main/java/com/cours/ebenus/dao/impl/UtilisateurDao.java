@@ -79,10 +79,19 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public List<Utilisateur> findUtilisateursByIdentifiantRole(String identifiantRole) {
-    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                "left join Role r on r.idRole = Utilisateur.idRole " +
-                "where r.identifiant= ? ";
-    	return super.findByCriteria(query, identifiantRole);
+    	
+    	Object obj = null;
+        try {
+            obj = Utilisateur.class.getDeclaredField("role");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    	return super.findByCriteria(obj, identifiantRole);
+    	
+//    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
+//                "left join Role r on r.idRole = Utilisateur.idRole " +
+//                "where r.identifiant= ? ";
+//    	return super.findByCriteria(query, identifiantRole);
     }
 
     @Override
