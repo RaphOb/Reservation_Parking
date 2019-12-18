@@ -251,11 +251,21 @@ public abstract class AbstractDao<T> implements IDao<T> {
             DBTable annotation = ((Field) ob).getAnnotation(DBTable.class);
             String columnName = annotation.columnName();
             
-            query += myClass.getSimpleName() + "." + columnName
-                    + " = ?";
+            if (columnName.equals("roleIdent"))
+            {
+            	query += "r." + "identifiant" + " = ?";
+            	
+            }
+            else
+            {
+            	query += myClass.getSimpleName() + "." + columnName + " = ?";
+            }
+            
             System.out.println("FINAL QUERY : " + query);
             
         } else if (myClass.getName().equals(Role.class.getName())) {
+        
+        	System.out.println("TEST");
         	
         }
         List<T> obj = applyQueryFromParameter(query, criteria);

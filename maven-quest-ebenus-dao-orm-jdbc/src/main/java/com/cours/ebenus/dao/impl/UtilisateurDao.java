@@ -6,6 +6,7 @@
 package com.cours.ebenus.dao.impl;
 
 import com.cours.ebenus.dao.IUtilisateurDao;
+import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -82,7 +83,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     	
     	Object obj = null;
         try {
-            obj = Utilisateur.class.getDeclaredField("role");
+            obj = Role.class.getDeclaredField("identifiant");
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
