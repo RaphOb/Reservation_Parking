@@ -1,12 +1,7 @@
 package com.cours.ebenus.dao.test;
 
 import com.cours.ebenus.dao.DataSourceSingleton;
-import com.cours.ebenus.dao.DriverManagerSingleton;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//import com.cours.ebenus.dao.DriverManagerSingleton;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.exception.EbenusException;
