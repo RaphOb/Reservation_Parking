@@ -35,9 +35,13 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public List<Role> findRoleByIdentifiant(String identifiantRole) {
-        String query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
-                " WHERE identifiant = ?;";
-        return super.findByCriteria(query,identifiantRole);
+    	Object obj = null;
+        try {
+            obj = Role.class.getDeclaredField("identifiant");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return super.findByCriteria(obj , identifiantRole);
     }
 
     @Override

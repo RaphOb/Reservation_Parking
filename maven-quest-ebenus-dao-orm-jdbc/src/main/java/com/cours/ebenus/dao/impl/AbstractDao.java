@@ -265,8 +265,10 @@ public abstract class AbstractDao<T> implements IDao<T> {
             
         } else if (myClass.getName().equals(Role.class.getName())) {
         
-        	System.out.println("TEST");
-        	
+        	query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
+                    " WHERE identifiant = ?";
+            
+            System.out.println("FINAL QUERY : " + query);
         }
         List<T> obj = applyQueryFromParameter(query, criteria);
         if (!obj.isEmpty()) {
