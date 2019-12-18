@@ -246,17 +246,17 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
                     "WHERE ";
             
+            System.out.println("TO STRING : " + ob.toString() + "\n");
+            
             DBTable annotation = ((Field) ob).getAnnotation(DBTable.class);
             String columnName = annotation.columnName();
             
-            String[] fieldNames = ob.toString().split("\\.");
-            
-            query += fieldNames[fieldNames.length - 2] + "." + columnName
+            query += myClass.getSimpleName() + "." + columnName
                     + " = ?";
             System.out.println("FINAL QUERY : " + query);
-
-
+            
         } else if (myClass.getName().equals(Role.class.getName())) {
+        	
         }
         List<T> obj = applyQueryFromParameter(query, criteria);
         if (!obj.isEmpty()) {
