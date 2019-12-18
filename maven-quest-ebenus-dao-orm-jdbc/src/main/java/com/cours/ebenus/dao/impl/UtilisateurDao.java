@@ -102,7 +102,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
                 "FROM  Utilisateur " +
                 "WHERE NOT EXISTS (SELECT 1 FROM Utilisateur WHERE " +
                 " identifiant = ?) LIMIT 1";
-        return super.create(query, user);
+        return super.create(user);
     }
 
     @Override

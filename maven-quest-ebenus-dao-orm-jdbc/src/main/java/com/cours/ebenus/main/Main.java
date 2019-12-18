@@ -26,17 +26,24 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-//    	ServiceFacade s = new ServiceFacade();
-//    	
+    	ServiceFacade s = new ServiceFacade();
+
+    	//TEST CREATE
+		Role role = new Role();
+		role.setDescription("Une desription");
+		role.setIdentifiant("Un identifiant");
+		s.getRoleDao().createRole(role);
+
+
 //    	List<Utilisateur> u = s.getUtilisateurDao().findAllUtilisateurs();
 //    	List<Utilisateur> u2 = s.getUtilisateurDao().findUtilisateurByIdentifiant("nicolas.berger@gmail.com");
-//    	
+//
 //    	List<Utilisateur> u3 = s.getUtilisateurDao().findUtilisateursByNom("Berger");
 //		List<Utilisateur> u4 = s.getUtilisateurDao().findUtilisateursByPrenom("Nicolas");
 //		List<Utilisateur> u5 = s.getUtilisateurDao().findUtilisateursByIdRole(1);
 //		List<Utilisateur> u6 = s.getUtilisateurDao().findUtilisateursByIdentifiantRole("Administrateur");
-//		Utilisateur u7 = s.getUtilisateurDao().findUtilisateurById(8);
-//		
+//		Utilisateur u7 = s.getUtilisateurDao().findUtilisateurById(14);
+//
 //    	System.out.println("1");
 //    	u.forEach(System.out::println);
 //    	System.out.println("2");
@@ -51,21 +58,19 @@ public class Main {
 //    	u6.forEach(System.out::println);
 //    	System.out.println("7");
 //    	System.out.println(u7.toString());
-//    	
-//    	
-//    	
+//
+//
+//
 //    	List <Role> r = s.getRoleDao().findAllRoles();
-//    	Role r2 = s.getRoleDao().findRoleById(5);
+//    	Role r2 = s.getRoleDao().findRoleById(3);
 //    	List <Role> r3 = s.getRoleDao().findRoleByIdentifiant("Administrateur");
-//    	
+//
 //    	System.out.println("1");
 //    	r.forEach(System.out::println);
 //    	System.out.println("2");
 //    	System.out.println(r2);
 //    	System.out.println("3");
 //    	r3.forEach(System.out::println);
-    	
-    	
     	
     	
 //    	us.forEach(System.out::println);
