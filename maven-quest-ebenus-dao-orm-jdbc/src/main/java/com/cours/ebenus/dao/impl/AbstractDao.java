@@ -347,13 +347,17 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     @Override
-    public boolean delete(String query, T t) {
+    public boolean delete(T t) {
         Field field = null;
+        String query = null;
         try {
             //Detect which class work with and find field
             if (t.getClass() == Utilisateur.class) {
+            	query = "DELETE FROM Utilisateur " +
+                        "WHERE idUtilisateur = ?";
                 field = t.getClass().getDeclaredField("idUtilisateur");
             } else if (t.getClass() == Role.class) {
+            	query = "DELETE FROM Role WHERE idRole = ?";
                 field = t.getClass().getDeclaredField("idRole");
             }
             field.setAccessible(true);

@@ -55,7 +55,7 @@ public class Main {
     	
     	
     	List <Role> r = s.getRoleDao().findAllRoles();
-    	Role r2 = s.getRoleDao().findRoleById(3);
+    	Role r2 = s.getRoleDao().findRoleById(6);
     	List <Role> r3 = s.getRoleDao().findRoleByIdentifiant("Administrateur");
     	
     	System.out.println("1");
@@ -64,6 +64,7 @@ public class Main {
     	System.out.println(r2);
     	System.out.println("3");
     	r3.forEach(System.out::println);
+    	
     	
     	
 //    	us.forEach(System.out::println);

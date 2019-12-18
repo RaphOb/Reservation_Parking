@@ -23,5 +23,5 @@ public interface IDao<T> {
 
     public T update(String query, T t);
 
-    public boolean delete(String query, T t);
+    public boolean delete(T t);
 }

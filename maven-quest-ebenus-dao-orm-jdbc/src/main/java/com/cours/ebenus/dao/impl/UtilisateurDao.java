@@ -115,9 +115,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public boolean deleteUtilisateur(Utilisateur user) {
-    	String query = "DELETE FROM Utilisateur " +
-                "WHERE idUtilisateur = ?";
-    	return super.delete(query, user);
+    	return super.delete(user);
     }
 
     /**
