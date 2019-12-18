@@ -7,7 +7,14 @@ package com.cours.ebenus.dao.test;
  */
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
+@RunWith(Suite.class)
+@SuiteClasses({ JUnitUtilisateurDao.class, 
+				JUnitRoleDao.class, 
+})
 public class JUnitDao {
 
     private static final Log log = LogFactory.getLog(JUnitDao.class);
