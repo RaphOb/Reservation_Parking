@@ -245,29 +245,26 @@ public abstract class AbstractDao<T> implements IDao<T> {
             query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
                     "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
                     "WHERE ";
-            
+
             System.out.println("TO STRING : " + ob.toString() + "\n");
-            
+
             DBTable annotation = ((Field) ob).getAnnotation(DBTable.class);
             String columnName = annotation.columnName();
-            
-            if (columnName.equals("roleIdent"))
-            {
-            	query += "r." + "identifiant" + " = ?";
-            	
+
+            if (columnName.equals("roleIdent")) {
+                query += "r." + "identifiant" + " = ?";
+
+            } else {
+                query += myClass.getSimpleName() + "." + columnName + " = ?";
             }
-            else
-            {
-            	query += myClass.getSimpleName() + "." + columnName + " = ?";
-            }
-            
+
             System.out.println("FINAL QUERY : " + query);
-            
+
         } else if (myClass.getName().equals(Role.class.getName())) {
-        
-        	query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
+
+            query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
                     " WHERE identifiant = ?";
-            
+
             System.out.println("FINAL QUERY : " + query);
         }
         List<T> obj = applyQueryFromParameter(query, criteria);
@@ -280,6 +277,30 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public T create(T t) {
+        String query = null;
+
+        if (t.getClass() == Role.class) {
+        }
+        query = "INSERT INTO Role (identifiant, description, version) VALUES (?,?,?)";
+        Field[] fs = t.getClass().getDeclaredFields();
+        List<Object> params = new ArrayList<>();
+
+        for (Field f : fs) {
+            try {
+                Field temp = t.getClass().getDeclaredField(f.getName());
+                temp.setAccessible(true);
+
+                Object param = temp.get(t);
+
+                System.out.println(param);
+                if (param != null) {
+                    params.add(param);
+                }
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        applyQueryFromParameters(query, params);
         return null;
     }
 
