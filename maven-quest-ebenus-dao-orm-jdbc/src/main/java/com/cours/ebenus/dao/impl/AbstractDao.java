@@ -284,13 +284,17 @@ public abstract class AbstractDao<T> implements IDao<T> {
     }
 
     @Override
-    public T update(String query, T t) {
+    public T update(T t) {
 
         try {
             List<Object> parameters = new ArrayList<Object>();
             //Build only necessary parameters
             if (t.getClass() == Utilisateur.class) {
 
+//            	String query = "UPDATE Utilisateur " +
+//                        "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ? " +
+//                        "WHERE idUtilisateur = ?";
+            	
                 Field role = t.getClass().getDeclaredField("role");
                 Field civilite = t.getClass().getDeclaredField("civilite");
                 Field prenom = t.getClass().getDeclaredField("prenom");
@@ -323,6 +327,10 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 parameters.add(idUtilisateur.get(t));
 
             } else if (t.getClass() == Role.class) {
+            	
+//            	String query = "UPDATE Role SET identifiant = ?, description = ? " +
+//     				   "WHERE idRole = ? ";
+            	
                 Field identifiant = t.getClass().getDeclaredField("identifiant");
                 Field description = t.getClass().getDeclaredField("description");
                 Field idRole = t.getClass().getDeclaredField("idRole");

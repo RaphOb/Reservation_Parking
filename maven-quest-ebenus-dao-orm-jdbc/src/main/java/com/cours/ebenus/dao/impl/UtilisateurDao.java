@@ -107,10 +107,8 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
-    	String query = "UPDATE Utilisateur " +
-                "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ? " +
-                "WHERE idUtilisateur = ?";
-    	return super.update(query, user);
+    	
+    	return super.update(user);
     }
 
     @Override

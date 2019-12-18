@@ -52,9 +52,7 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public Role updateRole(Role role) {
-    	String query = "UPDATE Role SET identifiant = ?, description = ? " +
-    				   "WHERE idRole = ? ";
-        return super.update(query, role);
+        return super.update(role);
     }
 
     @Override
