@@ -46,7 +46,8 @@ public class RoleDao extends AbstractDao<Role> implements IRoleDao {
 
     @Override
     public Role createRole(Role role) {
-        return null;
+
+        return super.create(role);
     }
 
     @Override

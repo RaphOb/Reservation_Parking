@@ -279,7 +279,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
     }
 
     @Override
-    public T create(String query, T t) {
+    public T create(T t) {
         return null;
     }
 
