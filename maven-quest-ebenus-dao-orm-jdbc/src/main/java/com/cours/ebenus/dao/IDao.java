@@ -19,7 +19,7 @@ public interface IDao<T> {
 
     public List<T> findByCriteria(Object object, String criteria);
 
-    public T create(String query, T t);
+    public T create(T t);
 
     public T update(String query, T t);
 
