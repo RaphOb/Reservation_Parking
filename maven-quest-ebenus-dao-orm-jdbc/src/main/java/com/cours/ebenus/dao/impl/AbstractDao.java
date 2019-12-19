@@ -24,6 +24,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -278,26 +280,49 @@ public abstract class AbstractDao<T> implements IDao<T> {
     @Override
     public T create(T t) {
         String query = null;
-
-        if (t.getClass() == Role.class) {
-        }
-        query = "INSERT INTO Role (identifiant, description, version) VALUES (?,?,?)";
-        Field[] fs = t.getClass().getDeclaredFields();
         List<Object> params = new ArrayList<>();
+        String d= "?";
+        String separator =",";
+       String rs =  Arrays.stream(t.getClass().getDeclaredFields()).map(Field::getName).collect(Collectors.joining(","));
+        System.out.println(rs);
+        String nbValue = IntStream.range(0,t.getClass().getDeclaredFields().length -1 ).mapToObj(i -> d).collect(Collectors.joining(separator));
+    
+        if (t.getClass() == Role.class) {
+            query = "INSERT INTO "+ t.getClass().getSimpleName() +" (identifiant, description, version) VALUES ("+nbValue +")";
+            System.out.println(query);
+            Field[] fs = t.getClass().getDeclaredFields();
 
-        for (Field f : fs) {
-            try {
-                Field temp = t.getClass().getDeclaredField(f.getName());
-                temp.setAccessible(true);
+            for (Field f : fs) {
+                try {
+                    Field temp = t.getClass().getDeclaredField(f.getName());
+                    temp.setAccessible(true);
 
-                Object param = temp.get(t);
+                    Object param = temp.get(t);
 
-                System.out.println(param);
-                if (param != null) {
-                    params.add(param);
+                    System.out.println(param);
+                    if (param != null) {
+                        params.add(param);
+                    }
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    e.printStackTrace();
                 }
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace();
+            }
+        } else if (t.getClass() == Utilisateur.class) {
+            query = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse,dateNaissance, dateCreation , dateModification) " +
+                    "SELECT ?,?,?,?,?,?,?,?,? " +
+                    "FROM  Utilisateur " +
+                    "WHERE NOT EXISTS (SELECT 1 FROM Utilisateur WHERE " +
+                    " identifiant = ?) LIMIT 1";
+            Field[] fs = t.getClass().getDeclaredFields();
+            for (Field f : fs) {
+                try {
+                    Field temp = t.getClass().getDeclaredField(f.getName());
+                    temp.setAccessible(true);
+                    Object param = temp.get(t);
+                    System.out.println(param);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
         applyQueryFromParameters(query, params);
@@ -306,16 +331,16 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public T update(T t) {
-    	String query = null;
+        String query = null;
         try {
             List<Object> parameters = new ArrayList<Object>();
             //Build only necessary parameters
             if (t.getClass() == Utilisateur.class) {
 
-            	query = "UPDATE Utilisateur " +
+                query = "UPDATE Utilisateur " +
                         "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ? " +
                         "WHERE idUtilisateur = ?";
-            	
+
                 Field role = t.getClass().getDeclaredField("role");
                 Field civilite = t.getClass().getDeclaredField("civilite");
                 Field prenom = t.getClass().getDeclaredField("prenom");
@@ -348,10 +373,10 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 parameters.add(idUtilisateur.get(t));
 
             } else if (t.getClass() == Role.class) {
-            	
-            	query = "UPDATE Role SET identifiant = ?, description = ? " +
-     				   "WHERE idRole = ? ";
-            	
+
+                query = "UPDATE Role SET identifiant = ?, description = ? " +
+                        "WHERE idRole = ? ";
+
                 Field identifiant = t.getClass().getDeclaredField("identifiant");
                 Field description = t.getClass().getDeclaredField("description");
                 Field idRole = t.getClass().getDeclaredField("idRole");
@@ -382,11 +407,11 @@ public abstract class AbstractDao<T> implements IDao<T> {
         try {
             //Detect which class work with and find field
             if (t.getClass() == Utilisateur.class) {
-            	query = "DELETE FROM Utilisateur " +
+                query = "DELETE FROM Utilisateur " +
                         "WHERE idUtilisateur = ?";
                 field = t.getClass().getDeclaredField("idUtilisateur");
             } else if (t.getClass() == Role.class) {
-            	query = "DELETE FROM Role WHERE idRole = ?";
+                query = "DELETE FROM Role WHERE idRole = ?";
                 field = t.getClass().getDeclaredField("idRole");
             }
             field.setAccessible(true);

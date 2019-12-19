@@ -34,6 +34,10 @@ public class Main {
 		role.setIdentifiant("Un identifiant");
 		s.getRoleDao().createRole(role);
 
+		Utilisateur u = new Utilisateur();
+//		utilisateur.setCivilite("M");
+//		u
+
 
 //    	List<Utilisateur> u = s.getUtilisateurDao().findAllUtilisateurs();
 //    	List<Utilisateur> u2 = s.getUtilisateurDao().findUtilisateurByIdentifiant("nicolas.berger@gmail.com");
