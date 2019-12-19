@@ -167,6 +167,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     prep.setObject(cpt, param);
                     cpt++;
                 }
+                
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
@@ -338,7 +339,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
             if (t.getClass() == Utilisateur.class) {
 
                 query = "UPDATE Utilisateur " +
-                        "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateModification = ? " +
+                        "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateNaissance = ?, dateModification = ? " +
                         "WHERE idUtilisateur = ?";
 
                 Field role = t.getClass().getDeclaredField("role");
@@ -347,6 +348,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 Field nom = t.getClass().getDeclaredField("nom");
                 Field identifiant = t.getClass().getDeclaredField("identifiant");
                 Field motPasse = t.getClass().getDeclaredField("motPasse");
+                Field dateNaissance = t.getClass().getDeclaredField("dateNaissance");
                 Field dateModif = t.getClass().getDeclaredField("dateModification");
                 Field idUtilisateur = t.getClass().getDeclaredField("idUtilisateur");
 
@@ -360,6 +362,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 nom.setAccessible(true);
                 identifiant.setAccessible(true);
                 motPasse.setAccessible(true);
+                dateNaissance.setAccessible(true);
                 dateModif.setAccessible(true);
                 idUtilisateur.setAccessible(true);
 
@@ -369,6 +372,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 parameters.add(nom.get(t));
                 parameters.add(identifiant.get(t));
                 parameters.add(motPasse.get(t));
+                parameters.add(dateNaissance.get(t));
                 parameters.add(dateModif.get(t));
                 parameters.add(idUtilisateur.get(t));
 
@@ -389,7 +393,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 parameters.add(description.get(t));
                 parameters.add(idRole.get(t));
             }
-
             applyQueryFromParameters(query, parameters);
 
         } catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchFieldException e) {
