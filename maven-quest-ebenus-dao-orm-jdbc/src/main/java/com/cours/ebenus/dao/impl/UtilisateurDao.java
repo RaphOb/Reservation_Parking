@@ -5,9 +5,16 @@
  */
 package com.cours.ebenus.dao.impl;
 
+import com.cours.ebenus.dao.ConnectionHelper;
+import com.cours.ebenus.dao.DataSourceSingleton;
 import com.cours.ebenus.dao.IUtilisateurDao;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -117,15 +124,44 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     }
 
     /**
-     * Méthode qui vérifie les logs email / password d'un utilisateur dans la
+     * Méthode qui vérifie les logs email / password d'un Utilisateur dans la
      * base de données
      *
-     * @param email L'email de l'utilisateur
-     * @param password Le password de l'utilisateur
-     * @return L'utilisateur qui tente de se logger si trouvé, null sinon
+     * @param email    L'email de l'Utilisateur
+     * @param password Le password de l'Utilisateur
+     * @return L'Utilisateur qui tente de se logger si trouvé, null sinon
      */
     @Override
     public Utilisateur authenticate(String email, String password) {
-        return null;
+        Connection connection;
+        Utilisateur u = null;
+		try {
+			connection = DataSourceSingleton.getInstance().getConnection();
+			String sql = "SELECT * FROM Utilisateur " +
+	                "WHERE identifiant = ? AND motPasse = ?";
+	        PreparedStatement prep = null;
+	        ResultSet rs = null;
+	        
+	        try {
+	            prep = connection.prepareStatement(sql);
+	            prep.setString(1,  email);
+	            prep.setString(2,  password);
+	            rs = prep.executeQuery();
+	            if (rs.next() != false) {
+	                u = findUtilisateurById(rs.getInt("idUtilisateur"));
+	            } else {
+	                log.debug("No user found with theses identifiers...");
+	                u = null;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            ConnectionHelper.closeSqlResources(connection, prep, rs);
+	        }
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        return u;
     }
 }
