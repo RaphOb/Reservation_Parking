@@ -1,0 +1,34 @@
+1. Expliquez ce que c’est la réflexivité ?
+
+La réflexivité permet 2 choses :
+L’introspection, qui est la capacité pour une classe d’observer ses états
+La réflexion, qui est la capacité à modifier une classe, et par conséquent l’état de ses objets
+
+
+
+2. Quels sont ses avantages et inconvénients ?
+
+- On peut, de manière dynamique, instancier un objet d’une certaine classe sans utiliser l'opérateur 'new'.
+- Permet à un programme d’observer son état via l’observation de ses classes, mais également de les modifier. Pour cela, il exécute des méthodes sur des objets de type Class.
+
+- l’appel aux méthodes réflexives (getMethod, newInstance, etc.) ont un surcoût
+- le code exploitant la réflexivité est moins lisible et plus complexe à comprendre que lorsque les appels sont directs.
+
+
+
+3. Donnez quelques exemples d’utilisations de la réflexivité ?
+
+- Auto-complétion des IDE : Introspection de la classe courante pour récupérer ses informations et les afficher au client.
+
+
+
+4. Quelle est la différence entre instancier une connection avec DriverManager.getConnection et DataSource.getConnection ? Quels sont les avantages et inconvénients de l’une par rapport à l’autre ?
+
+DriverManager.getConnection: Après un close, la connexion est définitivement fermé.
+DataSource.getConnection: Après un close, la connexion est rendu à la pool , mais pas fermé définitivement.
+
+Les connexions de DataSource peuvent être récupéré auprès de la pool une fois fermées, contrairement aux connexions de DriverManager qui doivent être récréée de zéro => Meilleur performance en cas de connexions multiples.
+
+
+
+5.Que se passe-t-il si on lance le test unitaire en limitant le nombre de connexions de DataSourceSingleton à 1 et en commentant le contenu de la méthode ConnectionHelper.closeSqlResources ? Expliquez
