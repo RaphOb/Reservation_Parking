@@ -95,7 +95,6 @@ public class UpdateUserServlet extends HttpServlet {
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.DATE,1);
         Date d = cal.getTime();
 
         Integer u = Integer.parseInt(request.getParameter("userU"));
@@ -105,6 +104,7 @@ public class UpdateUserServlet extends HttpServlet {
         user.setPrenom(prenom);
         user.setNom(nom);
         user.setDateNaissance(d);
+        user.setDateModification(new Date(System.currentTimeMillis()));
 
         Role role = service.getRoleDao().findRoleById(Integer.parseInt(idRole));
         user.setRole(role);
