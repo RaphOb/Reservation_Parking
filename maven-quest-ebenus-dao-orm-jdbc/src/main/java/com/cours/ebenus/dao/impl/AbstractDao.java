@@ -9,26 +9,28 @@ import com.cours.ebenus.dao.ConnectionHelper;
 import com.cours.ebenus.dao.DataSourceSingleton;
 import com.cours.ebenus.dao.IDao;
 import com.cours.ebenus.dao.annotations.DBTable;
+import com.cours.ebenus.dao.entities.Entities;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.swing.text.html.parser.Entity;
 
 
 /**
@@ -281,50 +283,47 @@ public abstract class AbstractDao<T> implements IDao<T> {
     public T create(T t) {
         String query = null;
         List<Object> params = new ArrayList<>();
-        String d= "?";
-        String separator =",";
-       String rs =  Arrays.stream(t.getClass().getDeclaredFields()).map(Field::getName).collect(Collectors.joining(","));
-        System.out.println(rs);
-        String nbValue = IntStream.range(0,t.getClass().getDeclaredFields().length -1 ).mapToObj(i -> d).collect(Collectors.joining(separator));
-    
-        if (t.getClass() == Role.class) {
-            query = "INSERT INTO "+ t.getClass().getSimpleName() +" (identifiant, description, version) VALUES ("+nbValue +")";
-            System.out.println(query);
-            Field[] fs = t.getClass().getDeclaredFields();
+        List<String> annotationsClass = new ArrayList<>();
 
-            for (Field f : fs) {
-                try {
-                    Field temp = t.getClass().getDeclaredField(f.getName());
-                    temp.setAccessible(true);
+        Field[] fs = t.getClass().getDeclaredFields();
 
-                    Object param = temp.get(t);
 
-                    System.out.println(param);
-                    if (param != null) {
-                        params.add(param);
-                    }
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    e.printStackTrace();
+        for (Field f : fs) {
+            try {
+                DBTable db = f.getAnnotation(DBTable.class);
+                System.out.println(db.columnName());
+                annotationsClass.add(db.columnName());
+                Field temp = t.getClass().getDeclaredField(f.getName());
+                temp.setAccessible(true);
+
+                System.out.println(temp.getType());
+                Object param = null;
+                if (temp.getType().getGenericSuperclass() == Entities.class) {
+                    Method maa = temp.getType().getMethod("getIdRole");
+                    System.out.println(maa);
+                    param = maa.invoke(temp.get(t));
+                    System.out.println("method " + maa);
+                    temp.getClass().getDeclaredMethods();
+                } else {
+
+                    param = temp.get(t);
                 }
-            }
-        } else if (t.getClass() == Utilisateur.class) {
-            query = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse,dateNaissance, dateCreation , dateModification) " +
-                    "SELECT ?,?,?,?,?,?,?,?,? " +
-                    "FROM  Utilisateur " +
-                    "WHERE NOT EXISTS (SELECT 1 FROM Utilisateur WHERE " +
-                    " identifiant = ?) LIMIT 1";
-            Field[] fs = t.getClass().getDeclaredFields();
-            for (Field f : fs) {
-                try {
-                    Field temp = t.getClass().getDeclaredField(f.getName());
-                    temp.setAccessible(true);
-                    Object param = temp.get(t);
-                    System.out.println(param);
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    e.printStackTrace();
+                if (temp.getType() == Date.class && param == null) {
+                    System.out.println("les date" + temp.getType().getName());
+                    param = new java.sql.Timestamp(System.currentTimeMillis());
                 }
+                System.out.println(param);
+                params.add(param);
+            } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                e.printStackTrace();
             }
         }
+        String d = "?";
+        String separator = ",";
+        String fieldsName = String.join(",", annotationsClass);
+        String nbValue = IntStream.range(0, t.getClass().getDeclaredFields().length).mapToObj(i -> d).collect(Collectors.joining(separator));
+        query = "INSERT INTO " + t.getClass().getSimpleName() + " (" + fieldsName + ") VALUES (" + nbValue + ")";
+        System.out.println(query);
         applyQueryFromParameters(query, params);
         return null;
     }

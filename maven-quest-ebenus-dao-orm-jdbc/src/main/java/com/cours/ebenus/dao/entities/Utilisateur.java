@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author elhad
  */
-public class Utilisateur {
+public class Utilisateur extends Entities {
 
     @DBTable(columnName = "idUtilisateur")
     private Integer idUtilisateur;

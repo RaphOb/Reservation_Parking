@@ -11,7 +11,7 @@ import com.cours.ebenus.dao.annotations.DBTable;
  *
  * @author elhad
  */
-public class Role {
+public class Role extends Entities {
 
     @DBTable(columnName = "idRole")
     private Integer idRole;

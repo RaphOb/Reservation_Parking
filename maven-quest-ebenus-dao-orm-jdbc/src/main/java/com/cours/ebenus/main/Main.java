@@ -10,11 +10,11 @@ import com.cours.ebenus.dao.entities.Utilisateur;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.cours.ebenus.service.*;
+import java.util.Date;
 
 import java.util.List;
 
 /**
- *
  * @author elhad
  */
 public class Main {
@@ -26,17 +26,25 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    	ServiceFacade s = new ServiceFacade();
+        ServiceFacade s = new ServiceFacade();
 
-    	//TEST CREATE
-		Role role = new Role();
-		role.setDescription("Une desription");
-		role.setIdentifiant("Un identifiant");
-		s.getRoleDao().createRole(role);
+        //TEST CREATE
+        Role role = new Role();
+        role.setDescription("Une desription");
+        role.setIdentifiant("Un identifiant");
+        role.setIdRole(13);
+//        s.getRoleDao().createRole(role);
 
-		Utilisateur u = new Utilisateur();
-//		utilisateur.setCivilite("M");
-//		u
+        Utilisateur u = new Utilisateur();
+		u.setCivilite("M");
+		u.setNom("raphael");
+		u.setPrenom("raph");
+		u.setMotPasse("pass");
+		u.setIdentifiant("raph@gmail.com");
+		Date date = new Date(System.currentTimeMillis());
+		u.setDateNaissance(date);
+		u.setRole(role);
+		s.getUtilisateurDao().createUtilisateur(u);
 
 
 //    	List<Utilisateur> u = s.getUtilisateurDao().findAllUtilisateurs();
@@ -75,8 +83,8 @@ public class Main {
 //    	System.out.println(r2);
 //    	System.out.println("3");
 //    	r3.forEach(System.out::println);
-    	
-    	
+
+
 //    	us.forEach(System.out::println);
 //        ros.forEach(System.out::println);
 //        List<Utilisateur> u = s.getUtilisateurDao().findUtilisateursByIdRole(1);
@@ -92,9 +100,9 @@ public class Main {
 //    	user.setPrenom("Jimmy");
 //    	s.getUtilisateurDao().updateUtilisateur(user);
 
-    	
+
 //    	s.getUtilisateurDao().deleteUtilisateur(user);
-    	
-    	
+
+
     }
 }
