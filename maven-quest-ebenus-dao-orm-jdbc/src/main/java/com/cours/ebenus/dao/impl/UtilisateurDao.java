@@ -16,11 +16,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import com.cours.ebenus.exception.EbenusException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
  * @author ElHadji
  */
 public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisateurDao {
@@ -33,7 +34,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public List<Utilisateur> findAllUtilisateurs() {
-    	return super.findAll();
+        return super.findAll();
     }
 
     @Override
@@ -60,7 +61,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-    	return super.findByCriteria(obj, nom);
+        return super.findByCriteria(obj, nom);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-    	return super.findByCriteria(obj, identifiant);
+        return super.findByCriteria(obj, identifiant);
     }
 
     @Override
@@ -82,20 +83,20 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-    	return super.findByCriteria(obj, Integer.toString(idRole));
+        return super.findByCriteria(obj, Integer.toString(idRole));
     }
 
     @Override
     public List<Utilisateur> findUtilisateursByIdentifiantRole(String identifiantRole) {
-    	
-    	Object obj = null;
+
+        Object obj = null;
         try {
             obj = Role.class.getDeclaredField("identifiant");
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-    	return super.findByCriteria(obj, identifiantRole);
-    	
+        return super.findByCriteria(obj, identifiantRole);
+
 //    	String query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
 //                "left join Role r on r.idRole = Utilisateur.idRole " +
 //                "where r.identifiant= ? ";
@@ -104,23 +105,45 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
 
     @Override
     public Utilisateur createUtilisateur(Utilisateur user) {
-    	String query = "INSERT  into Utilisateur (idRole, civilite, prenom, nom, identifiant, motPasse,dateNaissance, dateCreation , dateModification) " +
-                "SELECT ?,?,?,?,?,?,?,?,? " +
-                "FROM  Utilisateur " +
-                "WHERE NOT EXISTS (SELECT 1 FROM Utilisateur WHERE " +
-                " identifiant = ?) LIMIT 1";
+        Connection connection = null;
+        try {
+            connection = DataSourceSingleton.getInstance().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql1 = "SELECT count(*) FROM Utilisateur " +
+                "WHERE identifiant = ?";
+        PreparedStatement p = null;
+        ResultSet r = null;
+        try {
+            p = connection.prepareStatement(sql1);
+            p.setString(1, user.getIdentifiant());
+            r = p.executeQuery();
+            while (r.next()) {
+                if (r.getInt(1) > 0) {
+                    throw new EbenusException("Already exist", -1);
+                }
+            }
+
+        } catch (SQLException a) {
+            a.printStackTrace();
+        }
+        finally {
+            ConnectionHelper.closeSqlResources(connection,p,r);
+        }
         return super.create(user);
     }
 
     @Override
     public Utilisateur updateUtilisateur(Utilisateur user) {
-    	
-    	return super.update(user);
+
+        return super.update(user);
     }
 
     @Override
     public boolean deleteUtilisateur(Utilisateur user) {
-    	return super.delete(user);
+        return super.delete(user);
     }
 
     /**
@@ -135,33 +158,33 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     public Utilisateur authenticate(String email, String password) {
         Connection connection;
         Utilisateur u = null;
-		try {
-			connection = DataSourceSingleton.getInstance().getConnection();
-			String sql = "SELECT * FROM Utilisateur " +
-	                "WHERE identifiant = ? AND motPasse = ?";
-	        PreparedStatement prep = null;
-	        ResultSet rs = null;
-	        
-	        try {
-	            prep = connection.prepareStatement(sql);
-	            prep.setString(1,  email);
-	            prep.setString(2,  password);
-	            rs = prep.executeQuery();
-	            if (rs.next() != false) {
-	                u = findUtilisateurById(rs.getInt("idUtilisateur"));
-	            } else {
-	                log.debug("No user found with theses identifiers...");
-	                u = null;
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            ConnectionHelper.closeSqlResources(connection, prep, rs);
-	        }
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+        try {
+            connection = DataSourceSingleton.getInstance().getConnection();
+            String sql = "SELECT * FROM Utilisateur " +
+                    "WHERE identifiant = ? AND motPasse = ?";
+            PreparedStatement prep = null;
+            ResultSet rs = null;
+
+            try {
+                prep = connection.prepareStatement(sql);
+                prep.setString(1, email);
+                prep.setString(2, password);
+                rs = prep.executeQuery();
+                if (rs.next() != false) {
+                    u = findUtilisateurById(rs.getInt("idUtilisateur"));
+                } else {
+                    log.debug("No user found with theses identifiers...");
+                    u = null;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                ConnectionHelper.closeSqlResources(connection, prep, rs);
+            }
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         return u;
     }
 }

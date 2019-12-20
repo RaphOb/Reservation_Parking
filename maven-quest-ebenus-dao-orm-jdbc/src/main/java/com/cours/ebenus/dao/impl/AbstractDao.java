@@ -117,6 +117,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
         return objects;
     }
 
+
     public <E> List<T> applyQueryFromParameter(String query, E param) {
         List<T> objects = new ArrayList<>();
         Connection connection;
@@ -169,7 +170,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     prep.setObject(cpt, param);
                     cpt++;
                 }
-                
+
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
@@ -327,7 +328,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
         query = "INSERT INTO " + t.getClass().getSimpleName() + " (" + fieldsName + ") VALUES (" + nbValue + ")";
         System.out.println(query);
         applyQueryFromParameters(query, params);
-        return null;
+        return t;
     }
 
     @Override

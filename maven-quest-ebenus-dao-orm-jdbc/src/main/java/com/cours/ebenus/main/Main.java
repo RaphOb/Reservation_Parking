@@ -40,7 +40,7 @@ public class Main {
 		u.setNom("raphael");
 		u.setPrenom("raph");
 		u.setMotPasse("pass");
-		u.setIdentifiant("raph@gmail.com");
+		u.setIdentifiant("rapgou@gmail.com");
 		Date date = new Date(System.currentTimeMillis());
 		u.setDateNaissance(date);
 		u.setRole(role);
