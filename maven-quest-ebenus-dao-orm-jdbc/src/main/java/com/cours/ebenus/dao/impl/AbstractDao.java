@@ -299,7 +299,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 System.out.println(temp.getType());
                 Object param = null;
                 if (temp.getType().getGenericSuperclass() == Entities.class) {
-                    Method maa = temp.getType().getMethod("getIdRole");
+                    String getId = "getId" + temp.getType().getSimpleName();
+                    Method maa = temp.getType().getMethod(getId);
                     System.out.println(maa);
                     param = maa.invoke(temp.get(t));
                     System.out.println("method " + maa);
