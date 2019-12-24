@@ -5,6 +5,22 @@
  */
 package com.cours.ebenus.dao.impl;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.cours.ebenus.dao.ConnectionHelper;
 import com.cours.ebenus.dao.DataSourceSingleton;
 import com.cours.ebenus.dao.IDao;
@@ -12,25 +28,6 @@ import com.cours.ebenus.dao.annotations.DBTable;
 import com.cours.ebenus.dao.entities.Entities;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.swing.text.html.parser.Entity;
 
 
 /**
