@@ -58,7 +58,7 @@ public class Main {
 		role2 = s.getRoleDao().updateRole(role2);
 		log.debug(role2.toString());
 		
-		Utilisateur u2 = s.getUtilisateurDao().findUtilisateurById(21);
+		Utilisateur u2 = s.getUtilisateurDao().findUtilisateurById(20);
 		log.debug(u2.toString());
 		u2.setCivilite("Mme");
 		u2.setNom("Test");
@@ -83,6 +83,19 @@ public class Main {
 		u2.setRole(role2);
 		u2 = s.getUtilisateurDao().updateUtilisateur(u2);
 		log.debug(u2.toString());
+		
+		//Test DELETE
+		Role role3 = s.getRoleDao().findRoleById(2);
+		List<Utilisateur> u3 = s.getUtilisateurDao().findUtilisateursByIdRole(2);
+		
+		for(Utilisateur user : u3)
+		{
+			s.getUtilisateurDao().deleteUtilisateur(user);
+		}
+		
+		s.getRoleDao().deleteRole(role3);
+		
+		
 		
 //    	List<Utilisateur> u = s.getUtilisateurDao().findAllUtilisateurs();
 //    	List<Utilisateur> u2 = s.getUtilisateurDao().findUtilisateurByIdentifiant("nicolas.berger@gmail.com");

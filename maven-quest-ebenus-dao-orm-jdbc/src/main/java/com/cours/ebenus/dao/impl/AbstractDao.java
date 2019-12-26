@@ -478,34 +478,34 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public boolean delete(T t) {
-        Field field = null;
-        String query = null;
-        try {
-            //Detect which class work with and find field
-            if (t.getClass() == Utilisateur.class) {
-                query = "DELETE FROM Utilisateur " +
-                        "WHERE idUtilisateur = ?";
-                field = t.getClass().getDeclaredField("idUtilisateur");
-            } else if (t.getClass() == Role.class) {
-                query = "DELETE FROM Role WHERE idRole = ?";
-                field = t.getClass().getDeclaredField("idRole");
-            }
-            field.setAccessible(true);
-            applyQueryFromParameter(query, field.get(t));
-
-        } catch (NoSuchFieldException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return false;
+    	String query = null;
+		try {
+			Field temp = t.getClass().getDeclaredField("id" + t.getClass().getSimpleName());
+			temp.setAccessible(true);
+			String getId = "getId" + t.getClass().getSimpleName();
+	        Method maa = t.getClass().getMethod(getId);
+	        Object id = maa.invoke(t);
+	        System.out.println(id);
+	        query = "DELETE FROM " + t.getClass().getSimpleName() + 
+	        		" WHERE id" + t.getClass().getSimpleName() + " = ?";
+	        applyQueryFromParameter(query, id);
+	        return true;
+		} catch (NoSuchFieldException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return false;
     }
 }
