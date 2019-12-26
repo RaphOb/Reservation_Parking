@@ -111,6 +111,7 @@ public class JUnitUtilisateurDao {
         Assert.assertNotNull(userCRUD.getIdUtilisateur());
         Assert.assertNotNull(userCRUD.getPrenom());
         Assert.assertNotNull(userCRUD.getNom());
+        log.debug("la DATE CREATION : "+userCRUD.getDateCreation());
         Assert.assertNotNull(userCRUD.getDateCreation());
         Assert.assertNotNull(userCRUD.getDateModification());
         log.debug("Created userCRUD : " + userCRUD);

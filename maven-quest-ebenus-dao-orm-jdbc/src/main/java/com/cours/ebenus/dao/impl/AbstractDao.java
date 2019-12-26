@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.cours.ebenus.service.ServiceFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -252,8 +253,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
                     "WHERE ";
 
-            System.out.println("TO STRING : " + ob.toString() + "\n");
-
             DBTable annotation = ((Field) ob).getAnnotation(DBTable.class);
             String columnName = annotation.columnName();
 
@@ -294,22 +293,18 @@ public abstract class AbstractDao<T> implements IDao<T> {
         for (Field f : fs) {
             try {
                 DBTable db = f.getAnnotation(DBTable.class);
-                System.out.println(db.columnName());
                 annotationsClass.add(db.columnName());
                 Field temp = t.getClass().getDeclaredField(f.getName());
                 temp.setAccessible(true);
 
-                System.out.println(temp.getType());
                 Object param = null;
                 //check si le field est une custom class( e.i Role ou Utilisateur ici)
                 if (temp.getType().getGenericSuperclass() == Entities.class) {
                     String getId = "getId" + temp.getType().getSimpleName();
                     //getter Id de la relation entre les entité (e.i getIdRole)
                     Method maa = temp.getType().getMethod(getId);
-                    System.out.println(maa);
                     // proc la fonction pour recuperer l'id
                     param = maa.invoke(temp.get(t));
-                    System.out.println("method " + maa);
 //                    temp.getClass().getDeclaredMethods();
                 } else {
                     //si type normal
@@ -317,10 +312,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 }
                 //si le field est une date et qu'elle est vide elle sera remplis avec la date today
                 if (temp.getType() == Date.class && param == null) {
-                    System.out.println("les date" + temp.getType().getName());
                     param = new java.sql.Timestamp(System.currentTimeMillis());
                 }
-                System.out.println(param);
                 params.add(param);
             } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -333,18 +326,10 @@ public abstract class AbstractDao<T> implements IDao<T> {
         //Construit la chaine de "?" avec le nombre de fields
         String nbValue = IntStream.range(0, t.getClass().getDeclaredFields().length).mapToObj(i -> d).collect(Collectors.joining(separator));
         query = "INSERT INTO " + t.getClass().getSimpleName() + " (" + fieldsName + ") VALUES (" + nbValue + ")";
-        System.out.println(query);
         query = query.replaceAll("roleIdent", "identifiant");
         int id = applyQueryFromParameters(query, params);
-        String setLastId = "setId" + t.getClass().getSimpleName();
-        try {
-            Method msetId = t.getClass().getMethod(setLastId, Integer.class);
-            msetId.invoke(t, id);
 
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return t;
+        return findById(id);
     }
 
     @Override
@@ -373,9 +358,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 } else {
                     params.add(param);
                 }
-//                System.out.println("Column name : " + db.columnName());
-//                System.out.println("Type : " + temp.getType());
-//                System.out.println("Value : " + param);
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -386,7 +368,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
             temp.setAccessible(true);
             String getId = "getId" + t.getClass().getSimpleName();
             Method maa = t.getClass().getMethod(getId);
-            System.out.println(maa);
             Object param = maa.invoke(t);
             params.add(param);
         } catch (NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -403,109 +384,38 @@ public abstract class AbstractDao<T> implements IDao<T> {
         applyQueryFromParameters(query, params);
 
         return t;
-
-
-        //Copy en attendant d'etre sûr
-//        String query = null;
-//        try {
-//            List<Object> parameters = new ArrayList<Object>();
-//            //Build only necessary parameters
-//            if (t.getClass() == Utilisateur.class) {
-//
-//                query = "UPDATE Utilisateur " +
-//                        "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateNaissance = ?, dateModification = ? " +
-//                        "WHERE idUtilisateur = ?";
-//
-//                Field role = t.getClass().getDeclaredField("role");
-//                Field civilite = t.getClass().getDeclaredField("civilite");
-//                Field prenom = t.getClass().getDeclaredField("prenom");
-//                Field nom = t.getClass().getDeclaredField("nom");
-//                Field identifiant = t.getClass().getDeclaredField("identifiant");
-//                Field motPasse = t.getClass().getDeclaredField("motPasse");
-//                Field dateNaissance = t.getClass().getDeclaredField("dateNaissance");
-//                Field dateModif = t.getClass().getDeclaredField("dateModification");
-//                Field idUtilisateur = t.getClass().getDeclaredField("idUtilisateur");
-//
-//                role.setAccessible(true);
-//                System.out.println(role.get(t).getClass());
-//                Field roleID = role.get(t).getClass().getDeclaredField("idRole");
-//
-//                roleID.setAccessible(true);
-//                civilite.setAccessible(true);
-//                prenom.setAccessible(true);
-//                nom.setAccessible(true);
-//                identifiant.setAccessible(true);
-//                motPasse.setAccessible(true);
-//                dateNaissance.setAccessible(true);
-//                dateModif.setAccessible(true);
-//                idUtilisateur.setAccessible(true);
-//
-//                parameters.add(roleID.get(role.get(t)));
-//                parameters.add(civilite.get(t));
-//                parameters.add(prenom.get(t));
-//                parameters.add(nom.get(t));
-//                parameters.add(identifiant.get(t));
-//                parameters.add(motPasse.get(t));
-//                parameters.add(dateNaissance.get(t));
-//                parameters.add(dateModif.get(t));
-//                parameters.add(idUtilisateur.get(t));
-//
-//            } else if (t.getClass() == Role.class) {
-//
-//                query = "UPDATE Role SET identifiant = ?, description = ? " +
-//                        "WHERE idRole = ? ";
-//
-//                Field identifiant = t.getClass().getDeclaredField("identifiant");
-//                Field description = t.getClass().getDeclaredField("description");
-//                Field idRole = t.getClass().getDeclaredField("idRole");
-//
-//                identifiant.setAccessible(true);
-//                description.setAccessible(true);
-//                idRole.setAccessible(true);
-//
-//                parameters.add(identifiant.get(t));
-//                parameters.add(description.get(t));
-//                parameters.add(idRole.get(t));
-//            }
-//            applyQueryFromParameters(query, parameters);
-//
-//        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchFieldException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
     }
 
 
     @Override
     public boolean delete(T t) {
-    	String query = null;
-		try {
-			Field temp = t.getClass().getDeclaredField("id" + t.getClass().getSimpleName());
-			temp.setAccessible(true);
-			String getId = "getId" + t.getClass().getSimpleName();
-	        Method maa = t.getClass().getMethod(getId);
-	        Object id = maa.invoke(t);
-	        System.out.println(id);
-	        query = "DELETE FROM " + t.getClass().getSimpleName() + 
-	        		" WHERE id" + t.getClass().getSimpleName() + " = ?";
-	        applyQueryFromParameter(query, id);
-	        return true;
-		} catch (NoSuchFieldException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	return false;
+        String query = null;
+        try {
+            Field temp = t.getClass().getDeclaredField("id" + t.getClass().getSimpleName());
+            temp.setAccessible(true);
+            String getId = "getId" + t.getClass().getSimpleName();
+            Method maa = t.getClass().getMethod(getId);
+            Object id = maa.invoke(t);
+            query = "DELETE FROM " + t.getClass().getSimpleName() +
+                    " WHERE id" + t.getClass().getSimpleName() + " = ?";
+            applyQueryFromParameter(query, id);
+            return true;
+        } catch (NoSuchFieldException | SecurityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
     }
 }
