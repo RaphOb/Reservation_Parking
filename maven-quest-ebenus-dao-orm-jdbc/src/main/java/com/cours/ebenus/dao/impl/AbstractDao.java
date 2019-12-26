@@ -8,10 +8,7 @@ package com.cours.ebenus.dao.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -116,7 +113,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     public <E> List<T> applyQueryFromParameter(String query, E param) {
-    	System.out.println(query);
+        System.out.println(query);
         List<T> objects = new ArrayList<>();
         Connection connection;
         try {
@@ -154,13 +151,13 @@ public abstract class AbstractDao<T> implements IDao<T> {
     }
 
 
-    public void applyQueryFromParameters(String query, List<Object> params) {
-    	System.out.println(query);
+    public int applyQueryFromParameters(String query, List<Object> params) {
+        System.out.println(query);
         Connection connection = null;
         try {
             connection = DataSourceSingleton.getInstance().getConnection();
             PreparedStatement prep = null;
-            prep = connection.prepareStatement(query);
+            prep = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             if (params != null && !params.isEmpty()) {
                 //Prépare la requête
                 int cpt = 1;
@@ -170,11 +167,16 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     cpt++;
                 }
                 prep.executeUpdate();
+                ResultSet rs = prep.getGeneratedKeys();
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return 0;
     }
 
 
@@ -288,6 +290,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
         Field[] fs = t.getClass().getDeclaredFields();
 
 
+        //Parcours tous les champs de la class reçu en param
         for (Field f : fs) {
             try {
                 DBTable db = f.getAnnotation(DBTable.class);
@@ -298,17 +301,21 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
                 System.out.println(temp.getType());
                 Object param = null;
+                //check si le field est une custom class( e.i Role ou Utilisateur ici)
                 if (temp.getType().getGenericSuperclass() == Entities.class) {
                     String getId = "getId" + temp.getType().getSimpleName();
+                    //getter Id de la relation entre les entité (e.i getIdRole)
                     Method maa = temp.getType().getMethod(getId);
                     System.out.println(maa);
+                    // proc la fonction pour recuperer l'id
                     param = maa.invoke(temp.get(t));
                     System.out.println("method " + maa);
-                    temp.getClass().getDeclaredMethods();
+//                    temp.getClass().getDeclaredMethods();
                 } else {
-
+                    //si type normal
                     param = temp.get(t);
                 }
+                //si le field est une date et qu'elle est vide elle sera remplis avec la date today
                 if (temp.getType() == Date.class && param == null) {
                     System.out.println("les date" + temp.getType().getName());
                     param = new java.sql.Timestamp(System.currentTimeMillis());
@@ -321,17 +328,28 @@ public abstract class AbstractDao<T> implements IDao<T> {
         }
         String d = "?";
         String separator = ",";
+        //Construit la string de la query
         String fieldsName = String.join(",", annotationsClass);
+        //Construit la chaine de "?" avec le nombre de fields
         String nbValue = IntStream.range(0, t.getClass().getDeclaredFields().length).mapToObj(i -> d).collect(Collectors.joining(separator));
         query = "INSERT INTO " + t.getClass().getSimpleName() + " (" + fieldsName + ") VALUES (" + nbValue + ")";
         System.out.println(query);
-        applyQueryFromParameters(query, params);
+        query = query.replaceAll("roleIdent", "identifiant");
+        int id = applyQueryFromParameters(query, params);
+        String setLastId = "setId" + t.getClass().getSimpleName();
+        try {
+            Method msetId = t.getClass().getMethod(setLastId, Integer.class);
+            msetId.invoke(t, id);
+
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
         return t;
     }
 
     @Override
     public T update(T t) {
-    	String query = null;
+        String query = null;
         List<Object> params = new ArrayList<>();
         List<String> annotationsClass = new ArrayList<>();
 
@@ -339,73 +357,55 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
         //Build SET parameters
         for (Field f : fs) {
-        	try {
+            try {
                 DBTable db = f.getAnnotation(DBTable.class);
-                
+
                 annotationsClass.add(db.columnName());
-                
+
                 Field temp = t.getClass().getDeclaredField(f.getName());
                 temp.setAccessible(true);
-                
+
                 Object param = temp.get(t);
-                if (f.getName() == "role")
-                {
-                	Field temp2 = temp.get(t).getClass().getDeclaredField("idRole");
-                	temp2.setAccessible(true);
-                	params.add(temp2.get(temp.get(t)));
-                }
-                else
-                {
-                	params.add(param);
+                if (f.getName() == "role") {
+                    Field temp2 = temp.get(t).getClass().getDeclaredField("idRole");
+                    temp2.setAccessible(true);
+                    params.add(temp2.get(temp.get(t)));
+                } else {
+                    params.add(param);
                 }
 //                System.out.println("Column name : " + db.columnName());
 //                System.out.println("Type : " + temp.getType());
 //                System.out.println("Value : " + param);
-        	}
-        	catch (NoSuchFieldException | IllegalAccessException e) {
+            } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
         //For WHERE parameter, get current id of T
-		try {
-			Field temp = t.getClass().getDeclaredField("id" + t.getClass().getSimpleName());
-			temp.setAccessible(true);
-			String getId = "getId" + t.getClass().getSimpleName();
-	        Method maa = t.getClass().getMethod(getId);
-	        System.out.println(maa);
-	        Object param = maa.invoke(t);
-	        params.add(param);
-		} catch (NoSuchFieldException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+        try {
+            Field temp = t.getClass().getDeclaredField("id" + t.getClass().getSimpleName());
+            temp.setAccessible(true);
+            String getId = "getId" + t.getClass().getSimpleName();
+            Method maa = t.getClass().getMethod(getId);
+            System.out.println(maa);
+            Object param = maa.invoke(t);
+            params.add(param);
+        } catch (NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         String fieldsName = String.join(" = ?, ", annotationsClass);
-        query = "UPDATE " + t.getClass().getSimpleName() + 
-        		" SET " + fieldsName + " = ?" + 
-        		" WHERE id" + t.getClass().getSimpleName() + " = ?";
-        
+        query = "UPDATE " + t.getClass().getSimpleName() +
+                " SET " + fieldsName + " = ?" +
+                " WHERE id" + t.getClass().getSimpleName() + " = ?";
+
         query = query.replaceAll("roleIdent", "identifiant");
         applyQueryFromParameters(query, params);
-    	
-    	return t;
-    	
-    	
-    	
-    	
-    	//Copy en attendant d'etre sûr
+
+        return t;
+
+
+        //Copy en attendant d'etre sûr
 //        String query = null;
 //        try {
 //            List<Object> parameters = new ArrayList<Object>();
