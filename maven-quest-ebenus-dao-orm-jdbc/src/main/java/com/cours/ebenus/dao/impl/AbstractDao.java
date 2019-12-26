@@ -116,6 +116,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     public <E> List<T> applyQueryFromParameter(String query, E param) {
+    	System.out.println(query);
         List<T> objects = new ArrayList<>();
         Connection connection;
         try {
@@ -154,6 +155,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     public void applyQueryFromParameters(String query, List<Object> params) {
+    	System.out.println(query);
         Connection connection = null;
         try {
             connection = DataSourceSingleton.getInstance().getConnection();
@@ -167,7 +169,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     prep.setObject(cpt, param);
                     cpt++;
                 }
-
                 prep.executeUpdate();
             }
         } catch (SQLException e) {
@@ -330,74 +331,148 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     @Override
     public T update(T t) {
-        String query = null;
-        try {
-            List<Object> parameters = new ArrayList<Object>();
-            //Build only necessary parameters
-            if (t.getClass() == Utilisateur.class) {
+    	String query = null;
+        List<Object> params = new ArrayList<>();
+        List<String> annotationsClass = new ArrayList<>();
 
-                query = "UPDATE Utilisateur " +
-                        "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateNaissance = ?, dateModification = ? " +
-                        "WHERE idUtilisateur = ?";
+        Field[] fs = t.getClass().getDeclaredFields();
 
-                Field role = t.getClass().getDeclaredField("role");
-                Field civilite = t.getClass().getDeclaredField("civilite");
-                Field prenom = t.getClass().getDeclaredField("prenom");
-                Field nom = t.getClass().getDeclaredField("nom");
-                Field identifiant = t.getClass().getDeclaredField("identifiant");
-                Field motPasse = t.getClass().getDeclaredField("motPasse");
-                Field dateNaissance = t.getClass().getDeclaredField("dateNaissance");
-                Field dateModif = t.getClass().getDeclaredField("dateModification");
-                Field idUtilisateur = t.getClass().getDeclaredField("idUtilisateur");
-
-                role.setAccessible(true);
-                System.out.println(role.get(t).getClass());
-                Field roleID = role.get(t).getClass().getDeclaredField("idRole");
-
-                roleID.setAccessible(true);
-                civilite.setAccessible(true);
-                prenom.setAccessible(true);
-                nom.setAccessible(true);
-                identifiant.setAccessible(true);
-                motPasse.setAccessible(true);
-                dateNaissance.setAccessible(true);
-                dateModif.setAccessible(true);
-                idUtilisateur.setAccessible(true);
-
-                parameters.add(roleID.get(role.get(t)));
-                parameters.add(civilite.get(t));
-                parameters.add(prenom.get(t));
-                parameters.add(nom.get(t));
-                parameters.add(identifiant.get(t));
-                parameters.add(motPasse.get(t));
-                parameters.add(dateNaissance.get(t));
-                parameters.add(dateModif.get(t));
-                parameters.add(idUtilisateur.get(t));
-
-            } else if (t.getClass() == Role.class) {
-
-                query = "UPDATE Role SET identifiant = ?, description = ? " +
-                        "WHERE idRole = ? ";
-
-                Field identifiant = t.getClass().getDeclaredField("identifiant");
-                Field description = t.getClass().getDeclaredField("description");
-                Field idRole = t.getClass().getDeclaredField("idRole");
-
-                identifiant.setAccessible(true);
-                description.setAccessible(true);
-                idRole.setAccessible(true);
-
-                parameters.add(identifiant.get(t));
-                parameters.add(description.get(t));
-                parameters.add(idRole.get(t));
+        //Build SET parameters
+        for (Field f : fs) {
+        	try {
+                DBTable db = f.getAnnotation(DBTable.class);
+                
+                annotationsClass.add(db.columnName());
+                
+                Field temp = t.getClass().getDeclaredField(f.getName());
+                temp.setAccessible(true);
+                
+                Object param = temp.get(t);
+                if (f.getName() == "role")
+                {
+                	Field temp2 = temp.get(t).getClass().getDeclaredField("idRole");
+                	temp2.setAccessible(true);
+                	params.add(temp2.get(temp.get(t)));
+                }
+                else
+                {
+                	params.add(param);
+                }
+//                System.out.println("Column name : " + db.columnName());
+//                System.out.println("Type : " + temp.getType());
+//                System.out.println("Value : " + param);
+        	}
+        	catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
             }
-            applyQueryFromParameters(query, parameters);
-
-        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchFieldException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
-        return null;
+        //For WHERE parameter, get current id of T
+		try {
+			Field temp = t.getClass().getDeclaredField("id" + t.getClass().getSimpleName());
+			temp.setAccessible(true);
+			String getId = "getId" + t.getClass().getSimpleName();
+	        Method maa = t.getClass().getMethod(getId);
+	        System.out.println(maa);
+	        Object param = maa.invoke(t);
+	        params.add(param);
+		} catch (NoSuchFieldException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        String fieldsName = String.join(" = ?, ", annotationsClass);
+        query = "UPDATE " + t.getClass().getSimpleName() + 
+        		" SET " + fieldsName + " = ?" + 
+        		" WHERE id" + t.getClass().getSimpleName() + " = ?";
+        
+        query = query.replaceAll("roleIdent", "identifiant");
+        applyQueryFromParameters(query, params);
+    	
+    	return t;
+    	
+    	
+    	
+    	
+    	//Copy en attendant d'etre sûr
+//        String query = null;
+//        try {
+//            List<Object> parameters = new ArrayList<Object>();
+//            //Build only necessary parameters
+//            if (t.getClass() == Utilisateur.class) {
+//
+//                query = "UPDATE Utilisateur " +
+//                        "SET idRole = ?, civilite = ?, prenom = ?, nom = ?, identifiant = ?, motPasse = ?, dateNaissance = ?, dateModification = ? " +
+//                        "WHERE idUtilisateur = ?";
+//
+//                Field role = t.getClass().getDeclaredField("role");
+//                Field civilite = t.getClass().getDeclaredField("civilite");
+//                Field prenom = t.getClass().getDeclaredField("prenom");
+//                Field nom = t.getClass().getDeclaredField("nom");
+//                Field identifiant = t.getClass().getDeclaredField("identifiant");
+//                Field motPasse = t.getClass().getDeclaredField("motPasse");
+//                Field dateNaissance = t.getClass().getDeclaredField("dateNaissance");
+//                Field dateModif = t.getClass().getDeclaredField("dateModification");
+//                Field idUtilisateur = t.getClass().getDeclaredField("idUtilisateur");
+//
+//                role.setAccessible(true);
+//                System.out.println(role.get(t).getClass());
+//                Field roleID = role.get(t).getClass().getDeclaredField("idRole");
+//
+//                roleID.setAccessible(true);
+//                civilite.setAccessible(true);
+//                prenom.setAccessible(true);
+//                nom.setAccessible(true);
+//                identifiant.setAccessible(true);
+//                motPasse.setAccessible(true);
+//                dateNaissance.setAccessible(true);
+//                dateModif.setAccessible(true);
+//                idUtilisateur.setAccessible(true);
+//
+//                parameters.add(roleID.get(role.get(t)));
+//                parameters.add(civilite.get(t));
+//                parameters.add(prenom.get(t));
+//                parameters.add(nom.get(t));
+//                parameters.add(identifiant.get(t));
+//                parameters.add(motPasse.get(t));
+//                parameters.add(dateNaissance.get(t));
+//                parameters.add(dateModif.get(t));
+//                parameters.add(idUtilisateur.get(t));
+//
+//            } else if (t.getClass() == Role.class) {
+//
+//                query = "UPDATE Role SET identifiant = ?, description = ? " +
+//                        "WHERE idRole = ? ";
+//
+//                Field identifiant = t.getClass().getDeclaredField("identifiant");
+//                Field description = t.getClass().getDeclaredField("description");
+//                Field idRole = t.getClass().getDeclaredField("idRole");
+//
+//                identifiant.setAccessible(true);
+//                description.setAccessible(true);
+//                idRole.setAccessible(true);
+//
+//                parameters.add(identifiant.get(t));
+//                parameters.add(description.get(t));
+//                parameters.add(idRole.get(t));
+//            }
+//            applyQueryFromParameters(query, parameters);
+//
+//        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchFieldException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
 

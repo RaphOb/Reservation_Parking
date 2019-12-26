@@ -10,6 +10,9 @@ import com.cours.ebenus.dao.entities.Utilisateur;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.cours.ebenus.service.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.List;
@@ -44,9 +47,43 @@ public class Main {
 		Date date = new Date(System.currentTimeMillis());
 		u.setDateNaissance(date);
 		u.setRole(role);
-		s.getUtilisateurDao().createUtilisateur(u);
+//		s.getUtilisateurDao().createUtilisateur(u);
 
-
+		
+		//TEST UPDATE
+		Role role2 = s.getRoleDao().findRoleById(5);
+		log.debug(role2.toString());
+		role2.setDescription("Une desription");
+		role2.setIdentifiant("Un identifiant");
+		role2 = s.getRoleDao().updateRole(role2);
+		log.debug(role2.toString());
+		
+		Utilisateur u2 = s.getUtilisateurDao().findUtilisateurById(21);
+		log.debug(u2.toString());
+		u2.setCivilite("Mme");
+		u2.setNom("Test");
+		u2.setMotPasse("Essai");
+		u2.setIdentifiant("rapgou@gmail.com");
+		Date date2;
+		try {
+			date2 = new SimpleDateFormat("2014-02-14").parse("2014-02-14");
+			u2.setDateNaissance(date2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		Date date3 = new Date(System.currentTimeMillis());
+		u2.setDateModification(date3);
+		
+		Date date4 = new Date(System.currentTimeMillis());
+		u2.setDateNaissance(date4);
+		
+		u2.setRole(role2);
+		u2 = s.getUtilisateurDao().updateUtilisateur(u2);
+		log.debug(u2.toString());
+		
 //    	List<Utilisateur> u = s.getUtilisateurDao().findAllUtilisateurs();
 //    	List<Utilisateur> u2 = s.getUtilisateurDao().findUtilisateurByIdentifiant("nicolas.berger@gmail.com");
 //
