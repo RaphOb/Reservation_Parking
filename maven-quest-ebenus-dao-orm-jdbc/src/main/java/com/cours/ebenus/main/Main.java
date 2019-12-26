@@ -75,16 +75,44 @@ public class Main {
 //			e.printStackTrace();
 //		}
 		
-//
-//		Date date3 = new Date(System.currentTimeMillis());
-//		u2.setDateModification(date3);
-//
-//		Date date4 = new Date(System.currentTimeMillis());
-//		u2.setDateNaissance(date4);
-//
-//		u2.setRole(role2);
-//		u2 = s.getUtilisateurDao().updateUtilisateur(u2);
-//		log.debug(u2.toString());
+		Utilisateur u2 = s.getUtilisateurDao().findUtilisateurById(20);
+		log.debug(u2.toString());
+		u2.setCivilite("Mme");
+		u2.setNom("Test");
+		u2.setMotPasse("Essai");
+		u2.setIdentifiant("rapgou@gmail.com");
+		Date date2;
+		try {
+			date2 = new SimpleDateFormat("2014-02-14").parse("2014-02-14");
+			u2.setDateNaissance(date2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		Date date3 = new Date(System.currentTimeMillis());
+		u2.setDateModification(date3);
+		
+		Date date4 = new Date(System.currentTimeMillis());
+		u2.setDateNaissance(date4);
+		
+		u2.setRole(role2);
+		u2 = s.getUtilisateurDao().updateUtilisateur(u2);
+		log.debug(u2.toString());
+		
+		//Test DELETE
+		Role role3 = s.getRoleDao().findRoleById(2);
+		List<Utilisateur> u3 = s.getUtilisateurDao().findUtilisateursByIdRole(2);
+		
+		for(Utilisateur user : u3)
+		{
+			s.getUtilisateurDao().deleteUtilisateur(user);
+		}
+		
+		s.getRoleDao().deleteRole(role3);
+		
+		
 		
 //    	List<Utilisateur> u = s.getUtilisateurDao().findAllUtilisateurs();
 //    	List<Utilisateur> u2 = s.getUtilisateurDao().findUtilisateurByIdentifiant("nicolas.berger@gmail.com");
