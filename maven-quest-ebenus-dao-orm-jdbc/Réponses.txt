@@ -32,3 +32,6 @@ Les connexions de DataSource peuvent être récupéré auprès de la pool une fo
 
 
 5.Que se passe-t-il si on lance le test unitaire en limitant le nombre de connexions de DataSourceSingleton à 1 et en commentant le contenu de la méthode ConnectionHelper.closeSqlResources ? Expliquez
+Si on commente le close connexion et qu'on limite les connexions à 1, les tests ne s'effectuent pas, ils sont bloqués lors de la deuxième demande de connexion, car d'une part la première n'a pas ete close et que la limite est de 1.
+L'établissement d'une connexion est très coûteux en ressources. L'intérêt du pool de connexions est de limiter le nombre de ces créations et ainsi d'améliorer les performances surtout si le nombre de connexions est important.
+Si la connexion n'est pas close, le pool ne sait pas si la connexion est toujours utilisée ou pas par le borrower thread. Et du coup le pool va considérer que la connexion est toujours utilisée

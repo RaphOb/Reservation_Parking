@@ -48,7 +48,7 @@ public class DataSourceSingleton {
     		DataSourceSingletonHolder.dataSource.setUrl(Constants.DATABASE_URL);
     		DataSourceSingletonHolder.dataSource.setUsername(Constants.DATABASE_USER);
     		DataSourceSingletonHolder.dataSource.setPassword(Constants.DATABASE_PASSWORD);
-    		DataSourceSingletonHolder.dataSource.setMaxIdle(20);
+    		DataSourceSingletonHolder.dataSource.setMaxActive(20);
     	}
     	else
     	{
