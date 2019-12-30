@@ -31,26 +31,28 @@ public class Main {
         // TODO code application logic here
         ServiceFacade s = new ServiceFacade();
 
-        //TEST CREATE
-        Role role = new Role();
-        role.setDescription("Une encore une");
-        role.setIdentifiant("Un ba nono");
-
-        Role role1 = s.getRoleDao().createRole(role);
+        System.out.println(s.getUtilisateurDao().findUtilisateurById(4));
+//
+//        //TEST CREATE
+//        Role role = new Role();
+//        role.setDescription("Une encore une");
+//        role.setIdentifiant("Un ba nono");
+//
+//        Role role1 = s.getRoleDao().createRole(role);
 //        System.out.println(s.getRoleDao().deleteRole(role1));
 
-
-        Utilisateur u = new Utilisateur();
-        u.setCivilite("M");
-        u.setNom("blogou");
-        u.setPrenom("blleeehh");
-        u.setMotPasse("pass");
-        u.setIdentifiant("blataaaa@gmail.com");
-        Date date = new Date(System.currentTimeMillis());
-        u.setDateNaissance(date);
-        u.setRole(role1);
-        Utilisateur newone = s.getUtilisateurDao().createUtilisateur(u);
-        System.out.println(newone);
+//
+//        Utilisateur u = new Utilisateur();
+//        u.setCivilite("M");
+//        u.setNom("blogou");
+//        u.setPrenom("blleeehh");
+//        u.setMotPasse("pass");
+//        u.setIdentifiant("blataaaa@gmail.com");
+//        Date date = new Date(System.currentTimeMillis());
+//        u.setDateNaissance(date);
+//        u.setRole(role1);
+//        Utilisateur newone = s.getUtilisateurDao().createUtilisateur(u);
+//        System.out.println(newone);
 
 		
 		//TEST UPDATE

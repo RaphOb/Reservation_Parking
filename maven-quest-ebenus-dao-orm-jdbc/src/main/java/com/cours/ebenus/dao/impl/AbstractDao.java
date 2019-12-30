@@ -5,6 +5,7 @@
  */
 package com.cours.ebenus.dao.impl;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.cours.ebenus.dao.annotations.FetchChild;
 import com.cours.ebenus.service.ServiceFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -222,6 +224,34 @@ public abstract class AbstractDao<T> implements IDao<T> {
             query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role;";
         }
         return applyQueryFromParameter(query, null);
+    }
+
+    public String sqlBuilder() {
+        StringBuilder querytry = new StringBuilder("SELECT ");
+        Field[] fs = myClass.getDeclaredFields();
+        List<Field> fl = new ArrayList<>();
+
+        for (Field f : fs) {
+            if (f.getType().getGenericSuperclass().equals(Entities.class)) {
+                fl.add(f);
+            } else {
+                querytry.append(myClass.getSimpleName()).append(".").append(f.getName());
+                querytry.append(", ");
+            }
+        }
+        for (Field f1 : fl) {
+            for(Field innerField : f1.getType().getDeclaredFields()) {
+                querytry.append(f1.getName()).append(".").append(innerField.getName());
+                querytry.append(", ");
+            }
+        }
+        querytry.deleteCharAt(querytry.lastIndexOf(",")).append(" FROM ").append(myClass.getSimpleName());
+        for(Field f : fl) {
+            DBTable dbTable = f.getAnnotation(DBTable.class);
+            System.out.println(dbTable);
+            querytry.append(" JOIN ").append(f.getName()).append(" USING (").append(dbTable.columnName()).append(")");
+        }
+       return querytry.toString();
     }
 
 
