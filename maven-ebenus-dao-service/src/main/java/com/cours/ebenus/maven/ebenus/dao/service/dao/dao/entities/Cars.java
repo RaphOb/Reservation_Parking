@@ -1,4 +1,4 @@
-package com.cours.ebenus.maven.ebenus.dao.service.dao.entities;
+package com.cours.ebenus.maven.ebenus.dao.service.dao.dao.entities;
 
 public class Cars {
 
