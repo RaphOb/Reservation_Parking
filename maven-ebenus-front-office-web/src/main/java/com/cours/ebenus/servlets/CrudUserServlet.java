@@ -156,19 +156,12 @@ public class CrudUserServlet extends HttpServlet {
                     		String civilite = line.split(";")[0];
                     		String prenom = line.split(";")[1];
                     		String nom = line.split(";")[2];
-                    		String strDate = line.split(";")[3];
-                    		Date dateNaissance = null;
-							try {
-								dateNaissance = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}  
+
                     		String role_identifiant = line.split(";")[4];
                     		List<Role> role = service.getRoleDao().findRoleByIdentifiant(role_identifiant);
-                    		String identifiant = line.split(";")[5];
+                    		String email = line.split(";")[5];
                     		String motPasse = line.split(";")[6];
-                    		Utilisateur new_user = new Utilisateur(civilite, prenom, nom, identifiant, motPasse, dateNaissance, role.get(0));
+                    		Utilisateur new_user = new Utilisateur(civilite, prenom, nom, email, motPasse, role.get(0));
                     		service.getUtilisateurDao().createUtilisateur(new_user);	
                     	}
                     }
@@ -188,7 +181,7 @@ public class CrudUserServlet extends HttpServlet {
 		log.debug("Currents users");
 		for(Utilisateur user : users)
 		{
-			current_user_tab[cpt] = user.getIdentifiant();
+			current_user_tab[cpt] = user.getemail();
 			log.debug(current_user_tab[cpt]);
 			cpt++;
 		}

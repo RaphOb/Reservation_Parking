@@ -22,7 +22,7 @@ public interface IUtilisateurDao {
 
     public List<Utilisateur> findUtilisateursByNom(String nom);
 
-    public List<Utilisateur> findUtilisateurByIdentifiant(String identifiant);
+    public List<Utilisateur> findUtilisateurByEmail(String email);
 
     public List<Utilisateur> findUtilisateursByIdRole(int idRole);
 

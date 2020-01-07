@@ -54,8 +54,6 @@ public class UpdateUserServlet extends HttpServlet {
                     Utilisateur uUpdate = service.getUtilisateurDao().findUtilisateurById(u);
                     if (u == user.getIdUtilisateur() || user.getRole().getIdentifiant().equals("Administrateur")) {
                         List<Role> roles = service.getRoleDao().findAllRoles();
-                        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                        request.setAttribute("date", df.format(uUpdate.getDateNaissance()));
                         request.setAttribute("roles", roles);
                         request.setAttribute("userU",uUpdate);
                         this.getServletContext().getRequestDispatcher("/pages/crudUser/updateUser.jsp").forward(request, response);
@@ -84,26 +82,14 @@ public class UpdateUserServlet extends HttpServlet {
         String prenom = request.getParameter("firstname");
         String nom = request.getParameter("lastname");
         String email = request.getParameter("email");
-        String dateNaissance = request.getParameter("dteNaiss");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = sdf.parse(dateNaissance);
-        } catch (ParseException e) {
-            e.getErrorOffset();
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        Date d = cal.getTime();
 
         Integer u = Integer.parseInt(request.getParameter("userU"));
         Utilisateur user = service.getUtilisateurDao().findUtilisateurById(u);
-        user.setIdentifiant(email);
+        user.setemail(email);
         user.setMotPasse(civilite);
         user.setPrenom(prenom);
         user.setNom(nom);
-        user.setDateNaissance(d);
         user.setDateModification(new Date(System.currentTimeMillis()));
 
         Role role = service.getRoleDao().findRoleById(Integer.parseInt(idRole));

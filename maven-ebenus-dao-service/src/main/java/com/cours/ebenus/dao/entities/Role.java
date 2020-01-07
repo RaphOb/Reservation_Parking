@@ -19,29 +19,22 @@ public class Role extends Entities {
     private String identifiant;
     @DBTable(columnName = "description")
     private String description;
-    @DBTable(columnName = "version")
-    private Integer version = 0;
 
     public Role() {
     }
 
-    public Role(Integer idRole, String identifiant, String description, Integer version) {
+    public Role(Integer idRole, String identifiant, String description) {
         this.idRole = idRole;
         this.identifiant = identifiant;
         this.description = description;
-        this.version = version;
-    }
-
-    public Role(Integer idRole, String identifiant, String description) {
-        this(idRole, identifiant, description, null);
     }
 
     public Role(String identifiant, String description) {
-        this(null, identifiant, description, null);
+        this(null, identifiant, description);
     }
 
     public Role(Integer idRole) {
-        this(idRole, null, null, null);
+        this(idRole, null, null);
     }
 
     public Integer getIdRole() {
@@ -66,14 +59,6 @@ public class Role extends Entities {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     @Override

@@ -65,14 +65,14 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
     }
 
     @Override
-    public List<Utilisateur> findUtilisateurByIdentifiant(String identifiant) {
+    public List<Utilisateur> findUtilisateurByEmail(String email) {
         Object obj = null;
         try {
-            obj = Utilisateur.class.getDeclaredField("identifiant");
+            obj = Utilisateur.class.getDeclaredField("email");
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-        return super.findByCriteria(obj, identifiant);
+        return super.findByCriteria(obj, email);
     }
 
     @Override
@@ -113,12 +113,12 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         }
 
         String sql1 = "SELECT count(*) FROM Utilisateur " +
-                "WHERE identifiant = ?";
+                "WHERE email = ?";
         PreparedStatement p = null;
         ResultSet r = null;
         try {
             p = connection.prepareStatement(sql1);
-            p.setString(1, user.getIdentifiant());
+            p.setString(1, user.getemail());
             r = p.executeQuery();
             while (r.next()) {
                 if (r.getInt(1) > 0) {
@@ -161,7 +161,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         try {
             connection = DataSourceSingleton.getInstance().getConnection();
             String sql = "SELECT * FROM Utilisateur " +
-                    "WHERE identifiant = ? AND motPasse = ?";
+                    "WHERE email = ? AND motPasse = ?";
             PreparedStatement prep = null;
             ResultSet rs = null;
 

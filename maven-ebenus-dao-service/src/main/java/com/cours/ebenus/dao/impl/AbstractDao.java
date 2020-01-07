@@ -221,7 +221,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     "FROM Utilisateur " +
                     "LEFT JOIN Role r on r.idRole= Utilisateur.idRole";
         } else if (myClass.getName().equals(Role.class.getName())) {
-            query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role;";
+            query = "SELECT identifiant AS roleIdent, idRole, description FROM Role;";
         } else if (myClass.getName().equals(PlaceParking.class.getName())) {
             query = "SELECT idPlace, idVoiture, num, available FROM PlaceParking;";
 	    } else if (myClass.getName().equals(Voiture.class.getName())) {
@@ -267,7 +267,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
                     "where Utilisateur.idUtilisateur = ? ";
         } else if (myClass.getName().equals(Role.class.getName())) {
-            query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
+            query = "SELECT identifiant AS roleIdent, idRole, description FROM Role" +
                     " WHERE idRole = ?;";
         }
 
@@ -301,7 +301,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
         } else if (myClass.getName().equals(Role.class.getName())) {
 
-            query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role" +
+            query = "SELECT identifiant AS roleIdent, idRole, description FROM Role" +
                     " WHERE identifiant = ?";
 
             System.out.println("FINAL QUERY : " + query);
@@ -434,19 +434,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     " WHERE id" + t.getClass().getSimpleName() + " = ?";
             applyQueryFromParameter(query, id);
             return true;
-        } catch (NoSuchFieldException | SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

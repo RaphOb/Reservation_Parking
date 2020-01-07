@@ -44,7 +44,7 @@
                                                 <input  autocomplete="off"  name="lastname" id="lastname" type="text">
                                             </div>
                                             <div class="input-wrapper">
-                                                <label for="email">Identifiant<em>*</em></label>
+                                                <label for="email">Email<em>*</em></label>
                                                 <input  autocomplete="off" name="email" id="email" type="email">
                                             </div>
                                             <div class="input-wrapper">
@@ -92,10 +92,10 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="input-wrapper">
-                                                <label style="display: block;"> Date de naissance<em>*</em></label>
-                                                <input  autocomplete="off" id="dteNaiss" name="dteNaiss" style="width:auto;" data-toggle="datepicker" type="text" value="" name="naissance">
-                                            </div>
+<%--                                            <div class="input-wrapper">--%>
+<%--                                                <label style="display: block;"> Date de naissance<em>*</em></label>--%>
+<%--                                                <input  autocomplete="off" id="dteNaiss" name="dteNaiss" style="width:auto;" data-toggle="datepicker" type="text" value="" name="naissance">--%>
+<%--                                            </div>--%>
                                     </fieldset>
                                 </div>
                                 <div class="row">

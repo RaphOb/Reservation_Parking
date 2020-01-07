@@ -10,7 +10,6 @@ import com.cours.ebenus.dao.annotations.DBTable;
 import java.util.Date;
 
 /**
- *
  * @author elhad
  */
 public class Utilisateur extends Entities {
@@ -25,61 +24,42 @@ public class Utilisateur extends Entities {
     private String prenom;
     @DBTable(columnName = "nom")
     private String nom;
-    @DBTable(columnName = "identifiant")
-    private String identifiant;
+    @DBTable(columnName = "email")
+    private String email;
     @DBTable(columnName = "motPasse")
     private String motPasse;
-    @DBTable(columnName = "dateNaissance")
-    private Date dateNaissance;
     @DBTable(columnName = "dateCreation")
     private Date dateCreation;
     @DBTable(columnName = "dateModification")
     private Date dateModification;
-    @DBTable(columnName = "actif")
-    private Boolean actif = true;
-    @DBTable(columnName = "marquerEffacer")
-    private Boolean marquerEffacer = false;
-    @DBTable(columnName = "version")
-    private Integer version = 0;
-    
+
 
     public Utilisateur() {
     }
 
-    public Utilisateur(Integer idUtilisateur, String civilite, String prenom, String nom, String identifiant, String motPasse, Date dateNaissance, Date dateCreation, Date dateModification, Boolean actif, Boolean marquerEffacer, Integer version, Role role) {
+    public Utilisateur(Integer idUtilisateur, String civilite, String prenom, String nom, String email, String motPasse, Date dateCreation, Date dateModification, Role role) {
         this.idUtilisateur = idUtilisateur;
         this.civilite = civilite;
         this.prenom = prenom;
         this.nom = nom;
-        this.identifiant = identifiant;
+        this.email = email;
         this.motPasse = motPasse;
-        this.dateNaissance = dateNaissance;
         this.dateCreation = dateCreation;
         this.dateModification = dateModification;
-        this.actif = actif;
-        this.marquerEffacer = marquerEffacer;
-        this.version = version;
         this.role = role;
     }
 
-    public Utilisateur(Integer idUtilisateur, String civilite, String prenom, String nom, String identifiant, String motPasse, Date dateNaissance, Boolean actif, Boolean marquerEffacer, Integer version, Role role) {
-        this(idUtilisateur, civilite, prenom, nom, identifiant, motPasse, dateNaissance, null, null, true, false, 0, role);
+    public Utilisateur(Integer idUtilisateur, String civilite, String prenom, String nom, String email, String motPasse, Role role) {
+        this(idUtilisateur, civilite, prenom, nom, email, motPasse, null, null, role);
     }
 
-    public Utilisateur(Integer idUtilisateur, String civilite, String prenom, String nom, String identifiant, String motPasse, Date dateNaissance, Role role) {
-        this(idUtilisateur, civilite, prenom, nom, identifiant, motPasse, dateNaissance, null, null, true, false, 0, role);
-    }
 
-    public Utilisateur(String civilite, String prenom, String nom, String identifiant, String motPasse, Date dateNaissance, Role role) {
-        this(null, civilite, prenom, nom, identifiant, motPasse, dateNaissance, null, null, true, false, 0, role);
-    }
-
-    public Utilisateur(String civilite, String prenom, String nom, String identifiant, String motPasse, Date dateNaissance) {
-        this(null, civilite, prenom, nom, identifiant, motPasse, dateNaissance, null, null, true, false, 0, null);
+    public Utilisateur(String civilite, String prenom, String nom, String email, String motPasse, Role role) {
+        this(null, civilite, prenom, nom, email, motPasse, null, null, role);
     }
 
     public Utilisateur(Integer idUtilisateur) {
-        this(idUtilisateur, null, null, null, null, null, null, null, null, true, false, 0, null);
+        this(idUtilisateur, null, null, null, null, null, null, null, null);
     }
 
     public Integer getIdUtilisateur() {
@@ -114,12 +94,12 @@ public class Utilisateur extends Entities {
         this.nom = nom;
     }
 
-    public String getIdentifiant() {
-        return identifiant;
+    public String getemail() {
+        return email;
     }
 
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
+    public void setemail(String email) {
+        this.email = email;
     }
 
     public String getMotPasse() {
@@ -130,13 +110,6 @@ public class Utilisateur extends Entities {
         this.motPasse = motPasse;
     }
 
-    public Date getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
 
     public Date getDateCreation() {
         return dateCreation;
@@ -152,30 +125,6 @@ public class Utilisateur extends Entities {
 
     public void setDateModification(Date dateModification) {
         this.dateModification = dateModification;
-    }
-
-    public Boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(Boolean actif) {
-        this.actif = actif;
-    }
-
-    public Boolean isMarquerEffacer() {
-        return marquerEffacer;
-    }
-
-    public void setMarquerEffacer(Boolean marquerEffacer) {
-        this.marquerEffacer = marquerEffacer;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public Role getRole() {
@@ -207,11 +156,10 @@ public class Utilisateur extends Entities {
 
     @Override
     public String toString() {
-        String toString = String.format("\n[idUtilisateur=%s, civilite=%s, prenom=%s, nom=%s, identifiant=%s, motPasse=%s, dateNaissance=%s,dateCreation=%s, dateModification=%s, actif=%s, marquerEffacer=%s", idUtilisateur, civilite, prenom, nom, identifiant, motPasse, dateNaissance, dateCreation, dateModification, actif, marquerEffacer);
+        String toString = String.format("\n[idUtilisateur=%s, civilite=%s, prenom=%s, nom=%s, email=%s, motPasse=%s, dateCreation=%s, dateModification=%s", idUtilisateur, civilite, prenom, nom, email, motPasse, dateCreation, dateModification);
         if (role != null) {
             toString += String.format(" ,role=%s ", role);
         }
-        toString += String.format(" ,version=%s]\n", version);
         return toString;
     }
 }

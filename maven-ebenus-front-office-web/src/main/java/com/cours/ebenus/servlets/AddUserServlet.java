@@ -83,21 +83,13 @@ public class AddUserServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String motPasse = request.getParameter("password");
 		String confirmMotPasse = request.getParameter("password_confirm");
-		String dateNaissance = request.getParameter("dteNaiss");
-		
+
 		/* Build Date object */
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date;
-		try {
-			date = sdf.parse(dateNaissance);
-			/* Get Role from ID */
-			Role role = service.getRoleDao().findRoleById(Integer.parseInt(idRole));
-			Utilisateur user = new Utilisateur(civilite, prenom, nom, email, motPasse, date, role);
-			user = service.getUtilisateurDao().createUtilisateur(user);
-			log.debug("User created");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		/* Get Role from ID */
+		Role role = service.getRoleDao().findRoleById(Integer.parseInt(idRole));
+		Utilisateur user = new Utilisateur(civilite, prenom, nom, email, motPasse, role);
+		user = service.getUtilisateurDao().createUtilisateur(user);
+		log.debug("User created");
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 
