@@ -16,11 +16,11 @@ public class Voiture {
         this.user = user;
     }
 
-    public Integer getIdCars() {
+    public Integer getIdVoiture() {
         return idCars;
     }
 
-    public void setIdCars(Integer idCars) {
+    public void setIdVoiture(Integer idCars) {
         this.idCars = idCars;
     }
 
@@ -65,8 +65,8 @@ public class Voiture {
 
     @Override
     public String toString() {
-        return "Cars{" +
-                "idCars=" + idCars +
+        return "Voiture{" +
+                "idVoiture=" + idCars +
                 ", brand='" + brand + '\'' +
                 ", immat='" + immat + '\'' +
                 ", user=" + user +
