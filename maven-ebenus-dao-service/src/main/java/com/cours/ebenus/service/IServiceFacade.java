@@ -8,6 +8,7 @@ package com.cours.ebenus.service;
 import com.cours.ebenus.dao.IPlaceParkingDao;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
+import com.cours.ebenus.dao.IVoitureDao;
 
 /**
  *
@@ -20,4 +21,6 @@ public interface IServiceFacade {
     public IRoleDao getRoleDao();
 
 	public IPlaceParkingDao getPlaceParkingDao();
+	
+	public IVoitureDao getVoitureDao();
 }

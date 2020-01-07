@@ -26,6 +26,7 @@ import com.cours.ebenus.dao.entities.Entities;
 import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.entities.Voiture;
 
 
 /**
@@ -223,7 +224,9 @@ public abstract class AbstractDao<T> implements IDao<T> {
             query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role;";
         } else if (myClass.getName().equals(PlaceParking.class.getName())) {
             query = "SELECT idPlace, idVoiture, num, available FROM PlaceParking;";
-        }
+	    } else if (myClass.getName().equals(Voiture.class.getName())) {
+	        query = "SELECT idVoiture, idUtilisateur, marque, immatriculation FROM Voiture;";
+	    }
         return applyQueryFromParameter(query, null);
     }
 

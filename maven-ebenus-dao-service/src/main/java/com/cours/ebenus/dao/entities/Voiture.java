@@ -1,27 +1,33 @@
 package com.cours.ebenus.dao.entities;
 
+import com.cours.ebenus.dao.annotations.DBTable;
+
 public class Voiture {
 
-    private Integer idCars;
+	@DBTable(columnName = "idVoiture")
+    private Integer id;
+	@DBTable(columnName = "marque")
     private String brand;
+	@DBTable(columnName = "immatriculation")
     private String immat;
-    private Utilisateur user;
+	@DBTable(columnName = "idUtilisateur")
+    private Integer idUser;
 
     public Voiture() {}
 
-    public Voiture(Integer idCars, String brand, String immat, Utilisateur user) {
-        this.idCars = idCars;
+    public Voiture(Integer id, String brand, String immat, Integer user) {
+        this.id = id;
         this.brand = brand;
         this.immat = immat;
-        this.user = user;
+        this.idUser = user;
     }
 
-    public Integer getIdVoiture() {
-        return idCars;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdVoiture(Integer idCars) {
-        this.idCars = idCars;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getBrand() {
@@ -40,12 +46,12 @@ public class Voiture {
         this.immat = immat;
     }
 
-    public Utilisateur getUser() {
-        return user;
+    public Integer getUser() {
+        return idUser;
     }
 
-    public void setUser(Utilisateur user) {
-        this.user = user;
+    public void setUser(Integer user) {
+        this.idUser = user;
     }
 
     @Override
@@ -55,21 +61,21 @@ public class Voiture {
 
         Voiture cars = (Voiture) o;
 
-        return idCars.equals(cars.idCars);
+        return id.equals(cars.id);
     }
 
     @Override
     public int hashCode() {
-        return idCars.hashCode();
+        return id.hashCode();
     }
 
     @Override
     public String toString() {
         return "Voiture{" +
-                "idVoiture=" + idCars +
+                "id=" + id +
                 ", brand='" + brand + '\'' +
                 ", immat='" + immat + '\'' +
-                ", user=" + user +
+                ", user=" + idUser +
                 '}';
     }
 }

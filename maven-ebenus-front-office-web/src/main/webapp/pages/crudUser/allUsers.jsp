@@ -148,6 +148,56 @@
                         </div>
             	</div>
             </section>
+            
+            <section>
+            	<div class="content">
+            		<h1 id="voiture_list_title" style="cursor: pointer;"class="clearfix">liste des voitures</h1>
+            		
+            		<div id="voiture_list" class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Propriétaire</th>
+                                        <th>Modèle</th>
+                                        <th>Immatriculation</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+	                                <c:forEach items = "${voitures}" var = "voiture">
+	                                	<tr> 
+	                                		<td>
+	                                			<c:out value="${voiture.getUser()}"/>
+							        		</td>
+							        		<td>
+	                                			<c:out value="${voiture.getBrand()}"/>
+							        		</td>
+							        		<td>
+	                                			<c:out value="${voiture.getImmat()}"/>
+							        		</td>
+							        		<td>
+							        			<!-- TODO 2 servlets a faire ici: update et delete des voitures   -->
+								        		<a href="<c:url value="/UpdateUserServlet?user=${parking.getId()}"/>"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/DeleteUserServlet?user=${parking.getId()}"/>" class="no-style-btn">
+								        			<i class="fa fa-trash-o"></i>
+												</a>
+							        		</td>
+						          		</tr>
+							        </c:forEach>
+                                </tbody>
+                            </table>
+                            <!-- TODO 1 servlet a faire ici: create voiture   -->
+                            <ul class="User">
+                                <li>
+                                    <div class="col-lg-12 no-padding">
+                                        <a href="AddUserServlet" role="button" type="submit">Ajouter un véhicule</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+            	</div>
+            </section>
             <!-- Footer -->
             <footer>
                 <div class="footer-container ">

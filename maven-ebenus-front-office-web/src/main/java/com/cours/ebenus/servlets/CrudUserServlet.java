@@ -33,6 +33,7 @@ import org.json.simple.JSONObject;
 import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.opencsv.CSVWriter;
@@ -89,9 +90,11 @@ public class CrudUserServlet extends HttpServlet {
     			/* Give to JSP all needed data */
 	    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
 	    		List<PlaceParking> parkings = service.getPlaceParkingDao().findAllPlaceParkings();
+	    		List<Voiture> voitures = service.getVoitureDao().findAllVoitures();
 	    		
 	        	request.setAttribute("users", users);
 	        	request.setAttribute("parkings", parkings);
+	        	request.setAttribute("voitures", voitures);
 	        	
 	        	request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
 	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
