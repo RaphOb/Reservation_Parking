@@ -32,7 +32,7 @@
 
                         <h1 class="logout"> <a href="<c:url value="LogoutServlet"/>"  role="button">Se Deconnecter</a></h1> 
                        
-                        <h1 id="user_list_title" style="cursor: pointer;"class="clearfix">liste des utilisateurs</h1>
+                        <h1 id="user_list_title" style="cursor: pointer;"class="clearfix"> <i id="icon-plus-1" class="fa fa-plus"></i> liste des utilisateurs</h1>
 
                         <div id="user_list" class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
@@ -89,7 +89,7 @@
             
             <section>
             	<div class="content">
-            		<h1 id="parking_list_title" style="cursor: pointer;"class="clearfix">liste des places disponibles</h1>
+            		<h1 id="parking_list_title" style="cursor: pointer;"class="clearfix"> <i id="icon-plus-2"class="fa fa-plus"></i> liste des places disponibles</h1>
             		
             		<div id="parking_list" class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
@@ -151,7 +151,7 @@
             
             <section>
             	<div class="content">
-            		<h1 id="voiture_list_title" style="cursor: pointer;"class="clearfix">liste des voitures</h1>
+            		<h1 id="voiture_list_title" style="cursor: pointer;"class="clearfix"> <i id="icon-plus-3" class="fa fa-plus"></i> liste des voitures</h1>
             		
             		<div id="voiture_list" class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
