@@ -1,4 +1,4 @@
-package com.cours.ebenus.entities;
+package com.cours.ebenus.dao.entities;
 
 public class Voiture {
 

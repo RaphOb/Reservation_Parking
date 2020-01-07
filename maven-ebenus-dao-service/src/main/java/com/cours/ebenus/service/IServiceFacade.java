@@ -5,6 +5,7 @@
  */
 package com.cours.ebenus.service;
 
+import com.cours.ebenus.dao.IPlaceParkingDao;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
 
@@ -17,4 +18,6 @@ public interface IServiceFacade {
     public IUtilisateurDao getUtilisateurDao();
 
     public IRoleDao getRoleDao();
+
+	public IPlaceParkingDao getPlaceParkingDao();
 }

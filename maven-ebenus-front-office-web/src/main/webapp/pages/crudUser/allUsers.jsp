@@ -74,7 +74,6 @@
                                 </tbody>
                             </table>
                             <ul class="User">
-
                                 <li>
                                     <!-- <a href="#" role="button">Import d'utilisateurs à partir d'un fichier CSV</a> -->
                                     <div class="col-lg-12 no-padding">
@@ -87,9 +86,66 @@
                     </div> 
                 </div>
             </section>
+            
             <section>
             	<div class="content">
-            		<h1 id="parking_title" style="cursor: pointer;"class="clearfix">liste des places disponibles</h1>
+            		<h1 id="parking_list_title" style="cursor: pointer;"class="clearfix">liste des places disponibles</h1>
+            		
+            		<div id="parking_list" class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Voiture</th>
+                                        <th>Numéro de place</th>
+                                        <th>Disponible</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+	                                <c:forEach items = "${parkings}" var = "parking">
+	                                	<tr> 
+							        		<td> 
+							        			<c:choose>
+								        			<c:when test="${empty parking.getIdVoiture()}">
+								        				N/A
+							        				</c:when>
+							        				<c:otherwise>
+										        			${parking.getIdVoiture()}
+									        		</c:otherwise>
+								        		</c:choose>
+							        		 </td>
+								        	<td> <c:out value = "${parking.getNum()}"/> </td>
+								        	<td>
+									        	<c:choose>
+									        		<c:when test="${parking.getAvailable()}">
+									        			Oui 
+								        			</c:when>
+									        		<c:otherwise>
+									        			Non 
+									        		</c:otherwise>
+								        		</c:choose>
+								        	</td>
+							        		<td>
+							        			<!-- TODO 2 servlets a faire ici: update et delete des places   -->
+								        		<a href="<c:url value="/UpdateUserServlet?user=${parking.getId()}"/>"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/DeleteUserServlet?user=${parking.getId()}"/>" class="no-style-btn">
+								        			<i class="fa fa-trash-o"></i>
+												</a>
+							        		</td>
+						          		</tr>
+							        </c:forEach>
+                                </tbody>
+                            </table>
+                            <!-- TODO 1 servlet a faire ici: create places   -->
+                            <ul class="User">
+                                <li>
+                                    <div class="col-lg-12 no-padding">
+                                        <a href="AddUserServlet" role="button" type="submit">Ajouter une place de parking</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
             	</div>
             </section>
             <!-- Footer -->

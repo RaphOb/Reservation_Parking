@@ -5,6 +5,7 @@
  */
 package com.cours.ebenus.factory;
 
+import com.cours.ebenus.dao.IPlaceParkingDao;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
 import org.apache.commons.logging.Log;
@@ -27,6 +28,8 @@ public abstract class AbstractDaoFactory {
     public abstract IUtilisateurDao getUtilisateurDao();
 
     public abstract IRoleDao getRoleDao();
+    
+    public abstract IPlaceParkingDao getPlaceParkingDao();
 
     /**
      * Méthode pour récupérer une factory de DAO

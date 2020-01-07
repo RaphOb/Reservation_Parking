@@ -5,6 +5,7 @@
  */
 package com.cours.ebenus.service;
 
+import com.cours.ebenus.dao.IPlaceParkingDao;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
 import com.cours.ebenus.factory.AbstractDaoFactory;
@@ -25,17 +26,21 @@ public class ServiceFacade implements IServiceFacade {
     private IUtilisateurDao utilisateurDao = null;
 
     private IRoleDao roleDao = null;
+    
+    private IPlaceParkingDao placeParkingDao = null;
 
     public ServiceFacade() {
         // mettre tous les DAO
         utilisateurDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getUtilisateurDao();
         roleDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getRoleDao();
+        placeParkingDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getPlaceParkingDao();
     }
 
     public ServiceFacade(FactoryDaoType daoType) {
         // mettre tous les DAO
         utilisateurDao = AbstractDaoFactory.getFactory(daoType).getUtilisateurDao();
         roleDao = AbstractDaoFactory.getFactory(daoType).getRoleDao();
+        placeParkingDao = AbstractDaoFactory.getFactory(daoType).getPlaceParkingDao();
     }
 
     @Override
@@ -47,4 +52,10 @@ public class ServiceFacade implements IServiceFacade {
     public IRoleDao getRoleDao() {
         return roleDao;
     }
+
+	@Override
+	public IPlaceParkingDao getPlaceParkingDao() {
+		// TODO Auto-generated method stub
+		return placeParkingDao;
+	}
 }

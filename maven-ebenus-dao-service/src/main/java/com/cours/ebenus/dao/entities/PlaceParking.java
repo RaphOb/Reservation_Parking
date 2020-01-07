@@ -1,26 +1,32 @@
-package com.cours.ebenus.entities;
+package com.cours.ebenus.dao.entities;
+
+import com.cours.ebenus.dao.annotations.DBTable;
 
 public class PlaceParking {
 
-    private Integer idLot;
+	@DBTable(columnName = "idPlace")
+    private Integer id;
+	@DBTable(columnName = "idVoiture")
     private Integer idVoiture;
-    private Integer number_lot;
+	@DBTable(columnName = "num")
+    private Integer num;
+	@DBTable(columnName = "available")
     private Boolean available;
 
     public PlaceParking(){}
 
-    public PlaceParking(Integer idLot, Integer number_lot, Boolean available) {
-        this.idLot = idLot;
-        this.number_lot = number_lot;
+    public PlaceParking(Integer id, Integer num, Boolean available) {
+        this.id = id;
+        this.num = num;
         this.available = available;
     }
 
-    public Integer getIdLot() {
-        return idLot;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdLot(Integer idLot) {
-        this.idLot = idLot;
+    public void setId(Integer id) {
+        this.id = id;
     }
     
     public Integer getIdVoiture() {
@@ -31,12 +37,12 @@ public class PlaceParking {
 		this.idVoiture = idVoiture;
 	}
 
-    public Integer getNumber_lot() {
-        return number_lot;
+    public Integer getNum() {
+        return num;
     }
 
-    public void setNumber_lot(Integer number_lot) {
-        this.number_lot = number_lot;
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
     public Boolean getAvailable() {
@@ -54,20 +60,20 @@ public class PlaceParking {
 
         PlaceParking that = (PlaceParking) o;
 
-        return idLot.equals(that.idLot);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return idLot.hashCode();
+        return id.hashCode();
     }
 
     @Override
     public String toString() {
         return "PlaceParking{" +
-                "idLot=" + idLot +
+                "id=" + id +
                 ", idVoiture=" + idVoiture +
-                ", number_lot=" + number_lot +
+                ", Numéro=" + num +
                 ", available=" + available +
                 '}';
     }

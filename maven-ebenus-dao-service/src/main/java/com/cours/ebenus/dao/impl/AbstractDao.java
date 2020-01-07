@@ -5,7 +5,6 @@
  */
 package com.cours.ebenus.dao.impl;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,8 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.cours.ebenus.dao.annotations.FetchChild;
-import com.cours.ebenus.service.ServiceFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,6 +23,7 @@ import com.cours.ebenus.dao.DataSourceSingleton;
 import com.cours.ebenus.dao.IDao;
 import com.cours.ebenus.dao.annotations.DBTable;
 import com.cours.ebenus.dao.entities.Entities;
+import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 
@@ -56,15 +54,15 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
                 //Récupération de l'annotation à partir des champs déclarées dans la class T
                 DBTable annotation = field.getAnnotation(DBTable.class);
-//                log.debug("Annotation: " + annotation);
+                //log.debug("Annotation: " + annotation);
 
                 //Récupération de la valeur de la colonne spécifié dans l'annotation
                 Object value = rs.getObject(annotation.columnName());
-//                log.debug("Valeur: " + value);
+                //log.debug("Valeur: " + value);
 
                 //Récupération du type de la valeur
                 Class<?> type = field.getType();
-//                log.debug("Type: " + type);
+                //log.debug("Type: " + type);
 
 
                 if (type == Role.class) {
@@ -116,6 +114,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     public <E> List<T> applyQueryFromParameter(String query, E param) {
+    	log.debug("CEci est un est");
         System.out.println(query);
         List<T> objects = new ArrayList<>();
         Connection connection;
@@ -222,6 +221,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     "LEFT JOIN Role r on r.idRole= Utilisateur.idRole";
         } else if (myClass.getName().equals(Role.class.getName())) {
             query = "SELECT identifiant AS roleIdent, idRole, description, version FROM Role;";
+        } else if (myClass.getName().equals(PlaceParking.class.getName())) {
+            query = "SELECT idPlace, idVoiture, num, available FROM PlaceParking;";
         }
         return applyQueryFromParameter(query, null);
     }

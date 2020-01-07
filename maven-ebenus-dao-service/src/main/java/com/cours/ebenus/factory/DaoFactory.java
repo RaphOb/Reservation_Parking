@@ -5,8 +5,10 @@
  */
 package com.cours.ebenus.factory;
 
+import com.cours.ebenus.dao.IPlaceParkingDao;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
+import com.cours.ebenus.dao.impl.PlaceParkingDao;
 import com.cours.ebenus.dao.impl.RoleDao;
 import com.cours.ebenus.dao.impl.UtilisateurDao;
 
@@ -24,5 +26,9 @@ public class DaoFactory extends AbstractDaoFactory {
     @Override
     public IRoleDao getRoleDao() {
         return new RoleDao();
+    }
+    
+    public IPlaceParkingDao getPlaceParkingDao() {
+        return new PlaceParkingDao();
     }
 }
