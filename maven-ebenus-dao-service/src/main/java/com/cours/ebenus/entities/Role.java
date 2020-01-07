@@ -1,5 +1,4 @@
-package com.cours.ebenus.maven.ebenus.dao.service.dao.dao.entities;
-
+package com.cours.ebenus.entities;
 import java.util.Objects;
 
 public class Role {

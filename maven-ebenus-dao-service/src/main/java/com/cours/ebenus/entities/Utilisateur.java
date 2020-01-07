@@ -1,8 +1,8 @@
-package com.cours.ebenus.maven.ebenus.dao.service.dao.dao.entities;
+package com.cours.ebenus.entities;
 
 import java.sql.Date;
 
-public class User {
+public class Utilisateur {
     private Integer idUser;
     private String lastName;
     private String firstName;
@@ -12,11 +12,11 @@ public class User {
     private Date created_at;
     private Date updated_at;
 
-    public User() {
+    public Utilisateur() {
 
     }
 
-    public User(Integer idUser, String lastName, String firstName, String email, Role role, String password, Date created_at, Date updated_at) {
+    public Utilisateur(Integer idUser, String lastName, String firstName, String email, Role role, String password, Date created_at, Date updated_at) {
         this.idUser = idUser;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -110,7 +110,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        Utilisateur user = (Utilisateur) o;
 
         return idUser.equals(user.idUser);
     }

@@ -1,14 +1,14 @@
-package com.cours.ebenus.maven.ebenus.dao.service.dao.dao.entities;
+package com.cours.ebenus.entities;
 
-public class LotParcking {
+public class LotParking {
 
     private Integer idLot;
     private Integer number_lot;
     private Boolean available;
 
-    public LotParcking(){}
+    public LotParking(){}
 
-    public LotParcking(Integer idLot, Integer number_lot, Boolean available) {
+    public LotParking(Integer idLot, Integer number_lot, Boolean available) {
         this.idLot = idLot;
         this.number_lot = number_lot;
         this.available = available;
@@ -43,7 +43,7 @@ public class LotParcking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LotParcking that = (LotParcking) o;
+        LotParking that = (LotParking) o;
 
         return idLot.equals(that.idLot);
     }

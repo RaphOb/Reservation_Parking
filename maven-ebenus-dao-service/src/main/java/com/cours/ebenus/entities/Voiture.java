@@ -1,15 +1,15 @@
-package com.cours.ebenus.maven.ebenus.dao.service.dao.dao.entities;
+package com.cours.ebenus.entities;
 
-public class Cars {
+public class Voiture {
 
     private Integer idCars;
     private String brand;
     private String immat;
-    private User user;
+    private Utilisateur user;
 
-    public Cars() {}
+    public Voiture() {}
 
-    public Cars(Integer idCars, String brand, String immat, User user) {
+    public Voiture(Integer idCars, String brand, String immat, Utilisateur user) {
         this.idCars = idCars;
         this.brand = brand;
         this.immat = immat;
@@ -40,11 +40,11 @@ public class Cars {
         this.immat = immat;
     }
 
-    public User getUser() {
+    public Utilisateur getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Utilisateur user) {
         this.user = user;
     }
 
@@ -53,7 +53,7 @@ public class Cars {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Cars cars = (Cars) o;
+        Voiture cars = (Voiture) o;
 
         return idCars.equals(cars.idCars);
     }
