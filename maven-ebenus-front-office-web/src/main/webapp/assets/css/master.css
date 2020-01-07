@@ -4341,7 +4341,7 @@ SMACSS: LAYOUT - CONTENT
 -------------------------------------------------*/
 .content {
   max-width: 1230px;
-  padding: 0 15px 60px;
+  padding: 0 15px 20px;
   margin: 0 auto;
   clear: both; }
   .content:before, .content:after {

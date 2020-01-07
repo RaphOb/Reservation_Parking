@@ -31,10 +31,10 @@
                         <h2 style="margin-top: 20px;display: inline-block;"> Bonjour <strong> Mr ${current_user.getNom()} </strong> avec le rôle ${current_user.getRole().getIdentifiant()}.</h2>
 
                         <h1 class="logout"> <a href="<c:url value="LogoutServlet"/>"  role="button">Se Deconnecter</a></h1> 
-                        <h1 class="clearfix">liste des utilisateurs</h1>
+                       
+                        <h1 id="user_list_title" style="cursor: pointer;"class="clearfix">liste des utilisateurs</h1>
 
-
-                        <div class="table-responsive">
+                        <div id="user_list" class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -86,6 +86,11 @@
 
                     </div> 
                 </div>
+            </section>
+            <section>
+            	<div class="content">
+            		<h1 id="parking_title" style="cursor: pointer;"class="clearfix">liste des places disponibles</h1>
+            	</div>
             </section>
             <!-- Footer -->
             <footer>
@@ -150,6 +155,7 @@
             <!-- JS files -->
             <script src="./assets/js/bower.js" type="text/javascript"></script>
             <script src="./assets/js/application.js" type="text/javascript"></script>
+            <script src="./assets/js/events.js" type="text/javascript"></script>
         </div>   
     </body>
 </html>
