@@ -115,7 +115,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     public <E> List<T> applyQueryFromParameter(String query, E param) {
-    	log.debug("CEci est un est");
         System.out.println(query);
         List<T> objects = new ArrayList<>();
         Connection connection;

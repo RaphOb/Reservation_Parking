@@ -64,21 +64,23 @@
                                     <div class="offset-md-2"></div>   
                                     <fieldset class="col-md-3">
                                         
-                                        <div class="input-wrapper">
-                                           <label for="">
-                                                Selectionner le rôle<em>*</em>
-                                           </label>
-                                        </div>
+                                           
                                         <div class="sel-container">
-                                                <div class="sel">
-                                                    <select  class="required" name="select_role" id="select_role"> 
-                                                        <option value="rôle" selected disabled>Rôle</option>
-                                                        	<c:forEach items="${roles}" var="item" varStatus="loop">
-                                                        		<option value="${item.getIdRole()}">${item.getIdentifiant()} </option>
-												    		</c:forEach>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                        	<c:if test="${not empty admin }">
+	                                       		<div>
+	                                       			<label for="">
+	                                                	Selectionner le rôle<em>*</em>
+	                                        		</label>
+	                                                <div class="sel">
+	                                                    <select  class="required" name="select_role" id="select_role"> 
+	                                                        <option value="rôle" selected disabled>Rôle</option>
+	                                                        	<c:forEach items="${roles}" var="item" varStatus="loop">
+	                                                        		<option value="${item.getIdRole()}">${item.getIdentifiant()} </option>
+													    		</c:forEach>
+	                                                    </select>
+	                                                </div>
+	                                            </div>
+                                            </c:if>
                                             <div class="input-wrapper">
                                                 <label>Civilité</label>
                                                 <div class="gender">
@@ -92,6 +94,7 @@
                                                     </label>
                                                 </div>
                                             </div>
+                                        </div>
 <%--                                            <div class="input-wrapper">--%>
 <%--                                                <label style="display: block;"> Date de naissance<em>*</em></label>--%>
 <%--                                                <input  autocomplete="off" id="dteNaiss" name="dteNaiss" style="width:auto;" data-toggle="datepicker" type="text" value="" name="naissance">--%>

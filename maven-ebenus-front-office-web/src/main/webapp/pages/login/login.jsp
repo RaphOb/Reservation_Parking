@@ -18,10 +18,11 @@
                 <!-- Header -->
                 <header id="header"  class="header">
                     <div class="header padd-top">
-                        <a href="${pageContext.request.contextPath}" title="Ebenus" class="logo"> 
+                        <a href="${pageContext.request.contextPath}/LoginServlet" title="Ebenus" class="logo"> 
                             <img src="./assets/images/logo/logo.png" alt="Ebenus"> 
                         </a>
                     </div>
+                    
                 </header>
             </div>
             <!-- Section -->
@@ -29,7 +30,7 @@
                 <div class="content">
                     <div class="account-login">
                         <div class="page-title">
-                            <h1>Identifiez vous</h1>
+                            <h1>Identifiez vous...</h1>
                         </div>
                         <form action="${pageContext.request.contextPath}/LoginServlet" method="Post" id="customer-info-form"> 
                             <div class="row">
@@ -61,6 +62,29 @@
                         </form>
                     </div> 
                 </div>
+                <div class="content">
+	                <div class="page-title">
+                    	<h1>...ou inscrivez vous</h1>
+                    </div>
+                     <form action="${pageContext.request.contextPath}/AddUserServlet" method="get" id="customer-info-form2"> 
+                         <div class="row">
+                             <div class="col-md-5 registered-users">
+                             	<div>
+                                    <ul class="form-list">
+                                        <li>
+                                        	<input type="hidden" name="signin" value="yes" />
+                                        </li>
+                                    </ul>
+                               </div>
+                               <br>
+                               <button class="btn btn-default" type="submit">
+	                      			S'inscrire 
+	                 			</button>
+                          </div>
+                       </div>
+	                      		
+					</form>      
+				</div>
             </section>
             <!-- Footer -->
             <footer>
