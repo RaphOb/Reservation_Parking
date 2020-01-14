@@ -13,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
@@ -77,6 +78,12 @@ public class DeleteVoitureServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		/* Delete selected user */
+		Integer voitureID = Integer.parseInt(request.getParameter("voiture"));
+		Voiture voiture = service.getVoitureDao().findVoitureById(voitureID);
+		service.getVoitureDao().deleteVoiture(voiture);
+		log.debug("Voiture deleted");
+		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 
 }

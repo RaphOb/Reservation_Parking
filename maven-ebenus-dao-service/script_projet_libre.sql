@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS PlaceParking;
  CREATE TABLE Voiture (
 	idVoiture INTEGER PRIMARY KEY AUTO_INCREMENT,
 	idUtilisateur INTEGER NOT NULL,
-	FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(idUtilisateur),
+	FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(idUtilisateur) ON DELETE CASCADE ,
 	marque VARCHAR(50),
 	immatriculation VARCHAR(10)
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS PlaceParking;
  CREATE TABLE PlaceParking (
  	idPlaceParking INTEGER PRIMARY KEY AUTO_INCREMENT,
  	idVoiture INTEGER,
- 	FOREIGN KEY (idVoiture) REFERENCES Voiture(idVoiture),
+ 	FOREIGN KEY (idVoiture) REFERENCES Voiture(idVoiture) ON DELETE CASCADE ,
 	num INTEGER NOT NULL,
 	available TINYINT(1) DEFAULT 1
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;

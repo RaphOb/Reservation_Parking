@@ -44,6 +44,25 @@ public class AddPlaceParkingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if(session == null)
+    	{
+    		log.debug("No session found... Redirecting to login page");
+    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    	}
+    	else
+    	{
+    		Object user = request.getSession(false).getAttribute("user");
+    		if (user != null)
+    		{
+	    		this.getServletContext().getRequestDispatcher("/pages/crudPlaceParking/addPlaceParking.jsp").forward(request, response);
+    		}
+    		else
+    		{
+    			log.debug("No session found... Redirecting to login page");
+    			response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
+    		}
+    	}
 	}
 
 	/**

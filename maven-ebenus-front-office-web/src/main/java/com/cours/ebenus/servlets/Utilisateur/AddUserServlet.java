@@ -53,7 +53,7 @@ public class AddUserServlet extends HttpServlet {
 			if (signin.equals("yes"))
 			{
 	    		/* Gives page to create user which call post method*/
-	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUpdateUser.jsp").forward(request, response);
+	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUser.jsp").forward(request, response);
 	    		return;
 			}
 		}
@@ -80,7 +80,7 @@ public class AddUserServlet extends HttpServlet {
 		    		List<Role> list = service.getRoleDao().findAllRoles();
 		    		request.setAttribute("roles", list);
 		    		/* Gives page to create user which call post method*/
-		    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUpdateUser.jsp").forward(request, response);
+		    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUser.jsp").forward(request, response);
 	    		}
 	    		else
 	    		{
@@ -109,7 +109,6 @@ public class AddUserServlet extends HttpServlet {
 		String nom = request.getParameter("lastname");
 		String email = request.getParameter("email");
 		String motPasse = request.getParameter("password");
-		String confirmMotPasse = request.getParameter("password_confirm");
 
 		/* Build Date object */
 		/* Get Role from ID */
