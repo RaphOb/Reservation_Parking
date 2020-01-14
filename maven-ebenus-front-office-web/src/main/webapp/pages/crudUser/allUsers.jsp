@@ -126,8 +126,8 @@
 								        	</td>
 							        		<td>
 							        			<!-- TODO 2 servlets a faire ici: update et delete des places   -->
-								        		<a href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i class="fa fa-edit"></i></a>
-								        		<a href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>" class="no-style-btn">
+								        		<a href="<c:url value="/UpdatePlaceParkingServlet?place=${parking.getIdPlaceParking()}"/>"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/DeletePlaceParkingServlet?place=${parking.getIdPlaceParking()}"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
 												</a>
 							        		</td>
@@ -139,7 +139,7 @@
                             <ul class="User">
                                 <li>
                                     <div class="col-lg-12 no-padding">
-                                        <a href="AddUserServlet" role="button" type="submit">Ajouter une place de parking</a>
+                                        <a href="AddPlaceParkingServlet" role="button" type="submit">Ajouter une place de parking</a>
                                     </div>
                                 </li>
                             </ul>
@@ -176,8 +176,8 @@
 							        		</td>
 							        		<td>
 							        			<!-- TODO 2 servlets a faire ici: update et delete des voitures   -->
-								        		<a href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i class="fa fa-edit"></i></a>
-								        		<a href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>" class="no-style-btn">
+								        		<a href="<c:url value="/UpdateVoitureServlet?voiture=${voiture.getIdVoiture()}"/>"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/DeleteVoitureServlet?voiture=${voiture.getIdVoiture()}"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
 												</a>
 							        		</td>
@@ -189,7 +189,7 @@
                             <ul class="User">
                                 <li>
                                     <div class="col-lg-12 no-padding">
-                                        <a href="AddUserServlet" role="button" type="submit">Ajouter un véhicule</a>
+                                        <a href="AddVoitureServlet" role="button" type="submit">Ajouter un véhicule</a>
                                     </div>
                                 </li>
                             </ul>
