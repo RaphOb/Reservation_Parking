@@ -54,12 +54,16 @@
 									<select
 										class="required" name="owner" id="owner">
 										<c:forEach items="${users}" var="item" varStatus="loop">
-											<option value="${item.getIdUtilisateur()}">${item.getPrenom()}</option>
-											<c:if test="${item.idUtilisateur eq current_voiture.utilisateur}">
-												<option value="${current_voiture.getUtilisateur()}" selected>
-													${item.getPrenom()}
-												</option>
-											</c:if>
+											<c:choose>
+												<c:when test="${item.idUtilisateur eq current_voiture.utilisateur}">
+													<option value="${current_voiture.getUtilisateur()}" selected>
+														${item.getPrenom()}
+													</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${item.getIdUtilisateur()}">${item.getPrenom()}</option>
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>
 										
 									</select>
