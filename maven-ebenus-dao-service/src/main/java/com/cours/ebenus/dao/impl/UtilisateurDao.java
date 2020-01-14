@@ -82,7 +82,7 @@ public class UtilisateurDao extends AbstractDao<Utilisateur> implements IUtilisa
         ResultSet r = null;
         try {
             p = connection.prepareStatement(sql1);
-            p.setString(1, user.getemail());
+            p.setString(1, user.getEmail());
             r = p.executeQuery();
             while (r.next()) {
                 if (r.getInt(1) > 0) {

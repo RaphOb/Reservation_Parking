@@ -1,4 +1,4 @@
-package com.cours.ebenus.servlets;
+package com.cours.ebenus.servlets.Utilisateur;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,6 +20,7 @@ import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.cours.ebenus.servlets.LoginServlet;
 
 /**
  * Servlet implementation class AddUserServlet

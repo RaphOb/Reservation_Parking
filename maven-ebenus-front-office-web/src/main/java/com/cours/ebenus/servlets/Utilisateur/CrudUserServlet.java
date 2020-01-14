@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cours.ebenus.servlets;
+package com.cours.ebenus.servlets.Utilisateur;
 
 import java.io.BufferedReader; 
 import java.io.File;
@@ -36,6 +36,7 @@ import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.cours.ebenus.servlets.LoginServlet;
 import com.opencsv.CSVWriter;
 
 /**
@@ -181,7 +182,7 @@ public class CrudUserServlet extends HttpServlet {
 		log.debug("Currents users");
 		for(Utilisateur user : users)
 		{
-			current_user_tab[cpt] = user.getemail();
+			current_user_tab[cpt] = user.getEmail();
 			log.debug(current_user_tab[cpt]);
 			cpt++;
 		}

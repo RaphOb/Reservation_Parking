@@ -1,9 +1,11 @@
-package com.cours.ebenus.servlets;
+package com.cours.ebenus.servlets.Utilisateur;
 
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.cours.ebenus.servlets.LoginServlet;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -86,7 +88,7 @@ public class UpdateUserServlet extends HttpServlet {
 
         Integer u = Integer.parseInt(request.getParameter("userU"));
         Utilisateur user = service.getUtilisateurDao().findUtilisateurById(u);
-        user.setemail(email);
+        user.setEmail(email);
         user.setMotPasse(civilite);
         user.setPrenom(prenom);
         user.setNom(nom);

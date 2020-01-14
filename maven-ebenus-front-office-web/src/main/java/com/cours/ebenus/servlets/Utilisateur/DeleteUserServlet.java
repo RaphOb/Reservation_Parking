@@ -1,4 +1,4 @@
-package com.cours.ebenus.servlets;
+package com.cours.ebenus.servlets.Utilisateur;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
+import com.cours.ebenus.servlets.LoginServlet;
 
 /**
  * Servlet implementation class DeleteUserServlet

@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="input-wrapper">
                                     <label for="email">Email<em>*</em></label>
-                                    <input autocomplete="off" name="email" id="email" type="email" value="${userU.getIdentifiant()}">
+                                    <input autocomplete="off" name="email" id="email" type="email" value="${userU.getEmail()}">
                                 </div>
 
                         </fieldset>
@@ -66,7 +66,7 @@
                                     <select class="required" name="select_role" id="select_role">
                                         <option value="rôle" selected disabled>Rôle</option>
                                         <c:forEach items="${roles}" var="item" varStatus="loop">
-                                            <option value="${item.getIdRole()}" >${item.getemail()} </option>
+                                            <option value="${item.getIdRole()}" >${item.getIdentifiant()} </option>
                                         </c:forEach>
                                         <option value="${userU.getRole().getIdRole()}" selected>${userU.getRole().getIdentifiant()} </option>
                                     </select>

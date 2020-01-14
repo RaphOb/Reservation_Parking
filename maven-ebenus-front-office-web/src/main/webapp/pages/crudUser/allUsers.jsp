@@ -56,7 +56,7 @@
 							        		<td> <c:out value = "${user.getCivilite()}"/> </td>
 								        	<td> <c:out value = "${user.getPrenom()}"/> </td>
 								        	<td> <c:out value = "${user.getNom()}"/> </td>
-								        	<td> <c:out value = "${user.getemail()}"/> </td>
+								        	<td> <c:out value = "${user.getEmail()}"/> </td>
 								        	<td> <c:out value = "${user.getDateCreation()}"/> </td>
 								        	<td> <c:out value = "${user.getDateModification()}"/> </td>
 								        	<td> <c:out value = "${user.getRole().getIdentifiant()}"/> </td>
