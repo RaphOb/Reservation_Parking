@@ -17,7 +17,7 @@ public class PlaceParkingDao extends AbstractDao<PlaceParking> implements IPlace
 	}
 
 	@Override
-	public List<PlaceParking> findAllPlaceParkings() {
+	public List<PlaceParking> findAllPlacesParking() {
 		// TODO Auto-generated method stub
 		return super.findAll();
 	}
@@ -25,37 +25,37 @@ public class PlaceParkingDao extends AbstractDao<PlaceParking> implements IPlace
 	@Override
 	public PlaceParking findPlaceParkingById(int idPlaceParking) {
 		// TODO Auto-generated method stub
-		return null;
+		return findById(idPlaceParking);
 	}
 
 	@Override
 	public List<PlaceParking> findPlaceParkingByNumero(String numeroParking) {
 		// TODO Auto-generated method stub
-		return null;
+		return super.findByCriteria(numeroParking, "num");
 	}
 
 	@Override
-	public List<PlaceParking> findPlaceParkingByIdVoiture(int IdVoiture) {
+	public List<PlaceParking> findPlaceParkingByIdVoiture(int idVoiture) {
 		// TODO Auto-generated method stub
-		return null;
+		return super.findByCriteria(idVoiture, "idVoiture");
 	}
 
 	@Override
 	public PlaceParking createPlaceParking(PlaceParking PlaceParking) {
 		// TODO Auto-generated method stub
-		return null;
+		return super.create(PlaceParking);
 	}
 
 	@Override
 	public PlaceParking updatePlaceParking(PlaceParking PlaceParking) {
 		// TODO Auto-generated method stub
-		return null;
+		return super.update(PlaceParking);
 	}
 
 	@Override
 	public boolean deletePlaceParking(PlaceParking PlaceParking) {
 		// TODO Auto-generated method stub
-		return false;
+		return super.delete(PlaceParking);
 	}
 
 }

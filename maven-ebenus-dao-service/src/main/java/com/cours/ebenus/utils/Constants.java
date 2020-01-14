@@ -12,7 +12,7 @@ package com.cours.ebenus.utils;
 public class Constants {
 
     // Url de connexion en base de donnée
-    public static String DATABASE_URL = "jdbc:mysql://localhost:3306/base_voiture_ebenus";
+    public static String DATABASE_URL = "jdbc:mysql://localhost:3306/base_voiture_ebenus?useSSL=false";
     // Utilisateur de la base de données
     public static String DATABASE_USER = "application";
     // Mot de passe de la base de données

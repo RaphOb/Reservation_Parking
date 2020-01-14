@@ -89,7 +89,7 @@ public class CrudUserServlet extends HttpServlet {
     		{
     			/* Give to JSP all needed data */
 	    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
-	    		List<PlaceParking> parkings = service.getPlaceParkingDao().findAllPlaceParkings();
+	    		List<PlaceParking> parkings = service.getPlaceParkingDao().findAllPlacesParking();
 	    		List<Voiture> voitures = service.getVoitureDao().findAllVoitures();
 	    		
 	        	request.setAttribute("users", users);

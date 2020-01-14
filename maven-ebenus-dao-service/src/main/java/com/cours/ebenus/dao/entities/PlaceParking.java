@@ -2,10 +2,10 @@ package com.cours.ebenus.dao.entities;
 
 import com.cours.ebenus.dao.annotations.DBTable;
 
-public class PlaceParking {
+public class PlaceParking extends Entities {
 
-	@DBTable(columnName = "idPlace")
-    private Integer id;
+	@DBTable(columnName = "idPlaceParking")
+    private Integer idPlaceParking;
 	@DBTable(columnName = "idVoiture")
     private Integer idVoiture;
 	@DBTable(columnName = "num")
@@ -16,17 +16,23 @@ public class PlaceParking {
     public PlaceParking(){}
 
     public PlaceParking(Integer id, Integer num, Boolean available) {
-        this.id = id;
+        this.idPlaceParking = id;
+        this.num = num;
+        this.available = available;
+    }
+    
+    public PlaceParking(Integer num, Boolean available) {
+    	this.idPlaceParking = null;
         this.num = num;
         this.available = available;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdPlaceParking() {
+        return idPlaceParking;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdPlace(Integer id) {
+        this.idPlaceParking = id;
     }
     
     public Integer getIdVoiture() {
@@ -60,18 +66,18 @@ public class PlaceParking {
 
         PlaceParking that = (PlaceParking) o;
 
-        return id.equals(that.id);
+        return idPlaceParking.equals(that.idPlaceParking);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return idPlaceParking.hashCode();
     }
 
     @Override
     public String toString() {
         return "PlaceParking{" +
-                "id=" + id +
+                "idPlace=" + idPlaceParking +
                 ", idVoiture=" + idVoiture +
                 ", Numéro=" + num +
                 ", available=" + available +

@@ -70,8 +70,9 @@ public class AddUserServlet extends HttpServlet {
 	    		Object user = request.getSession(false).getAttribute("user");
 	    		if (user != null)
 	    		{
-	    			/*Is Admin?*/
+	    			/* Is Admin ? */
 	    			if(user.toString().contains("idRole=1"))
+	    				//To show roles selection or not
 	    				request.setAttribute("admin", request.getSession(false).getAttribute("user"));
 			    		
 		    		/* Set roles to gives info to jsp page */

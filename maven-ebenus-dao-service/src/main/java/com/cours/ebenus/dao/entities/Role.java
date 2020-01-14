@@ -15,7 +15,7 @@ public class Role extends Entities {
 
     @DBTable(columnName = "idRole")
     private Integer idRole;
-    @DBTable(columnName = "roleIdent")
+    @DBTable(columnName = "identifiant")
     private String identifiant;
     @DBTable(columnName = "description")
     private String description;

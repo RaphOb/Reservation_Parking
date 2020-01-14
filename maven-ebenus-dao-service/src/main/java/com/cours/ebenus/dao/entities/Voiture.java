@@ -2,56 +2,63 @@ package com.cours.ebenus.dao.entities;
 
 import com.cours.ebenus.dao.annotations.DBTable;
 
-public class Voiture {
+public class Voiture extends Entities {
 
 	@DBTable(columnName = "idVoiture")
-    private Integer id;
+    private Integer idVoiture;
 	@DBTable(columnName = "marque")
-    private String brand;
+    private String marque;
 	@DBTable(columnName = "immatriculation")
-    private String immat;
+    private String immatriculation;
 	@DBTable(columnName = "idUtilisateur")
-    private Integer idUser;
+    private Integer idUtilisateur;
 
     public Voiture() {}
 
-    public Voiture(Integer id, String brand, String immat, Integer user) {
-        this.id = id;
-        this.brand = brand;
-        this.immat = immat;
-        this.idUser = user;
+    public Voiture(Integer idVoiture, String marque, String immatriculation, Integer utilisateur) {
+        this.idVoiture = idVoiture;
+        this.marque = marque;
+        this.immatriculation = immatriculation;
+        this.idUtilisateur = utilisateur;
+    }
+    
+    public Voiture(String marque, String immatriculation, Integer utilisateur) {
+    	this.idVoiture = null;
+        this.marque = marque;
+        this.immatriculation = immatriculation;
+        this.idUtilisateur = utilisateur;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdVoiture() {
+        return idVoiture;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdVoiture(Integer idVoiture) {
+        this.idVoiture = idVoiture;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getMarque() {
+        return marque;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setMarque(String marque) {
+        this.marque = marque;
     }
 
-    public String getImmat() {
-        return immat;
+    public String getImmattriculation() {
+        return immatriculation;
     }
 
-    public void setImmat(String immat) {
-        this.immat = immat;
+    public void setImmattriculation(String immatriculation) {
+        this.immatriculation = immatriculation;
     }
 
-    public Integer getUser() {
-        return idUser;
+    public Integer getUtilisateur() {
+        return idUtilisateur;
     }
 
-    public void setUser(Integer user) {
-        this.idUser = user;
+    public void setUtilisateur(Integer user) {
+        this.idUtilisateur = user;
     }
 
     @Override
@@ -61,21 +68,21 @@ public class Voiture {
 
         Voiture cars = (Voiture) o;
 
-        return id.equals(cars.id);
+        return idVoiture.equals(idVoiture);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return idVoiture.hashCode();
     }
 
     @Override
     public String toString() {
         return "Voiture{" +
-                "id=" + id +
-                ", brand='" + brand + '\'' +
-                ", immat='" + immat + '\'' +
-                ", user=" + idUser +
+                "idVoiture=" + idVoiture +
+                ", marque='" + marque + '\'' +
+                ", immatriculation='" + immatriculation + '\'' +
+                ", idUtilisateur=" + idUtilisateur +
                 '}';
     }
 }

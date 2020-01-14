@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IPlaceParkingDao {
 
-    public List<PlaceParking> findAllPlaceParkings();
+    public List<PlaceParking> findAllPlacesParking();
 
     public PlaceParking findPlaceParkingById(int idPlaceParking);
 

@@ -126,8 +126,8 @@
 								        	</td>
 							        		<td>
 							        			<!-- TODO 2 servlets a faire ici: update et delete des places   -->
-								        		<a href="<c:url value="/UpdateUserServlet?user=${parking.getId()}"/>"><i class="fa fa-edit"></i></a>
-								        		<a href="<c:url value="/DeleteUserServlet?user=${parking.getId()}"/>" class="no-style-btn">
+								        		<a href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
 												</a>
 							        		</td>
@@ -166,18 +166,18 @@
 	                                <c:forEach items = "${voitures}" var = "voiture">
 	                                	<tr> 
 	                                		<td>
-	                                			<c:out value="${voiture.getUser()}"/>
+	                                			<c:out value="${voiture.getUtilisateur()}"/>
 							        		</td>
 							        		<td>
-	                                			<c:out value="${voiture.getBrand()}"/>
+	                                			<c:out value="${voiture.getMarque()}"/>
 							        		</td>
 							        		<td>
-	                                			<c:out value="${voiture.getImmat()}"/>
+	                                			<c:out value="${voiture.getImmattriculation()}"/>
 							        		</td>
 							        		<td>
 							        			<!-- TODO 2 servlets a faire ici: update et delete des voitures   -->
-								        		<a href="<c:url value="/UpdateUserServlet?user=${parking.getId()}"/>"><i class="fa fa-edit"></i></a>
-								        		<a href="<c:url value="/DeleteUserServlet?user=${parking.getId()}"/>" class="no-style-btn">
+								        		<a href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
 												</a>
 							        		</td>

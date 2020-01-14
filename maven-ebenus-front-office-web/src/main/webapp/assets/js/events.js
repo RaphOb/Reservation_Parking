@@ -3,20 +3,17 @@ function hide_and_show(class_name_to_click, class_name_to_show) {
 		
 		if ($(document.getElementById(class_name_to_show))[0].style.display !== 'none')
 		{
-			$(document.getElementById(class_name_to_show))[0].style.display = 'none';
+			$("#" + class_name_to_show).css("display", "none");
 		}
 		else
 		{
-			$(document.getElementById(class_name_to_show))[0].style.display = 'inline-block';
+			$("#" + class_name_to_show).css("display", "inline-block");
 		}
 	});
 }
 
 function change_sign(class_name_to_click, id_icone){
 	$(document.getElementById(class_name_to_click)).click(function(){
-		
-		console.log("IN");
-		
 		if ($(document.getElementById(id_icone))[0].classList.contains('fa-plus')){
 			$(document.getElementById(id_icone))[0].classList.remove('fa-plus');
 			$(document.getElementById(id_icone))[0].classList.add('fa-minus');

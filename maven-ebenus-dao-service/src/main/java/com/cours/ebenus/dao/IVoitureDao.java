@@ -19,9 +19,9 @@ public interface IVoitureDao {
 
     public Voiture findVoitureById(int idVoiture);
     
-    public Voiture findVoitureByUtilisateur(Utilisateur user);
+    public List<Voiture> findVoitureByIdUtilisateur(int user);
 
-    public Voiture findVoitureByImmatriculation(String immatriculation);
+    public List<Voiture> findVoitureByImmatriculation(String immatriculation);
 
     public List<Voiture> findVoituresByMarque(String marque);
 

@@ -6,6 +6,7 @@
 package com.cours.ebenus.dao.impl;
 
 import com.cours.ebenus.dao.IVoitureDao;
+import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.dao.entities.Voiture;
 import java.util.List;
@@ -31,29 +32,29 @@ public class VoitureDao extends AbstractDao<Voiture> implements IVoitureDao {
 
     @Override
     public Voiture findVoitureById(int idVoiture) {
-        return null;
+        return super.findById(idVoiture);
     }
     
     @Override
-	public Voiture findVoitureByUtilisateur(Utilisateur user) {
+	public List<Voiture> findVoitureByIdUtilisateur(int idUser) {
 		// TODO Auto-generated method stub
-		return null;
+        return super.findByCriteria(idUser , "idUtilisateur");
 	}
 
     @Override
-    public Voiture findVoitureByImmatriculation(String immatriculation) {
-        return null;
+    public List<Voiture> findVoitureByImmatriculation(String immatriculation) {
+    	// TODO Auto-generated method stub
+        return super.findByCriteria(immatriculation, "immatriculation");
     }
     
 	@Override
 	public List<Voiture> findVoituresByMarque(String marque) {
 		// TODO Auto-generated method stub
-		return null;
+        return super.findByCriteria(marque , "marque");
 	}
 
     @Override
     public Voiture createVoiture(Voiture Voiture) {
-
         return super.create(Voiture);
     }
 

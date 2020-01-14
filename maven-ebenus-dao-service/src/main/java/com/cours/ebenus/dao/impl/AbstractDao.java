@@ -113,7 +113,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
         return objects;
     }
 
-
     public <E> List<T> applyQueryFromParameter(String query, E param) {
         System.out.println(query);
         List<T> objects = new ArrayList<>();
@@ -136,7 +135,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     objects = getFieldObject(rs);
                 }
 
-
             } catch (IllegalArgumentException | InvocationTargetException
                     | NoSuchMethodException | SecurityException
                     | InstantiationException | IllegalAccessException e) {
@@ -151,7 +149,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
         }
         return objects;
     }
-
 
     public int applyQueryFromParameters(String query, List<Object> params) {
         System.out.println(query);
@@ -181,59 +178,12 @@ public abstract class AbstractDao<T> implements IDao<T> {
         return 0;
     }
 
-
-    //SI jamais type primitif prochaines etapes
-    public static boolean isPrimitive(Class<?> type) {
-        return (type == int.class || type == long.class || type == double.class || type == float.class
-                || type == boolean.class || type == byte.class || type == char.class || type == short.class);
-    }
-
-    //SI jamais on a type primitif plus tard
-    public static Class<?> boxPrimitiveClass(Class<?> type) {
-        if (type == int.class) {
-            return Integer.class;
-        } else if (type == long.class) {
-            return Long.class;
-        } else if (type == double.class) {
-            return Double.class;
-        } else if (type == float.class) {
-            return Float.class;
-        } else if (type == boolean.class) {
-            return Boolean.class;
-        } else if (type == byte.class) {
-            return Byte.class;
-        } else if (type == char.class) {
-            return Character.class;
-        } else if (type == short.class) {
-            return Short.class;
-        } else {
-            String string = "class '" + type.getName() + "' is not a primitive";
-            throw new IllegalArgumentException(string);
-        }
-    }
-
-    @Override
-    public List<T> findAll() {
-        String query = null;
-        if (myClass.getName().equals(Utilisateur.class.getName())) {
-            query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description " +
-                    "FROM Utilisateur " +
-                    "LEFT JOIN Role r on r.idRole= Utilisateur.idRole";
-        } else if (myClass.getName().equals(Role.class.getName())) {
-            query = "SELECT identifiant AS roleIdent, idRole, description FROM Role;";
-        } else if (myClass.getName().equals(PlaceParking.class.getName())) {
-            query = "SELECT idPlace, idVoiture, num, available FROM PlaceParking;";
-	    } else if (myClass.getName().equals(Voiture.class.getName())) {
-	        query = "SELECT idVoiture, idUtilisateur, marque, immatriculation FROM Voiture;";
-	    }
-        return applyQueryFromParameter(query, null);
-    }
-
     public String sqlBuilder() {
         StringBuilder querytry = new StringBuilder("SELECT ");
         Field[] fs = myClass.getDeclaredFields();
         List<Field> fl = new ArrayList<>();
 
+        //Recup fields de T
         for (Field f : fs) {
             if (f.getType().getGenericSuperclass().equals(Entities.class)) {
                 fl.add(f);
@@ -242,34 +192,39 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 querytry.append(", ");
             }
         }
+        //Recup fields de class custom si T en contient
         for (Field f1 : fl) {
             for(Field innerField : f1.getType().getDeclaredFields()) {
-                querytry.append(f1.getName()).append(".").append(innerField.getName());
+            	//Put Maj to first char 
+            	String className = f1.getName();
+            	String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
+                querytry.append(entityName).append(".").append(innerField.getName());
                 querytry.append(", ");
             }
         }
         querytry.deleteCharAt(querytry.lastIndexOf(",")).append(" FROM ").append(myClass.getSimpleName());
         for(Field f : fl) {
             DBTable dbTable = f.getAnnotation(DBTable.class);
-            System.out.println(dbTable);
-            querytry.append(" JOIN ").append(f.getName()).append(" USING (").append(dbTable.columnName()).append(")");
+            //Put Maj to first char 
+        	String className = f.getName();
+        	String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
+            querytry.append(" JOIN ").append(entityName).append(" USING (").append(dbTable.columnName()).append(")");
         }
        return querytry.toString();
     }
-
+    
+    @Override
+    public List<T> findAll() {
+        String query = null;
+        query = sqlBuilder();
+        return applyQueryFromParameter(query, null);
+    }
 
     @Override
     public T findById(int id) {
-        String query = null;
-        if (myClass.getName().equals(Utilisateur.class.getName())) {
-            query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                    "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
-                    "where Utilisateur.idUtilisateur = ? ";
-        } else if (myClass.getName().equals(Role.class.getName())) {
-            query = "SELECT identifiant AS roleIdent, idRole, description FROM Role" +
-                    " WHERE idRole = ?;";
-        }
-
+        String query = sqlBuilder();
+        query += " WHERE ";
+        query += myClass.getSimpleName() + ".id" + myClass.getSimpleName() + " = ? ";
         List<T> obj = applyQueryFromParameter(query, id);
         if (!obj.isEmpty()) {
             return obj.get(0);
@@ -279,33 +234,11 @@ public abstract class AbstractDao<T> implements IDao<T> {
     }
 
 
-    public List<T> findByCriteria(Object ob, String criteria) {
-        String query = null;
-        if (myClass.getName().equals(Utilisateur.class.getName())) {
-            query = "SELECT Utilisateur.*, r.identifiant AS roleIdent, r.idRole, r.description FROM Utilisateur " +
-                    "LEFT JOIN Role r on r.idRole = Utilisateur.idRole " +
-                    "WHERE ";
-
-            DBTable annotation = ((Field) ob).getAnnotation(DBTable.class);
-            String columnName = annotation.columnName();
-
-            if (columnName.equals("roleIdent")) {
-                query += "r." + "identifiant" + " = ?";
-
-            } else {
-                query += myClass.getSimpleName() + "." + columnName + " = ?";
-            }
-
-            System.out.println("FINAL QUERY : " + query);
-
-        } else if (myClass.getName().equals(Role.class.getName())) {
-
-            query = "SELECT identifiant AS roleIdent, idRole, description FROM Role" +
-                    " WHERE identifiant = ?";
-
-            System.out.println("FINAL QUERY : " + query);
-        }
-        List<T> obj = applyQueryFromParameter(query, criteria);
+    public List<T> findByCriteria(Object valueCriteria, String criteria) {
+    	String query = sqlBuilder();
+        query += " WHERE ";
+        query += criteria + " = ? ";
+        List<T> obj = applyQueryFromParameter(query, valueCriteria);
         if (!obj.isEmpty()) {
             return obj;
         } else {
