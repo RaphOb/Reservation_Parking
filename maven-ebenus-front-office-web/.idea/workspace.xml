@@ -7,8 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a36bcede-5446-4214-b743-8170dd2f26a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/credentials/Projet1-210e94277d61.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/utils/EventPlace.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/credentials/Projet1-210e94277d61.json" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/credentials/keys.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/utils/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -42,8 +46,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/AddUserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="51" column="83" lean-forward="true" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="83" />
+            <state relative-caret-position="992">
+              <caret line="51" column="83" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="83" />
             </state>
           </provider>
         </entry>
@@ -60,7 +64,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/crudUser/addUpdateUser.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1611">
+            <state relative-caret-position="2449">
               <caret line="79" column="54" selection-start-line="79" selection-start-column="54" selection-end-line="79" selection-end-column="54" />
             </state>
           </provider>
@@ -87,7 +91,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
+            <state relative-caret-position="8556">
               <caret line="303" column="73" selection-start-line="303" selection-start-column="73" selection-end-line="303" selection-end-column="73" />
             </state>
           </provider>
@@ -96,7 +100,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/dao/impl/UtilisateurDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4340">
+            <state relative-caret-position="4278">
               <caret line="164" column="42" selection-start-line="164" selection-start-column="42" selection-end-line="164" selection-end-column="42" />
               <folding>
                 <element signature="e#1184#1185#0" expanded="true" />
@@ -191,10 +195,10 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="538" />
-    <option name="y" value="363" />
-    <option name="width" value="974" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="44" />
+    <option name="y" value="40" />
+    <option name="width" value="1301" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -203,8 +207,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -292,6 +294,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -406,18 +410,20 @@
       <workItem from="1578389532423" duration="2248000" />
       <workItem from="1578424753976" duration="5781000" />
       <workItem from="1578492212955" duration="8000" />
-      <workItem from="1578492257860" duration="1135000" />
+      <workItem from="1578492257860" duration="1223000" />
+      <workItem from="1578643613364" duration="670000" />
+      <workItem from="1578903321620" duration="430000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9720000" />
+    <option name="totallyTimeSpent" value="10908000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="538" y="363" width="974" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.35339168" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17377399" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -443,7 +449,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.22647703" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.110341154" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="JSF" order="6" />
@@ -485,10 +491,24 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/AddUserServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="992">
+          <caret line="51" column="83" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/crudUser/updateUser.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3069">
           <caret line="99" column="30" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/crudUser/addUpdateUser.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2449">
+          <caret line="79" column="54" selection-start-line="79" selection-start-column="54" selection-end-line="79" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -506,9 +526,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8556">
+          <caret line="303" column="73" selection-start-line="303" selection-start-column="73" selection-end-line="303" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/dao/impl/UtilisateurDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4340">
+        <state relative-caret-position="4278">
           <caret line="164" column="42" selection-start-line="164" selection-start-column="42" selection-end-line="164" selection-end-column="42" />
           <folding>
             <element signature="e#1184#1185#0" expanded="true" />
@@ -528,27 +555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
           <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="303" column="73" selection-start-line="303" selection-start-column="73" selection-end-line="303" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/AddUserServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="51" column="83" lean-forward="true" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/crudUser/addUpdateUser.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1611">
-          <caret line="79" column="54" selection-start-line="79" selection-start-column="54" selection-end-line="79" selection-end-column="54" />
         </state>
       </provider>
     </entry>
