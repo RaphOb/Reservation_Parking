@@ -83,8 +83,19 @@ public class GoogleCalendar {
 //        deleteEvent("sk5o210cfov6s7r7viuvftnj3s");
 //        Event event = newEvent();
 //        addEvent(event);
-        checkCal(10);
-        System.out.println(isBooked(3));
+//        checkCal(10);
+//        Date d = new Date();
+//        DateTime dd = new DateTime(d);
+//        System.out.println(isBooked(2, dd));
+        getDays();
+    }
+
+    public static DateTime getDayOperations(int numberOfdays) {
+        Date now1 = new Date();
+        LocalDateTime localDateTime = now1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        localDateTime = localDateTime.plusDays(numberOfdays);
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return new DateTime(date);
     }
 
     /**
@@ -94,12 +105,7 @@ public class GoogleCalendar {
      * @details : Affiche les N events du cal.
      */
     public static void checkCal(int nb) throws IOException, GeneralSecurityException {
-        //recup les evenements des trois prochains jours
-        Date now1 = new Date();
-        LocalDateTime localDateTime = now1.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        localDateTime = localDateTime.plusDays(3);
-        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        DateTime dateTime = new DateTime(date);
+        DateTime dateTime = getDayOperations(3);
 
 
         //call à l'api google calendar
@@ -156,15 +162,27 @@ public class GoogleCalendar {
     }
 
     /**
-     *
      * @param place
      * @return true if isBooked // if free return false
      */
-    public static boolean isBooked(int place) {
+    public static boolean isBooked(int place, DateTime date) {
+        String d = date.toString().substring(0, 10);
         EventPlace e = listEvent.stream()
-                .filter(event -> event.getParkingRoom() == place)
+                .filter(event -> event.getParkingRoom() == place && event.getDateBook().toString().equals(d))
                 .findAny().orElse(null);
 
-        return e !=null;
+        return e != null;
+    }
+
+    public static String manipalacon(int nbdays) {
+        String key = getDayOperations(nbdays).toString().substring(0, 10);
+        String value = key.split("-")[2] + "/" + key.split("-")[1];
+        return key + ": " +value;
+    }
+
+    public static String getDays() {
+
+        return "{ " + manipalacon(0) + ", " + manipalacon(1) + ", "+
+                manipalacon(2) + ", " + manipalacon(3) + " }";
     }
 }
