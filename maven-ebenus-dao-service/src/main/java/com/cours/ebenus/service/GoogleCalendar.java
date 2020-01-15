@@ -17,6 +17,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.gson.JsonObject;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -153,11 +154,21 @@ public class GoogleCalendar {
     }
 
     /**
-     * @param event : id de l'event
+     *
+     * @param place
+     * @param userEmail
+     * @param dateBook
      * @throws IOException
-     * @details : add un event
+     * @details add un event
      */
-    public static void addEvent(Event event) throws IOException {
+    public static void addEvent(int place, String userEmail, String dateBook) throws IOException {
+            Event event = new Event();
+            event.setSummary(place + ";" +userEmail);
+            DateTime start = new DateTime(dateBook+"T09:00:00+01:00");
+            event.setStart(new EventDateTime().setDateTime(start));
+            DateTime end = new DateTime("2020-01-16T10:00:00+01:00");
+            event.setEnd(new EventDateTime().setDateTime(end));
+
         service.events().insert(Constants.CALENDAR_ID, event).setSendNotifications(true).execute();
     }
 
@@ -174,15 +185,18 @@ public class GoogleCalendar {
         return e != null;
     }
 
-    public static String manipalacon(int nbdays) {
+    private static String manipalacon(int nbdays) {
         String key = getDayOperations(nbdays).toString().substring(0, 10);
         String value = key.split("-")[2] + "/" + key.split("-")[1];
-        return key + ": " +value;
+        return key + ":" + value;
     }
 
-    public static String getDays() {
+    public static JsonObject getDays() {
 
-        return "{ " + manipalacon(0) + ", " + manipalacon(1) + ", "+
-                manipalacon(2) + ", " + manipalacon(3) + " }";
+        JsonObject listJsonDates = new JsonObject();
+        for (int i = 0; i < 4; i++) {
+            listJsonDates.addProperty(manipalacon(i).split(":")[0], manipalacon(i).split(":")[1]);
+        }
+        return listJsonDates;
     }
 }
