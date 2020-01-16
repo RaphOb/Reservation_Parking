@@ -17,10 +17,12 @@ public interface IPlaceParkingDao {
     public List<PlaceParking> findAllPlacesParking();
 
     public PlaceParking findPlaceParkingById(int idPlaceParking);
-
+    
     public List<PlaceParking> findPlaceParkingByNumero(String numeroParking);
     
     public List<PlaceParking> findPlaceParkingByIdVoiture(int IdVoiture);
+    
+    public Integer findNextAvailableNumber();
 
     public PlaceParking createPlaceParking(PlaceParking PlaceParking);
 

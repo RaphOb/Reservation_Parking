@@ -81,8 +81,8 @@ public class AddVoitureServlet extends HttpServlet {
 		Integer owner = Integer.parseInt(request.getParameter("owner"));
 		
 		Voiture voiture = new Voiture(brand, immat, owner);
-		log.debug("Voiture created");
 		service.getVoitureDao().createVoiture(voiture);
+		log.debug("Voiture created");
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 

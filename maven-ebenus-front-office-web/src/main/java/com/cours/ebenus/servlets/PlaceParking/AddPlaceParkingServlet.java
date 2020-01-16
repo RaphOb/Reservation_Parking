@@ -16,8 +16,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
@@ -55,6 +57,9 @@ public class AddPlaceParkingServlet extends HttpServlet {
     		Object user = request.getSession(false).getAttribute("user");
     		if (user != null)
     		{
+    			List<Voiture> v = service.getVoitureDao().findAllVoitures();
+    			request.setAttribute("voitures", v);
+    			request.setAttribute("next_num", service.getPlaceParkingDao().findNextAvailableNumber());
 	    		this.getServletContext().getRequestDispatcher("/pages/crudPlaceParking/addPlaceParking.jsp").forward(request, response);
     		}
     		else
@@ -68,7 +73,28 @@ public class AddPlaceParkingServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		Integer idVoiture = null;
+		if (request.getParameter("immat") != null)
+			idVoiture = Integer.parseInt(request.getParameter("immat"));
+		Integer num = Integer.parseInt(request.getParameter("num"));
+		PlaceParking place = null;
+		
+		if (idVoiture != null)
+		{
+			place = new PlaceParking(num, false);
+			place.setIdVoiture(idVoiture);
+		}
+		else
+		{
+			place = new PlaceParking(num, true);
+		}
+		
+		service.getPlaceParkingDao().createPlaceParking(place);
+		log.debug("Place created");
+		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 
 }

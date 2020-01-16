@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
@@ -59,7 +61,7 @@ public class DeletePlaceParkingServlet extends HttpServlet {
 				}
 				else
 				{
-					log.debug("You have no right to delete a user. Connect as admin");
+					log.debug("You have no right to delete a place. Connect as admin");
 					response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 				}
 			}
@@ -76,6 +78,12 @@ public class DeletePlaceParkingServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		/* Delete selected place */
+		Integer placeParkingID = Integer.parseInt(request.getParameter("place"));
+		PlaceParking place = service.getPlaceParkingDao().findPlaceParkingById(placeParkingID);
+		service.getPlaceParkingDao().deletePlaceParking(place);
+		log.debug("Place deleted");
+		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 
 }

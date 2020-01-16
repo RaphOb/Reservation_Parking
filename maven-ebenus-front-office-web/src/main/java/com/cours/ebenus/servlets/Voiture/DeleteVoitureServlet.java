@@ -61,7 +61,7 @@ public class DeleteVoitureServlet extends HttpServlet {
 				}
 				else
 				{
-					log.debug("You have no right to delete a user. Connect as admin");
+					log.debug("You have no right to delete a car. Connect as admin");
 					response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 				}
 			}
@@ -78,7 +78,7 @@ public class DeleteVoitureServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		/* Delete selected user */
+		/* Delete selected car */
 		Integer voitureID = Integer.parseInt(request.getParameter("voiture"));
 		Voiture voiture = service.getVoitureDao().findVoitureById(voitureID);
 		service.getVoitureDao().deleteVoiture(voiture);
