@@ -33,7 +33,7 @@
 			<div class="content">
 				<div class="User quest">
 					<h1>Mettre à jour un véhicule</h1>
-					<form action="${pageContext.request.contextPath}/AddVoitureServlet"
+					<form action="${pageContext.request.contextPath}/UpdateVoitureServlet"
 						method="Post" id="customer-info-form" class="no-gutters">
 						<div class="account-container row">
 							<fieldset class=" common-form-controls col-md-3">
@@ -71,7 +71,7 @@
 								
 								<div class="input-wrapper">
 									<label for="lastname">Immatriculation<em>*</em></label> 
-									<input  value="${current_voiture.getImmattriculation()}" autocomplete="off" name="immatriculation" id="immatriculation"
+									<input  readonly value="${current_voiture.getImmattriculation()}" autocomplete="off" name="immatriculation" id="immatriculation"
 											type="text">
 								</div>
 							</fieldset>
@@ -84,7 +84,7 @@
 									obligatoire</p>
 							</div>
 							<div class="actions col-md-4">
-								<button type="submit">Ajouter</button>
+								<button type="submit">Modifier</button>
 							</div>
 						</div>
 					</form>

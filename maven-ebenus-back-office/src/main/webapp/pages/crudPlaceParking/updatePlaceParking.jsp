@@ -62,7 +62,7 @@
 										obligatoire</p>
 								</div>
 								<div class="actions col-md-4">
-									<button type="submit">Ajouter</button>
+									<button type="submit">Modifier</button>
 								</div>
 							</div>
 						</form>

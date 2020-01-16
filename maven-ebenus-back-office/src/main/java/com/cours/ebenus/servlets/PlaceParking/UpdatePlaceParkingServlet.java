@@ -92,6 +92,7 @@ public class UpdatePlaceParkingServlet extends HttpServlet {
     		}
     	}
     	service.getPlaceParkingDao().updatePlaceParking(p);
+    	log.debug("Place updated");
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     }
 }

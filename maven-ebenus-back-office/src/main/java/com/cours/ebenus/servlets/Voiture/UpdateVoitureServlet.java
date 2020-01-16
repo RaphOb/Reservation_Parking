@@ -75,9 +75,23 @@ public class UpdateVoitureServlet extends HttpServlet {
 		String immat = request.getParameter("immatriculation");
 		Integer owner = Integer.parseInt(request.getParameter("owner"));
 		
-		Voiture voiture = new Voiture(brand, immat, owner);
-		log.debug("Voiture created");
-		service.getVoitureDao().createVoiture(voiture);
+		System.out.println(immat);
+		
+		List<Voiture> l = service.getVoitureDao().findVoitureByImmatriculation(immat);
+		
+		for(Voiture v : l)
+		{
+			System.out.println(v);
+		}
+		
+		Voiture v = l.get(0);
+		
+		v.setImmattriculation(immat);
+		v.setMarque(brand);
+		v.setUtilisateur(owner);
+		
+		service.getVoitureDao().updateVoiture(v);
+		log.debug("Voiture updated");
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     }
     
