@@ -38,42 +38,39 @@ public class UpdateVoitureServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
-    	// TODO Auto-generated method stub
-    			HttpSession session = request.getSession(false);
-    			if(session == null)
-    	    	{
-    	    		log.debug("No session found... Redirecting to login page");
-    	    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
-    	    	}
-    	    	else
-    	    	{
-    	    		Object user = request.getSession(false).getAttribute("user");
-    	    		if (user != null)
-    	    		{
-    	    			List<String> list = generateBrandArray();
-    	    			List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
-    	    			Integer u = Integer.parseInt(request.getParameter("voiture"));
-    	                Voiture selected = service.getVoitureDao().findVoitureById(u);
-    	    			
-    	    			request.setAttribute("all_brand", list);
-    	    			request.setAttribute("users", users);
-    	    			request.setAttribute("current_voiture", selected);
-    		    		this.getServletContext().getRequestDispatcher("/pages/crudVoiture/updateVoiture.jsp").forward(request, response);
-    	    		}
-    	    		else
-    	    		{
-    	    			log.debug("No session found... Redirecting to login page");
-    	    			response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
-    	    		}
-    	    	}
+		HttpSession session = request.getSession(false);
+		if(session == null)
+    	{
+    		log.debug("No session found... Redirecting to login page");
+    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    	}
+    	else
+    	{
+    		Object user = request.getSession(false).getAttribute("user");
+    		if (user != null)
+    		{
+    			List<String> list = generateBrandArray();
+    			List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
+    			Integer u = Integer.parseInt(request.getParameter("voiture"));
+                Voiture selected = service.getVoitureDao().findVoitureById(u);
+    			
+    			request.setAttribute("all_brand", list);
+    			request.setAttribute("users", users);
+    			request.setAttribute("current_voiture", selected);
+	    		this.getServletContext().getRequestDispatcher("/pages/crudVoiture/updateVoiture.jsp").forward(request, response);
+    		}
+    		else
+    		{
+    			log.debug("No session found... Redirecting to login page");
+    			response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
+    		}
+    	}
     }
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
 		String brand = request.getParameter("brand");
 		String immat = request.getParameter("immatriculation");
 		Integer owner = Integer.parseInt(request.getParameter("owner"));

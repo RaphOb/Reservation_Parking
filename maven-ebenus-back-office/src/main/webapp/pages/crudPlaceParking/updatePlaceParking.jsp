@@ -26,84 +26,49 @@
         </header>
     </div>
     <!-- Section -->
-    <section>
-        <div class="content">
-            <div class="User quest">
-                <h1>Mise à jour de vos données</h1>
-                <h3>Bonjour </h3> <c:out value="${user.getCivilite()}"/> <c:out value="${user.getPrenom()}"/>
-                vous pouvez modifier vos données.
-                <c:out value="${user.getNom()}"/>
-                <form action="${pageContext.request.contextPath}/UpdateUserServlet?userU=${userU.getIdUtilisateur()}" method="Post" id="customer-info-form"
-                      class="no-gutters">
-                    <div class="account-container row">
-                        <fieldset class=" common-form-controls col-md-3">
-                            <div>
-                                <p>Informations Personnelles</p>
-                                <div class="input-wrapper">
-                                    <label for="firstname">Prénom<em>*</em></label>
-                                    <input autocomplete="off" name="firstname" id="firstname" type="text" value="${userU.getPrenom()}">
-                                </div>
-                                <div class="input-wrapper">
-                                    <label for="lastname">Nom<em>*</em></label>
-                                    <input autocomplete="off" name="lastname" id="lastname" type="text" value="${userU.getNom()}">
-                                </div>
-                                <div class="input-wrapper">
-                                    <label for="email">Email<em>*</em></label>
-                                    <input autocomplete="off" name="email" id="email" type="email" value="${userU.getEmail()}">
-                                </div>
-
-                        </fieldset>
-                        <div class="offset-md-2"></div>
-                        <fieldset class="col-md-3">
-
-                            <div class="input-wrapper">
-                                <label for="">
-                                    Selectionner le rôle<em>*</em>
-                                </label>
-                            </div>
-                            <div class="sel-container">
-                                <div class="sel">
-                                    <select class="required" name="select_role" id="select_role">
-                                        <option value="rôle" selected disabled>Rôle</option>
-                                        <c:forEach items="${roles}" var="item" varStatus="loop">
-                                            <option value="${item.getIdRole()}" >${item.getIdentifiant()} </option>
-                                        </c:forEach>
-                                        <option value="${userU.getRole().getIdRole()}" selected>${userU.getRole().getIdentifiant()} </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="input-wrapper">
-                                <label>Civilité</label>
-                                <div class="gender">
-                                    <input autocomplete="off" type="radio" id="male" name="sex" value="Mr"
-                                           checked="checked"/>
-                                    <label for="male">
-                                        <i class="fa fa-male" aria-hidden="true"></i>
-                                    </label>
-                                    <input autocomplete="off" type="radio" id="female" name="sex" value="Mme"/>
-                                    <label for="female">
-                                        <i class="fa fa-female" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="input-wrapper">
-                                <label style="display: block;"> Date de naissance<em>*</em></label>
-                                <input autocomplete="off" id="dteNaiss" name="dteNaiss" style="width:auto;"
-                                       data-toggle="datepicker" type="text" value="${date}" name="naissance">
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5"><p class="obligatoire">les champs avec la signe "*" sont obligatoire</p>
-                        </div>
-                        <div class="actions col-md-4">
-                            <button type="submit">Mettre à jour</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
+    <!-- Section -->
+		<section>
+				<div class="content">
+					<div class="User quest">
+						<h1>Modifier une place</h1>
+						<form action="${pageContext.request.contextPath}/UpdatePlaceParkingServlet"
+							method="Post" id="customer-info-form" class="no-gutters">
+							<div class="account-container row">
+								<fieldset class=" common-form-controls col-md-3">
+								
+									<div class="sel inputwrapper">
+										<label for="voiture"> Occupant <em>*</em></label> <select
+											class="required" name="voiture" id="voiture">
+											<c:forEach items="${voitures}" var="item" varStatus="loop">
+												<option value="${item.getIdVoiture()}">${item.getImmattriculation()}</option>
+											</c:forEach>
+											<option value="EMPTY" name="empty" >Disponible</option>
+											<option value="${current_voiture.getIdVoiture()}" selected>${current_voiture.getImmattriculation()}</option>
+										</select>
+									</div>
+									
+									<div class="input-wrapper">
+										<label for="num">N°<em>*</em></label> 
+										<input readonly value="${current_place}" autocomplete="num" name="num" id="num"
+											   type="text">
+									</div>
+								</fieldset>
+	
+							</div>
+	
+							<div class="row">
+								<div class="col-md-5">
+									<p class="obligatoire">les champs avec la signe "*" sont
+										obligatoire</p>
+								</div>
+								<div class="actions col-md-4">
+									<button type="submit">Ajouter</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
     <!-- Footer -->
     <footer>
         <div class="footer-container ">

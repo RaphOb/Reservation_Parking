@@ -125,9 +125,8 @@
 								        		</c:choose>
 								        	</td>
 							        		<td>
-							        			<!-- TODO 2 servlets a faire ici: update et delete des places   -->
-								        		<a href="<c:url value="/UpdatePlaceParkingServlet?place=${parking.getIdPlaceParking()}"/>"><i class="fa fa-edit"></i></a>
-								        		<a href="<c:url value="/DeletePlaceParkingServlet?place=${parking.getIdPlaceParking()}"/>" class="no-style-btn">
+								        		<a href="<c:url value="/UpdatePlaceParkingServlet?place=${parking.getNum()}&voiture=${parking.getIdVoiture()}"/>"><i class="fa fa-edit"></i></a>
+								        		<a href="<c:url value="/DeletePlaceParkingServlet?place=${parking.getNum()}"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
 												</a>
 							        		</td>
@@ -175,7 +174,6 @@
 	                                			<c:out value="${voiture.getImmattriculation()}"/>
 							        		</td>
 							        		<td>
-							        			<!-- TODO 2 servlets a faire ici: update et delete des voitures   -->
 								        		<a href="<c:url value="/UpdateVoitureServlet?voiture=${voiture.getIdVoiture()}"/>"><i class="fa fa-edit"></i></a>
 								        		<a href="<c:url value="/DeleteVoitureServlet?voiture=${voiture.getIdVoiture()}"/>" class="no-style-btn">
 								        			<i class="fa fa-trash-o"></i>
@@ -185,7 +183,6 @@
 							        </c:forEach>
                                 </tbody>
                             </table>
-                            <!-- TODO 1 servlet a faire ici: create voiture   -->
                             <ul class="User">
                                 <li>
                                     <div class="col-lg-12 no-padding">
