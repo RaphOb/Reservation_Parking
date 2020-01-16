@@ -36,9 +36,8 @@
                             <div class="row">
                                 <div class="col-md-5 registered-users">
                                     <div>
-                                        <h2>CONNECTEZ-VOUS</h2>
-                                        <p>On se connait déjà ?</p>
-                                        <p>Connectez-vous avec votre <strong>adresse e-mail</strong> et votre <strong>mot de passe</strong> pour accéder à votre espace client.</p>
+                                        <h2>ESPACE ADMINISTRATEUR</h2>
+                                        <p>Connectez-vous avec votre <strong>adresse e-mail</strong> et votre <strong>mot de passe</strong> pour accéder à votre espace de gestion.</p>
                                         <ul class="form-list">
                                             <li>
                                                 <label for="email" class="required">Email<em>*</em></label>
@@ -62,29 +61,6 @@
                         </form>
                     </div> 
                 </div>
-                <div class="content">
-	                <div class="page-title">
-                    	<h1>...ou inscrivez vous</h1>
-                    </div>
-                     <form action="${pageContext.request.contextPath}/AddUserServlet" method="get" id="customer-info-form2"> 
-                         <div class="row">
-                             <div class="col-md-5 registered-users">
-                             	<div>
-                                    <ul class="form-list">
-                                        <li>
-                                        	<input type="hidden" name="signin" value="yes" />
-                                        </li>
-                                    </ul>
-                               </div>
-                               <br>
-                               <button class="btn btn-default" type="submit">
-	                      			S'inscrire 
-	                 			</button>
-                          </div>
-                       </div>
-	                      		
-					</form>      
-				</div>
             </section>
             <!-- Footer -->
             <footer>

@@ -1,4 +1,4 @@
-package com.cours.ebenus.servlets.Utilisateur;
+package com.cours.ebenus.servlets;
 
 import java.io.IOException;
 import java.text.ParseException;

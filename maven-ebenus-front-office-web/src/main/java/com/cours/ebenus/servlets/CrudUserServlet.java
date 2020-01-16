@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cours.ebenus.servlets.Utilisateur;
+package com.cours.ebenus.servlets;
 
 import java.io.IOException;
 import java.util.List;
@@ -71,14 +71,7 @@ public class CrudUserServlet extends HttpServlet {
     		if (request.getSession(false).getAttribute("user") != null)
     		{
     			/* Give to JSP all needed data */
-	    		List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
-	    		List<PlaceParking> parkings = service.getPlaceParkingDao().findAllPlacesParking();
-	    		List<Voiture> voitures = service.getVoitureDao().findAllVoitures();
 	    		
-	        	request.setAttribute("users", users);
-	        	request.setAttribute("parkings", parkings);
-	        	request.setAttribute("voitures", voitures);
-	        	
 	        	request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
 	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
     		}

@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>CrudUserServlet</servlet-name>
-        <servlet-class>com.cours.ebenus.servlets.Utilisateur.CrudUserServlet</servlet-class>
+        <servlet-class>com.cours.ebenus.servlets.CrudUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

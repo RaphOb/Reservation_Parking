@@ -52,18 +52,7 @@ public class DeletePlaceParkingServlet extends HttpServlet {
 		{
 			if (request.getSession(false).getAttribute("user") != null)
 			{
-				/* Verify if current user is an administrator */
-				Utilisateur user = (Utilisateur) request.getSession(false).getAttribute("user");
-				if(user.getRole().getIdentifiant().equals("Administrateur"))
-				{
-					/* If yes, go in post to delete */
-					doPost(request, response);
-				}
-				else
-				{
-					log.debug("You have no right to delete a place. Connect as admin");
-					response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
-				}
+				doPost(request, response);
 			}
 			else
 			{

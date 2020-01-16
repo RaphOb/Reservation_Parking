@@ -47,50 +47,29 @@ public class AddUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
     	
-		/* SignIn case */
-		String signin = request.getParameter("signin");
-		if (signin != null) {
-			if (signin.equals("yes"))
-			{
+		/* Admin add user case */
+		if(session == null)
+    	{
+    		log.debug("No session found... Redirecting to login page");
+    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
+    	}
+    	else
+    	{
+    		Object user = request.getSession(false).getAttribute("user");
+    		if (user != null)
+    		{
+	    		/* Set roles to gives info to jsp page */
+	    		List<Role> list = service.getRoleDao().findAllRoles();
+	    		request.setAttribute("roles", list);
 	    		/* Gives page to create user which call post method*/
 	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUser.jsp").forward(request, response);
-	    		return;
-			}
+    		}
+    		else
+    		{
+    			log.debug("No session found... Redirecting to login page");
+    			response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
+    		}
 		}
-		/* Admin add user case */
-		else
-		{
-			
-			if(session == null)
-	    	{
-	    		log.debug("No session found... Redirecting to login page");
-	    		this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
-	    	}
-	    	else
-	    	{
-	    		Object user = request.getSession(false).getAttribute("user");
-	    		if (user != null)
-	    		{
-	    			/* Is Admin ? */
-	    			if(user.toString().contains("idRole=1"))
-	    				//To show roles selection or not
-	    				request.setAttribute("admin", request.getSession(false).getAttribute("user"));
-			    		
-		    		/* Set roles to gives info to jsp page */
-		    		List<Role> list = service.getRoleDao().findAllRoles();
-		    		request.setAttribute("roles", list);
-		    		/* Gives page to create user which call post method*/
-		    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUser.jsp").forward(request, response);
-	    		}
-	    		else
-	    		{
-	    			log.debug("No session found... Redirecting to login page");
-	    			response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
-	    		}
-	    	}
-		}
-		
-    	
 	}
 
 	/**

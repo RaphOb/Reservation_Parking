@@ -32,7 +32,7 @@
                             <form action="${pageContext.request.contextPath}/AddUserServlet" method="Post" id="customer-info-form" class="no-gutters">
                                 <div class="account-container row">
                                     <fieldset class=" common-form-controls col-md-3">
-                                        <div >
+                                        <div>
                                             <p>Informations Personnelles</p>
     
                                             <div class="input-wrapper">
@@ -59,28 +59,26 @@
                                                         <input type="password" name="password_confirm" class="input-text" id="pass" title="Password">
                                                     </div>
                                             </div>
-    
+    									</div>
                                     </fieldset>
                                     <div class="offset-md-2"></div>   
                                     <fieldset class="col-md-3">
                                         
                                            
                                         <div class="sel-container">
-                                        	<c:if test="${not empty admin }">
-	                                       		<div>
-	                                       			<label for="">
-	                                                	Selectionner le rôle<em>*</em>
-	                                        		</label>
-	                                                <div class="sel">
-	                                                    <select  class="required" name="select_role" id="select_role"> 
-	                                                        <option value="rôle" selected disabled>Rôle</option>
-	                                                        	<c:forEach items="${roles}" var="item" varStatus="loop">
-	                                                        		<option value="${item.getIdRole()}">${item.getIdentifiant()} </option>
-													    		</c:forEach>
-	                                                    </select>
-	                                                </div>
-	                                            </div>
-                                            </c:if>
+                                       		<div>
+                                       			<label for="">
+                                                	Selectionner le rôle<em>*</em>
+                                        		</label>
+                                                <div class="sel">
+                                                    <select  class="required" name="select_role" id="select_role"> 
+                                                        <option value="rôle" selected disabled>Rôle</option>
+                                                        	<c:forEach items="${roles}" var="item" varStatus="loop">
+                                                        		<option value="${item.getIdRole()}">${item.getIdentifiant()} </option>
+												    		</c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="input-wrapper">
                                                 <label>Civilité</label>
                                                 <div class="gender">
