@@ -228,13 +228,6 @@
 				</div>
 			</section>
 		</div>
-
-		<div id="logs">
-			<div class="content">
-				<span> TEST </span>
-			</div>
-		</div>
-
 		<!-- Footer -->
 		<footer>
 			<div class="footer-container ">

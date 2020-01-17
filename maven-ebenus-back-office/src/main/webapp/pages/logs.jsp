@@ -61,12 +61,63 @@
 			</header>
 		</div>
 
-
-
 		<div id="logs">
-			<div class="content">
-				<span> TEST </span>
-			</div>
+			<section>
+				<div class="content">
+					<h1 id="user_list_title" style="cursor: pointer;" class="clearfix">
+						<i id="icon-plus-1" class="fa fa-plus"></i> SQL Report
+					</h1>
+
+					<div id="user_list" class="table-responsive">
+						<table class="table table-bordered table-hover table-striped">
+							<thead>
+								<tr>
+									<th>Civilite</th>
+									<th>Prénom</th>
+									<th>Nom</th>
+									<th>Identifiant</th>
+									<th>Date création</th>
+									<th>Date modification</th>
+									<th>Identifiant rôle</th>
+									<th>Description rôle</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<c:forEach items="${users}" var="user">
+									<tr>
+										<td><c:out value="${user.getCivilite()}" /></td>
+										<td><c:out value="${user.getPrenom()}" /></td>
+										<td><c:out value="${user.getNom()}" /></td>
+										<td><c:out value="${user.getEmail()}" /></td>
+										<td><c:out value="${user.getDateCreation()}" /></td>
+										<td><c:out value="${user.getDateModification()}" /></td>
+										<td><c:out value="${user.getRole().getIdentifiant()}" />
+										</td>
+										<td><c:out value="${user.getRole().getDescription()}" />
+										</td>
+										<td><a
+											href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i
+												class="fa fa-edit"></i></a> <a
+											href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>"
+											class="no-style-btn"> <i class="fa fa-trash-o"></i>
+										</a></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<ul class="User">
+							<li>
+								<div class="col-lg-12 no-padding">
+									<a href="AddUserServlet" role="button" type="submit">Ajouter
+										Utilisateur</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
 		</div>
 
 		<!-- Footer -->
@@ -159,7 +210,6 @@
 		<!-- JS files -->
 		<script src="./assets/js/bower.js" type="text/javascript"></script>
 		<script src="./assets/js/application.js" type="text/javascript"></script>
-		<script src="./assets/js/events.js" type="text/javascript"></script>
 
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 		<script

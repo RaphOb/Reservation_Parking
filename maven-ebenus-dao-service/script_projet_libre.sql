@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS Utilisateur;
 DROP TABLE IF EXISTS Role;
 DROP TABLE IF EXISTS Voiture;
 DROP TABLE IF EXISTS PlaceParking;
+DROP TABLE IF EXISTS Report;
 
  CREATE TABLE Role (
 	idRole INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -40,6 +41,13 @@ DROP TABLE IF EXISTS PlaceParking;
 	available TINYINT(1) DEFAULT 1
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE Report (
+	idReport INTEGER PRIMARY KEY AUTO_INCREMENT,
+	idUtilisateur INTEGER NOT NULL,
+	FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(idUtilisateur) ON DELETE CASCADE ,
+	sqlQuery VARCHAR(500) NOT NULL,
+	description VARCHAR(200) NOT NULL
+ )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* Insertion des Roles */ 
 INSERT INTO Role(identifiant,description) VALUES ('Administrateur','Le rôle administrateur');
