@@ -18,35 +18,39 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/master.css">
+<link rel="stylesheet" href="./assets/css/master.css">
+
 </head>
 <body>
 	<div class="outer">
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light"
-					style="background-color: #dee0ef !important;">
-
-					<div class="collapse navbar-collapse" style="margin-left: 250px;">
-
+				<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #dee0ef !important;">
+				
+					<div class="collapse navbar-collapse" style="margin-left:250px;">
+				
 						<a href="${pageContext.request.contextPath}" title="Ebenus"
 							class="logo"> <img src="./assets/images/logo/Parclik.png"
 							alt="Ebenus">
 						</a>
-
+	
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto">
-								<li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/CrudUserServlet">Data
+								<li class="nav-item "><a class="nav-link" href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
-								<li id="logs" class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
+								<li id="logs" class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
 							</ul>
 						</div>
-
+						
 					</div>
-
+						
 					<div class="content">
 						<div class="User export">
+							<h2 style="margin-top: 30px; display: inline-block;">
+								Bonjour <strong> Mr ${current_user.getNom()} </strong> (${current_user.getRole().getIdentifiant()})
+							</h2>
+
 							<h1 class="logout">
 								<a href="<c:url value="LogoutServlet"/>" role="button">Se
 									Deconnecter</a>
@@ -56,87 +60,15 @@
 				</nav>
 			</header>
 		</div>
-		<!-- Section -->
-		<section>
-			<div class="content">
-				<div class="User quest">
-					<h1>Mise à jour des données utilisateur</h1>
-					<form
-						action="${pageContext.request.contextPath}/UpdateUserServlet?userU=${userU.getIdUtilisateur()}"
-						method="Post" id="customer-info-form" class="no-gutters">
-						<div class="account-container row">
-							<fieldset class=" common-form-controls col-md-3">
-								<div>
-									<p>Informations Personnelles</p>
-									<div class="input-wrapper">
-										<label for="firstname">Prénom<em>*</em></label> <input
-											autocomplete="off" name="firstname" id="firstname"
-											type="text" value="${userU.getPrenom()}">
-									</div>
-									<div class="input-wrapper">
-										<label for="lastname">Nom<em>*</em></label> <input
-											autocomplete="off" name="lastname" id="lastname" type="text"
-											value="${userU.getNom()}">
-									</div>
-									<div class="input-wrapper">
-										<label for="email">Email<em>*</em></label> <input
-											autocomplete="off" name="email" id="email" type="email"
-											value="${userU.getEmail()}">
-									</div>
-							</fieldset>
-							<div class="offset-md-2"></div>
-							<fieldset class="col-md-3">
 
-								<div class="input-wrapper">
-									<label for=""> Selectionner le rôle<em>*</em>
-									</label>
-								</div>
-								<div class="sel-container">
-									<div class="sel">
-										<select class="required" name="select_role" id="select_role">
-											<option value="rôle" selected disabled>Rôle</option>
-											<c:forEach items="${roles}" var="item" varStatus="loop">
-												<option value="${item.getIdRole()}">${item.getIdentifiant()}
-												</option>
-											</c:forEach>
-											<option value="${userU.getRole().getIdRole()}" selected>${userU.getRole().getIdentifiant()}
-											</option>
-										</select>
-									</div>
-								</div>
-								<div class="input-wrapper">
-									<label>Civilité</label>
-									<div class="gender">
-										<input autocomplete="off" type="radio" id="male" name="sex"
-											value="Mr" checked="checked" /> <label for="male"> <i
-											class="fa fa-male" aria-hidden="true"></i>
-										</label> <input autocomplete="off" type="radio" id="female" name="sex"
-											value="Mme" /> <label for="female"> <i
-											class="fa fa-female" aria-hidden="true"></i>
-										</label>
-									</div>
-								</div>
-								<div class="input-wrapper">
-									<label style="display: block;"> Date de naissance<em>*</em></label>
-									<input autocomplete="off" id="dteNaiss" name="dteNaiss"
-										style="width: auto;" data-toggle="datepicker" type="text"
-										value="${date}" name="naissance">
-								</div>
-							</fieldset>
-						</div>
-						<div class="row">
-							<div class="col-md-5">
-								<p class="obligatoire">les champs avec la signe "*" sont
-									obligatoire</p>
-							</div>
-							<div class="actions col-md-4">
-								<button type="submit">Mettre à jour</button>
-							</div>
-						</div>
-					</form>
-				</div>
+
+
+		<div id="logs">
+			<div class="content">
+				<span> TEST </span>
 			</div>
-		</section>
+		</div>
+
 		<!-- Footer -->
 		<footer>
 			<div class="footer-container ">
@@ -224,9 +156,16 @@
 				</div>
 			</div>
 		</footer>
+		<!-- JS files -->
+		<script src="./assets/js/bower.js" type="text/javascript"></script>
+		<script src="./assets/js/application.js" type="text/javascript"></script>
+		<script src="./assets/js/events.js" type="text/javascript"></script>
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	</div>
-	<!-- JS files -->
-	<script src="assets/js/bower.js" type="text/javascript"></script>
-	<script src="assets/js/application.js" type="text/javascript"></script>
 </body>
 </html>
