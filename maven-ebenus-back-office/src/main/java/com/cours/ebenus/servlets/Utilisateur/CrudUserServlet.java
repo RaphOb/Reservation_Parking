@@ -80,7 +80,7 @@ public class CrudUserServlet extends HttpServlet {
 	        	request.setAttribute("voitures", voitures);
 	        	
 	        	request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
-	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/allUsers.jsp").forward(request, response);
+	    		this.getServletContext().getRequestDispatcher("/pages/globalCrud.jsp").forward(request, response);
     		}
     		else
     		{

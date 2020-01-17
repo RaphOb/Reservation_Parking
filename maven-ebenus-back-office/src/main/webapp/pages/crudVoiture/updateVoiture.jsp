@@ -7,6 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ebenus</title>
 <!-- CSS files -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Oswald:300,400,500,600,700"
 	rel="stylesheet">
@@ -21,11 +25,34 @@
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<div class="header padd-top">
-					<a href="index.html" title="Ebenus" class="logo"> <img
-						src="./assets/images/logo/logo.png" alt="Ebenus">
-					</a>
-				</div>
+				<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #dee0ef !important;">
+				
+					<div class="collapse navbar-collapse" style="margin-left:250px; display:inline-block;">
+				
+						<a href="${pageContext.request.contextPath}" title="Ebenus"
+							class="logo"> <img src="./assets/images/logo/Parclik.png"
+							alt="Ebenus">
+						</a>
+	
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item active"><a class="nav-link" href="#">Data
+										management </a></li>
+								<li id="logs" class="nav-item"><a class="nav-link" href="#">Logs</a></li>
+							</ul>
+						</div>
+						
+					</div>
+						
+					<div class="content">
+						<div class="User export">
+							<h1 class="logout">
+								<a href="<c:url value="LogoutServlet"/>" role="button">Se
+									Deconnecter</a>
+							</h1>
+						</div>
+					</div>
+				</nav>
 			</header>
 		</div>
 		<!-- Section -->
@@ -33,11 +60,12 @@
 			<div class="content">
 				<div class="User quest">
 					<h1>Mettre à jour un véhicule</h1>
-					<form action="${pageContext.request.contextPath}/UpdateVoitureServlet"
+					<form
+						action="${pageContext.request.contextPath}/UpdateVoitureServlet"
 						method="Post" id="customer-info-form" class="no-gutters">
 						<div class="account-container row">
 							<fieldset class=" common-form-controls col-md-3">
-							
+
 								<div class="sel inputwrapper">
 									<label for="brand">Modèles<em>*</em></label> <select
 										class="required" name="brand" id="brand">
@@ -47,32 +75,31 @@
 										<option value="${current_voiture.getMarque()}" selected>${current_voiture.getMarque()}</option>
 									</select>
 								</div>
-								
+
 								<div class="sel inputwrapper">
-									<label for="owner">Propriétaire<em>*</em></label>
-									
-									<select
+									<label for="owner">Propriétaire<em>*</em></label> <select
 										class="required" name="owner" id="owner">
 										<c:forEach items="${users}" var="item" varStatus="loop">
 											<c:choose>
-												<c:when test="${item.idUtilisateur eq current_voiture.utilisateur}">
-													<option value="${current_voiture.getUtilisateur()}" selected>
-														${item.getPrenom()}
-													</option>
+												<c:when
+													test="${item.idUtilisateur eq current_voiture.utilisateur}">
+													<option value="${current_voiture.getUtilisateur()}"
+														selected>${item.getPrenom()}</option>
 												</c:when>
 												<c:otherwise>
 													<option value="${item.getIdUtilisateur()}">${item.getPrenom()}</option>
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-										
+
 									</select>
 								</div>
-								
+
 								<div class="input-wrapper">
-									<label for="lastname">Immatriculation<em>*</em></label> 
-									<input  readonly value="${current_voiture.getImmattriculation()}" autocomplete="off" name="immatriculation" id="immatriculation"
-											type="text">
+									<label for="lastname">Immatriculation<em>*</em></label> <input
+										readonly value="${current_voiture.getImmattriculation()}"
+										autocomplete="off" name="immatriculation" id="immatriculation"
+										type="text">
 								</div>
 							</fieldset>
 

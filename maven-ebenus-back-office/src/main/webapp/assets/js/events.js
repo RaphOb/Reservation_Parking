@@ -1,3 +1,4 @@
+//For Lists data
 function hide_and_show(class_name_to_click, class_name_to_show) {
 	$(document.getElementById(class_name_to_click)).click(function(){
 		
@@ -42,11 +43,13 @@ function retrieveDisplayState(item, element_id, icon_id)
 	}
 	else
 	{
-		$(document.getElementById(element_id))[0].style.display = 'none';
+		document.getElementById(element_id).style.display = 'none';
 	}
 }
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 window.onload = function(){
+	//Lists management
 	retrieveDisplayState('user_list_title', "user_list", "icon-plus-1");
 	retrieveDisplayState('parking_list_title', "parking_list", "icon-plus-2");
 	retrieveDisplayState('voiture_list_title', "voiture_list", "icon-plus-3");
@@ -58,6 +61,7 @@ window.onload = function(){
 	change_sign_listener("user_list_title", "icon-plus-1");
 	change_sign_listener("parking_list_title", "icon-plus-2");
 	change_sign_listener("voiture_list_title", "icon-plus-3");
+	
 };
 
 

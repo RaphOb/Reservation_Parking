@@ -18,9 +18,10 @@
                 <!-- Header -->
                 <header id="header"  class="header">
                     <div class="header padd-top">
-                        <a href="${pageContext.request.contextPath}/LoginServlet" title="Ebenus" class="logo"> 
-                            <img src="./assets/images/logo/logo.png" alt="Ebenus"> 
-                        </a>
+                        <a href="${pageContext.request.contextPath}" title="Ebenus"
+						class="logo"> <img src="./assets/images/logo/Parclik.png"
+						alt="Ebenus">
+					</a>
                     </div>
                     
                 </header>
