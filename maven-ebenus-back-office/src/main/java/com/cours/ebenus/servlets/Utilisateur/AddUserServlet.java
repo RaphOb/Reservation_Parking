@@ -61,6 +61,7 @@ public class AddUserServlet extends HttpServlet {
 	    		/* Set roles to gives info to jsp page */
 	    		List<Role> list = service.getRoleDao().findAllRoles();
 	    		request.setAttribute("roles", list);
+	    		request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
 	    		/* Gives page to create user which call post method*/
 	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUser.jsp").forward(request, response);
     		}
@@ -95,6 +96,8 @@ public class AddUserServlet extends HttpServlet {
 		Utilisateur user = new Utilisateur(civilite, prenom, nom, email, motPasse, role);
 		user = service.getUtilisateurDao().createUtilisateur(user);
 		log.debug("User created");
+
+		
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 

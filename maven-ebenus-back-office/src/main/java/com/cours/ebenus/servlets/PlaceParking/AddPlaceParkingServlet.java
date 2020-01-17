@@ -60,6 +60,7 @@ public class AddPlaceParkingServlet extends HttpServlet {
     			List<Voiture> v = service.getVoitureDao().findAllVoitures();
     			request.setAttribute("voitures", v);
     			request.setAttribute("next_num", service.getPlaceParkingDao().findNextAvailableNumber());
+    			request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
 	    		this.getServletContext().getRequestDispatcher("/pages/crudPlaceParking/addPlaceParking.jsp").forward(request, response);
     		}
     		else

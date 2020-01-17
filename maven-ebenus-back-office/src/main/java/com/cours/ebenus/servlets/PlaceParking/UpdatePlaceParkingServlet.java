@@ -60,6 +60,7 @@ public class UpdatePlaceParkingServlet extends HttpServlet {
     			}
     			List<Voiture> l = service.getVoitureDao().findAllVoitures();
     			request.setAttribute("voitures", l);
+    			request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
 	    		this.getServletContext().getRequestDispatcher("/pages/crudPlaceParking/updatePlaceParking.jsp").forward(request, response);
     		}
     		else

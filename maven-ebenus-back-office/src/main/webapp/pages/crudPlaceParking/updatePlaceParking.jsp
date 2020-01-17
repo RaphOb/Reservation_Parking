@@ -37,9 +37,11 @@
 
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto">
-								<li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/CrudUserServlet">Data
+								<li class="nav-item active"><a class="nav-link"
+									href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
-								<li id="logs" class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
+								<li id="logs" class="nav-item"><a class="nav-link"
+									href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
 							</ul>
 						</div>
 
@@ -47,6 +49,10 @@
 
 					<div class="content">
 						<div class="User export">
+							<h2 style="margin-top: 30px; display: inline-block;">
+								Bonjour <strong> Mr ${current_user.getNom()} </strong>
+								(${current_user.getRole().getIdentifiant()})
+							</h2>
 							<h1 class="logout">
 								<a href="<c:url value="LogoutServlet"/>" role="button">Se
 									Deconnecter</a>

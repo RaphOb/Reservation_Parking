@@ -60,6 +60,7 @@ public class AddVoitureServlet extends HttpServlet {
     			
     			request.setAttribute("all_brand", list);
     			request.setAttribute("users", users);
+    			request.setAttribute("current_user", user);
     			
 	    		this.getServletContext().getRequestDispatcher("/pages/crudVoiture/addVoiture.jsp").forward(request, response);
     		}

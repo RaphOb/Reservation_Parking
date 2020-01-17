@@ -25,27 +25,35 @@
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #dee0ef !important;">
-				
-					<div class="collapse navbar-collapse" style="margin-left:250px; display:inline-block;">
-				
+				<nav class="navbar navbar-expand-lg navbar-light bg-light"
+					style="background-color: #dee0ef !important;">
+
+					<div class="collapse navbar-collapse"
+						style="margin-left: 250px; display: inline-block;">
+
 						<a href="${pageContext.request.contextPath}" title="Ebenus"
 							class="logo"> <img src="./assets/images/logo/Parclik.png"
 							alt="Ebenus">
 						</a>
-	
+
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto">
-								<li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/CrudUserServlet">Data
+								<li class="nav-item active"><a class="nav-link"
+									href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
-								<li id="logs" class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
+								<li id="logs" class="nav-item"><a class="nav-link"
+									href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
 							</ul>
 						</div>
-						
+
 					</div>
-						
+
 					<div class="content">
 						<div class="User export">
+							<h2 style="margin-top: 30px; display: inline-block;">
+								Bonjour <strong> Mr ${current_user.getNom()} </strong>
+								(${current_user.getRole().getIdentifiant()})
+							</h2>
 							<h1 class="logout">
 								<a href="<c:url value="LogoutServlet"/>" role="button">Se
 									Deconnecter</a>

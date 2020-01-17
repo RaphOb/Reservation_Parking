@@ -58,6 +58,7 @@ public class UpdateUserServlet extends HttpServlet {
                         List<Role> roles = service.getRoleDao().findAllRoles();
                         request.setAttribute("roles", roles);
                         request.setAttribute("userU",uUpdate);
+                        request.setAttribute("current_user", user);
                         this.getServletContext().getRequestDispatcher("/pages/crudUser/updateUser.jsp").forward(request, response);
                     } else {
                         log.debug("You cant update another user sorry bro");

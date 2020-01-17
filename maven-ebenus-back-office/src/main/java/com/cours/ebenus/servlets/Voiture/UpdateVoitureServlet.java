@@ -57,6 +57,7 @@ public class UpdateVoitureServlet extends HttpServlet {
     			request.setAttribute("all_brand", list);
     			request.setAttribute("users", users);
     			request.setAttribute("current_voiture", selected);
+    			request.setAttribute("current_user", user);
 	    		this.getServletContext().getRequestDispatcher("/pages/crudVoiture/updateVoiture.jsp").forward(request, response);
     		}
     		else
