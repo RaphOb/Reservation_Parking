@@ -26,29 +26,33 @@
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #dee0ef !important;">
-				
-					<div class="collapse navbar-collapse" style="margin-left:250px;">
-				
+				<nav class="navbar navbar-expand-lg navbar-light bg-light"
+					style="background-color: #dee0ef !important;">
+
+					<div class="collapse navbar-collapse" style="margin-left: 250px;">
+
 						<a href="${pageContext.request.contextPath}" title="Ebenus"
 							class="logo"> <img src="./assets/images/logo/Parclik.png"
 							alt="Ebenus">
 						</a>
-	
+
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto">
-								<li class="nav-item "><a class="nav-link" href="${pageContext.request.contextPath}/CrudUserServlet">Data
+								<li class="nav-item "><a class="nav-link"
+									href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
-								<li id="logs" class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
+								<li id="logs" class="nav-item active"><a class="nav-link"
+									href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
 							</ul>
 						</div>
-						
+
 					</div>
-						
+
 					<div class="content">
 						<div class="User export">
 							<h2 style="margin-top: 30px; display: inline-block;">
-								Bonjour <strong> Mr ${current_user.getNom()} </strong> (${current_user.getRole().getIdentifiant()})
+								Bonjour <strong> Mr ${current_user.getNom()} </strong>
+								(${current_user.getRole().getIdentifiant()})
 							</h2>
 
 							<h1 class="logout">
@@ -65,56 +69,33 @@
 			<section>
 				<div class="content">
 					<h1 id="user_list_title" style="cursor: pointer;" class="clearfix">
-						<i id="icon-plus-1" class="fa fa-plus"></i> SQL Report
+						SQL Report
 					</h1>
 
 					<div id="user_list" class="table-responsive">
 						<table class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>Civilite</th>
-									<th>Prénom</th>
-									<th>Nom</th>
-									<th>Identifiant</th>
-									<th>Date création</th>
-									<th>Date modification</th>
-									<th>Identifiant rôle</th>
-									<th>Description rôle</th>
+									<th>Utilisateur</th>
+									<th>SQL</th>
+									<th>Description</th>
 									<th>Actions</th>
 								</tr>
 							</thead>
-
 							<tbody>
-								<c:forEach items="${users}" var="user">
+								<c:forEach items="${reports}" var="report">
 									<tr>
-										<td><c:out value="${user.getCivilite()}" /></td>
-										<td><c:out value="${user.getPrenom()}" /></td>
-										<td><c:out value="${user.getNom()}" /></td>
-										<td><c:out value="${user.getEmail()}" /></td>
-										<td><c:out value="${user.getDateCreation()}" /></td>
-										<td><c:out value="${user.getDateModification()}" /></td>
-										<td><c:out value="${user.getRole().getIdentifiant()}" />
-										</td>
-										<td><c:out value="${user.getRole().getDescription()}" />
-										</td>
+										<td><c:out value="${report.getIdUtilisateur()}" /></td>
+										<td><c:out value="${report.getSqlQuery()}" /></td>
+										<td><c:out value="${report.getDescription()}" /></td>
 										<td><a
-											href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i
-												class="fa fa-edit"></i></a> <a
-											href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>"
+											href="<c:url value="/DeleteReportServlet?user=${user.getIdUtilisateur()}"/>"
 											class="no-style-btn"> <i class="fa fa-trash-o"></i>
 										</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
-						<ul class="User">
-							<li>
-								<div class="col-lg-12 no-padding">
-									<a href="AddUserServlet" role="button" type="submit">Ajouter
-										Utilisateur</a>
-								</div>
-							</li>
-						</ul>
 					</div>
 				</div>
 			</section>

@@ -5,14 +5,16 @@
  */
 package com.cours.ebenus.service;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.cours.ebenus.dao.IPlaceParkingDao;
+import com.cours.ebenus.dao.IReportDao;
 import com.cours.ebenus.dao.IRoleDao;
 import com.cours.ebenus.dao.IUtilisateurDao;
 import com.cours.ebenus.dao.IVoitureDao;
 import com.cours.ebenus.factory.AbstractDaoFactory;
 import com.cours.ebenus.factory.AbstractDaoFactory.FactoryDaoType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -31,6 +33,8 @@ public class ServiceFacade implements IServiceFacade {
     private IPlaceParkingDao placeParkingDao = null;
     
     private IVoitureDao voitureDao = null;
+    
+    private IReportDao reportDao = null;
 
     public ServiceFacade() {
         // mettre tous les DAO
@@ -38,6 +42,7 @@ public class ServiceFacade implements IServiceFacade {
         roleDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getRoleDao();
         placeParkingDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getPlaceParkingDao();
         voitureDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getVoitureDao();
+        reportDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getReportDao();
     }
 
     public ServiceFacade(FactoryDaoType daoType) {
@@ -46,6 +51,7 @@ public class ServiceFacade implements IServiceFacade {
         roleDao = AbstractDaoFactory.getFactory(daoType).getRoleDao();
         placeParkingDao = AbstractDaoFactory.getFactory(daoType).getPlaceParkingDao();
         voitureDao = AbstractDaoFactory.getFactory(daoType).getVoitureDao();
+        reportDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getReportDao();
     }
 
     @Override
@@ -65,7 +71,11 @@ public class ServiceFacade implements IServiceFacade {
 	
 	@Override
 	public IVoitureDao getVoitureDao() {
-		// TODO Auto-generated method stub
 		return voitureDao;
+	}
+	
+	@Override
+	public IReportDao getReportDao() {
+		return reportDao;
 	}
 }

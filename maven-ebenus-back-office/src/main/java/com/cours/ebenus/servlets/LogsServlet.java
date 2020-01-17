@@ -6,6 +6,7 @@
 package com.cours.ebenus.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,14 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.cours.ebenus.service.IServiceFacade;
-import com.cours.ebenus.service.ServiceFacade;
-import com.cours.ebenus.dao.entities.Utilisateur;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.cours.ebenus.dao.entities.Report;
+import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.service.IServiceFacade;
+import com.cours.ebenus.service.ServiceFacade;
 
 
 /**
@@ -55,8 +56,9 @@ public class LogsServlet extends HttpServlet {
     		/* Verify connexion on refresh */
     		if (request.getSession(false).getAttribute("user") != null)
     		{
-    			List<Utilisateur> users = service.getUtilisateurDao().findAllUtilisateurs();
-    			request.setAttribute("users", users);
+    			List<Report> reports = service.getReportDao().findAllReport();
+    			
+    			request.setAttribute("reports", reports);
     			request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
     			this.getServletContext().getRequestDispatcher("/pages/logs.jsp").forward(request, response);
     		}
