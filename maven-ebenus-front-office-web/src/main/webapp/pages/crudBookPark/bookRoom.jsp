@@ -33,119 +33,129 @@
 </head>
 <body>
 <div class="outer">
-<div class="header-outer" id="header-outer">
-    <!-- Header -->
-    <header id="header" class="header">
-        <div class="header padd-top">
-            <a href="index.html" title="Ebenus" class="logo">
-                <img src="../assets/images/logo/Parclik.png" alt="Ebenus">
-            </a>
-        </div>
-    </header>
-</div>
-<!-- Section -->
-<section>
-<table class="table">
-<thead class="thead-light">
-<tr>
-    <th scope="col">#</th>
-    <c:forEach items="${getDates.entrySet()}" var="dates">
-        <th><c:out value="${dates.getValue().getAsString()}"/></th>
-    </c:forEach>
-</tr>
-</thead>
-<tbody>
-<c:forEach items="${getParkings}" var="park">
-    <tr>
-    <th><c:out value="${park.getNum()}"/></th>
-    <c:forEach items="${getDates.entrySet()}" var="dates">
-        <td><a href="#" class="badge badge-success">Reserver</a></td>
-    </c:forEach>
-        </tr>
-    </c:forEach>
-    </tbody>
-    </table>
+    <div class="header-outer" id="header-outer">
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="header padd-top">
+                <a href="index.html" title="Ebenus" class="logo">
+                    <img src="../assets/images/logo/Parclik.png" alt="Ebenus">
+                </a>
+            </div>
+        </header>
+    </div>
+    <!-- Section -->
+    <section>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <c:forEach items="${getDates.entrySet()}" var="dates">
+                    <th><c:out value="${dates.getValue().getAsString()}"/></th>
+                </c:forEach>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${getParkings}" var="park">
+                <tr>
+                    <th>Place parking n°<c:out value="${park.getNum()}"/></th>
+                    <c:forEach items="${getDates.entrySet()}" var="dates">
+                        <c:choose>
+                            <c:when test="${!GoogleCalendar.isBooked(park.getNum(),dates.getKey())}">
+                                <td><a href="#" class="badge badge-success">Reserver</a></td>
+                            </c:when>
+                            <c:when test="">
+                                <td>${current_user.getEmail()}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><a href="#" class="badge badge-danger">Cancel</a></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </section>
     <!-- Footer -->
     <footer>
-    <div class="footer-container ">
-    <div class="footer">
-    <div class="footer-middle">
-    <div class="footer-container_">
-    <div class="row no-gutters">
-    <div class="col-sm-6 col-md-3">
-    <div class="block">
-    <div class="block-title"><strong><span>Contactez Nous mais pas trop</span></strong>
-    </div>
-    <div class="block-content">
-    <ul class="contact-info">
-    <li><i class="icon-location">&nbsp;</i>
-    <p><b>Addresse:</b><br>123 Rue la victoire, 75000 Paris, France</p></li>
-    <li><i class="icon-phone">&nbsp;</i>
-    <p><b>Tél:</b><br>(+33) 00 11 00 11 00</p></li>
-    <li><i class="icon-mail">&nbsp;</i>
-    <p><b>Email:</b><br><a
-    href="mailto:mail@example.com">mail@example.com</a></p></li>
-    <li><i class="icon-clock">&nbsp;</i>
-    <p><b>Horaire : </b><br>Lundi au Samedi(mais le samedi on rep aps</p>
-    </li>
-    </ul>
-    </div>
-    </div>
-    </div>
-    <div class="col-sm-6 col-md-3">
-    <div class="block">
-    <div class="block-title"><strong><span>Mon compte</span></strong></div>
-    <div class="block-content">
-    <ul class="links">
-    <li><i class="icon-right-dir theme-color"></i><a href="#"
-    title="A propos de nous">Mon
-    compte</a></li>
-    </ul>
-    </div>
-    </div>
-    </div>
-    <div class="col-sm-6 col-md-3">
-    <div class="block">
-    <div class="block-title"><strong><span>Information</span></strong></div>
-    <div class="block-content">
-    <ul class="features">
-    <li><i class="icon-ok theme-color"></i><a href="#">Les informations</a></li>
-    </ul>
-    </div>
-    </div>
-    </div>
-    <div class="col-sm-6 col-md-3">
-    <div class="block">
-    <div class="block-title"><strong><span>Nos Services</span></strong></div>
-    <div class="block-content">
-    <ul class="features">
-    <li><i class="icon-ok theme-color"></i><a href="#">Service Client</a></li>
-    <li><i class="icon-ok theme-color"></i><a href="#">Politique
-    d'Utilisation</a></li>
-    </ul>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="footer-bottom">
-    <div class="footer-container_">
-    <address>© Ebenus. 2019. Tous droit réservé</address>
-    </div>
-    </div>
-    </div>
-    </div>
+        <div class="footer-container ">
+            <div class="footer">
+                <div class="footer-middle">
+                    <div class="footer-container_">
+                        <div class="row no-gutters">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="block">
+                                    <div class="block-title"><strong><span>Contactez Nous mais pas trop</span></strong>
+                                    </div>
+                                    <div class="block-content">
+                                        <ul class="contact-info">
+                                            <li><i class="icon-location">&nbsp;</i>
+                                                <p><b>Addresse:</b><br>123 Rue la victoire, 75000 Paris, France</p></li>
+                                            <li><i class="icon-phone">&nbsp;</i>
+                                                <p><b>Tél:</b><br>(+33) 00 11 00 11 00</p></li>
+                                            <li><i class="icon-mail">&nbsp;</i>
+                                                <p><b>Email:</b><br><a
+                                                        href="mailto:mail@example.com">mail@example.com</a></p></li>
+                                            <li><i class="icon-clock">&nbsp;</i>
+                                                <p><b>Horaire : </b><br>Lundi au Samedi(mais le samedi on rep aps</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="block">
+                                    <div class="block-title"><strong><span>Mon compte</span></strong></div>
+                                    <div class="block-content">
+                                        <ul class="links">
+                                            <li><i class="icon-right-dir theme-color"></i><a href="#"
+                                                                                             title="A propos de nous">Mon
+                                                compte</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="block">
+                                    <div class="block-title"><strong><span>Information</span></strong></div>
+                                    <div class="block-content">
+                                        <ul class="features">
+                                            <li><i class="icon-ok theme-color"></i><a href="#">Les informations</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="block">
+                                    <div class="block-title"><strong><span>Nos Services</span></strong></div>
+                                    <div class="block-content">
+                                        <ul class="features">
+                                            <li><i class="icon-ok theme-color"></i><a href="#">Service Client</a></li>
+                                            <li><i class="icon-ok theme-color"></i><a href="#">Politique
+                                                d'Utilisation</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-container_">
+                        <address>© Ebenus. 2019. Tous droit réservé</address>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
-    </div>
-    <!-- JS files -->
-    <script src="assets/js/bower.js" type="text/javascript"></script>
-    <script src="assets/js/application.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script
-    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    </body>
-    </html>
+</div>
+<!-- JS files -->
+<script src="assets/js/bower.js" type="text/javascript"></script>
+<script src="assets/js/application.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

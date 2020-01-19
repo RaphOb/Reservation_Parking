@@ -4,11 +4,7 @@
     <list default="true" id="4fb7f348-8b7e-48ab-b041-5e8c13bec052" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/java/com/cours/ebenus/servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/java/com/cours/ebenus/servlets/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/pages/crudBookPark/bookRoom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/pages/crudBookPark/bookRoom.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/pages/crudUser/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/pages/crudUser/addUser.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -66,8 +62,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
+            <state relative-caret-position="422">
+              <caret line="185" column="29" selection-start-line="185" selection-start-column="24" selection-end-line="185" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -238,10 +234,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="595" />
+    <option name="x" value="54" />
     <option name="y" value="47" />
     <option name="width" value="976" />
-    <option name="height" value="1056" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -400,12 +396,12 @@
       <workItem from="1579019642187" duration="4730000" />
       <workItem from="1579024705941" duration="8852000" />
       <workItem from="1579193463764" duration="1295000" />
-      <workItem from="1579438809888" duration="5106000" />
+      <workItem from="1579438809888" duration="6763000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53785000" />
+    <option name="totallyTimeSpent" value="55442000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -617,13 +613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="22" column="115" selection-start-line="22" selection-start-column="115" selection-end-line="22" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://d56bb6f8-3d8a-4499-8fde-5531c74e4bc4/schema/base_voiture_ebenus/table/voiture">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state projectRestartId="5129c003-fb9c-4142-bf49-18df5f0860b9">
@@ -652,10 +641,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="22" column="115" selection-start-line="22" selection-start-column="115" selection-end-line="22" selection-end-column="115" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
+        <state relative-caret-position="422">
+          <caret line="185" column="29" selection-start-line="185" selection-start-column="24" selection-end-line="185" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
