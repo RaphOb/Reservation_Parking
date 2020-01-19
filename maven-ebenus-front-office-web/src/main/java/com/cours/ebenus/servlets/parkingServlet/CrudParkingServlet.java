@@ -37,10 +37,11 @@ public class CrudParkingServlet extends HttpServlet {
         } else {
             if (request.getSession(false).getAttribute("user") != null) {
                 request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
+                System.out.println(GoogleCalendar.getDays());
                 request.setAttribute("getDates", GoogleCalendar.getDays());
                 request.setAttribute("getListEvent", GoogleCalendar.listEvent);
                 request.setAttribute("getParkings", service.getPlaceParkingDao().findAllPlacesParking());
-                this.getServletContext().getRequestDispatcher("pages/crudBookPark/bookRoom.jsp").forward(request,response);
+                this.getServletContext().getRequestDispatcher("/pages/crudBookPark/bookRoom.jsp").forward(request,response);
             } else {
                 log.debug("pas de user => go login");
                 response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");

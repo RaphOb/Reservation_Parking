@@ -88,7 +88,9 @@ public class GoogleCalendar {
 //        Date d = new Date();
 //        DateTime dd = new DateTime(d);
 //        System.out.println(isBooked(2, dd));
-        getDays();
+        getDays().entrySet().forEach(
+            key -> System.out.println(key.getValue().getAsString())
+        );
     }
 
     public static DateTime getDayOperations(int numberOfdays) {
