@@ -21,5 +21,6 @@ public class Constants {
     public static final String TOKENS_DIRECTORY_PATH = "com/cours/ebenus/credentials/";
 
     public static final String CALENDAR_ID = "etna-learning.fr_p6pljnfran3u2vb8ovp9unpedo@group.calendar.google.com";
-    public static java.io.File CREDENTIALS_FILE_PATH = new java.io.File(System.getProperty("user.dir") + "/src/main/java/com/cours/ebenus/credentials/keys.json");
+//    public static java.io.File CREDENTIALS_FILE_PATH = new java.io.File(System.getProperty("user.dir") + "/src/main/java/com/cours/ebenus/credentials/keys.json");
+    public static java.io.File CREDENTIALS_FILE_PATH = new java.io.File("C:/Users/oraph/Desktop/ETNA/MAST_1/JAVA/EBENUS/group-740465/maven-ebenus-dao-service/src/main/java/com/cours/ebenus/credentials/keys.json");
 }

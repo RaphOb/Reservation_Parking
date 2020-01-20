@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class CrudParkingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Log log = LogFactory.getLog(CrudParkingServlet.class);
     private static IServiceFacade service = null;
+    private static GoogleCalendar g = null;
 
     /**
      *
@@ -25,6 +27,8 @@ public class CrudParkingServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         service = new ServiceFacade();
+        GoogleCalendar.getInstance();
+
     }
 
     @Override
@@ -36,6 +40,11 @@ public class CrudParkingServlet extends HttpServlet {
             response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
         } else {
             if (request.getSession(false).getAttribute("user") != null) {
+                try {
+                    GoogleCalendar.checkCal(1000);
+                } catch (IOException | GeneralSecurityException e) {
+                    e.printStackTrace();
+                }
                 request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
                 System.out.println(GoogleCalendar.getDays());
                 request.setAttribute("getDates", GoogleCalendar.getDays());

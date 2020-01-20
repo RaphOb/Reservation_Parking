@@ -84,15 +84,16 @@ public class GoogleCalendar {
 //        deleteEvent("sk5o210cfov6s7r7viuvftnj3s");
 //        Event event = newEvent();
 //        addEvent(event);
-//        checkCal(10);
+        checkCal(100);
+        System.out.println(Constants.CREDENTIALS_FILE_PATH);
 //        Date d = new Date();
 //        DateTime dd = new DateTime(d);
 //        System.out.println(isBooked(2, dd));
         getDays().entrySet().forEach(
-            key -> System.out.println(key.getKey())
+                key -> System.out.println(key.getKey())
         );
-        DateTime end = new DateTime("2020-01-19T10:00:00+01:00");
-        System.out.println(isBooked(1, end));
+        String end = "2020-01-23";
+        System.out.println(isBookByUser("admin@gmail.com",2, end));
     }
 
     public static DateTime getDayOperations(int numberOfdays) {
@@ -158,7 +159,6 @@ public class GoogleCalendar {
     }
 
     /**
-     *
      * @param place
      * @param userEmail
      * @param dateBook
@@ -166,12 +166,12 @@ public class GoogleCalendar {
      * @details add un event
      */
     public static void addEvent(int place, String userEmail, String dateBook) throws IOException {
-            Event event = new Event();
-            event.setSummary(place + ";" +userEmail);
-            DateTime start = new DateTime(dateBook+"T09:00:00+01:00");
-            event.setStart(new EventDateTime().setDateTime(start));
-            DateTime end = new DateTime("2020-01-16T10:00:00+01:00");
-            event.setEnd(new EventDateTime().setDateTime(end));
+        Event event = new Event();
+        event.setSummary(place + ";" + userEmail);
+        DateTime start = new DateTime(dateBook + "T09:00:00+01:00");
+        event.setStart(new EventDateTime().setDateTime(start));
+        DateTime end = new DateTime("2020-01-16T10:00:00+01:00");
+        event.setEnd(new EventDateTime().setDateTime(end));
 
         service.events().insert(Constants.CALENDAR_ID, event).setSendNotifications(true).execute();
     }
@@ -180,10 +180,11 @@ public class GoogleCalendar {
      * @param place
      * @return true if isBooked // if free return false
      */
-    public static boolean isBooked(int place, DateTime date) {
-        String d = date.toString().substring(0, 10);
+    public static Boolean isBooked(int place, String date) {
+//        String d = date.substring(0, 10);
+        System.out.println(listEvent);
         EventPlace e = listEvent.stream()
-                .filter(event -> event.getParkingRoom() == place && event.getDateBook().toString().equals(d))
+                .filter(event -> event.getParkingRoom() == place && event.getDateBook().toString().substring(0, 10).equals(date))
                 .findAny().orElse(null);
 
         return e != null;
@@ -202,5 +203,28 @@ public class GoogleCalendar {
             listJsonDates.addProperty(manipalacon(i).split(":")[0], manipalacon(i).split(":")[1]);
         }
         return listJsonDates;
+    }
+
+    public static Boolean isEmailIn(String email) {
+        EventPlace e = listEvent.stream()
+                .filter(event -> event.getUserEmail().equals(email))
+                .findAny().orElse(null);
+
+        return e!= null;
+    }
+
+    public static Boolean isBookByUser(String email, int placePark, String date) {
+        EventPlace e = listEvent.stream()
+                .filter(event -> event.getParkingRoom() == placePark && event.getDateBook().toString().substring(0, 10).equals(date) && event.getUserEmail().equals(email))
+                .findAny().orElse(null);
+
+        return e != null;
+    }
+    public static String UserBook(int placePark, String date) {
+        EventPlace e = listEvent.stream()
+                .filter(event -> event.getParkingRoom() == placePark && event.getDateBook().toString().substring(0, 10).equals(date))
+                .findAny().orElse(null);
+
+        return e.getUserEmail();
     }
 }
