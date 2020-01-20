@@ -93,7 +93,7 @@ public class GoogleCalendar {
                 key -> System.out.println(key.getKey())
         );
         String end = "2020-01-23";
-        System.out.println(isBookByUser("admin@gmail.com",2, end));
+        System.out.println(isBookByUser("admin@gmail.com", 2, end));
     }
 
     public static DateTime getDayOperations(int numberOfdays) {
@@ -168,9 +168,10 @@ public class GoogleCalendar {
     public static void addEvent(int place, String userEmail, String dateBook) throws IOException {
         Event event = new Event();
         event.setSummary(place + ";" + userEmail);
-        DateTime start = new DateTime(dateBook + "T09:00:00+01:00");
+        DateTime start = new DateTime(dateBook + "T00:00:00+01:00");
+
         event.setStart(new EventDateTime().setDateTime(start));
-        DateTime end = new DateTime("2020-01-16T10:00:00+01:00");
+        DateTime end = new DateTime(dateBook + "T23:59:59+01:00");
         event.setEnd(new EventDateTime().setDateTime(end));
 
         service.events().insert(Constants.CALENDAR_ID, event).setSendNotifications(true).execute();
@@ -210,7 +211,7 @@ public class GoogleCalendar {
                 .filter(event -> event.getUserEmail().equals(email))
                 .findAny().orElse(null);
 
-        return e!= null;
+        return e != null;
     }
 
     public static Boolean isBookByUser(String email, int placePark, String date) {
@@ -220,6 +221,7 @@ public class GoogleCalendar {
 
         return e != null;
     }
+
     public static String UserBook(int placePark, String date) {
         EventPlace e = listEvent.stream()
                 .filter(event -> event.getParkingRoom() == placePark && event.getDateBook().toString().substring(0, 10).equals(date))
