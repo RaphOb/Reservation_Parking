@@ -10,7 +10,9 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Oswald:300,400,500,600,700" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="assets/css/master.css"> 
+        <link rel="stylesheet" href="assets/css/master.css">
+
+
     </head>
     <body>
         <div class="outer">
@@ -18,8 +20,8 @@
                 <!-- Header -->
                 <header id="header"  class="header">
                     <div class="header padd-top">
-                        <a href="index.html" title="Ebenus" class="logo"> 
-                            <img src="./assets/images/logo/logo.png" alt="Ebenus"> 
+                        <a href="index.html" title="Ebenus" class="logo">
+                            <img src="./assets/images/logo/logo.png" alt="Ebenus">
                         </a>
                     </div>
                 </header>
@@ -34,7 +36,7 @@
                                     <fieldset class=" common-form-controls col-md-3">
                                         <div >
                                             <p>Informations Personnelles</p>
-    
+
                                             <div class="input-wrapper">
                                                 <label for="firstname">Prénom<em>*</em></label>
                                                 <input  autocomplete="off"  name="firstname" id="firstname" type="text">
@@ -59,12 +61,12 @@
                                                         <input type="password" name="password_confirm" class="input-text" id="pass" title="Password">
                                                     </div>
                                             </div>
-    
+
                                     </fieldset>
-                                    <div class="offset-md-2"></div>   
+                                    <div class="offset-md-2"></div>
                                     <fieldset class="col-md-3">
-                                        
-                                           
+
+
                                         <div class="sel-container">
                                         	<c:if test="${not empty admin }">
 	                                       		<div>
@@ -72,7 +74,7 @@
 	                                                	Selectionner le rôle<em>*</em>
 	                                        		</label>
 	                                                <div class="sel">
-	                                                    <select  class="required" name="select_role" id="select_role"> 
+	                                                    <select  class="required" name="select_role" id="select_role">
 	                                                        <option value="rôle" selected disabled>Rôle</option>
 	                                                        	<c:forEach items="${roles}" var="item" varStatus="loop">
 	                                                        		<option value="${item.getIdRole()}">${item.getIdentifiant()} </option>
@@ -108,7 +110,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div> 
+                        </div>
                     </div>
                 </section>
             <!-- Footer -->
@@ -117,7 +119,7 @@
                     <div class="footer">
                         <div class="footer-middle">
                             <div class="footer-container_">
-                                <div class="row no-gutters"> 
+                                <div class="row no-gutters">
                                     <div class="col-sm-6 col-md-3">
                                         <div class="block">
                                             <div class="block-title"><strong><span>Contactez Nous</span></strong></div>
@@ -139,7 +141,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>                
+                                    </div>
                                     <div class="col-sm-6 col-md-3"><div class="block">
                                             <div class="block-title"><strong><span>Information</span></strong></div>
                                             <div class="block-content">
@@ -159,17 +161,17 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>              
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="footer-bottom">
-                            <div class="footer-container_">              
+                            <div class="footer-container_">
                                 <address>© Ebenus. 2019. Tous droit réservé</address>
                             </div>
                         </div>
                     </div>
-                </div>   
+                </div>
             </footer>
         </div>
         <!-- JS files -->

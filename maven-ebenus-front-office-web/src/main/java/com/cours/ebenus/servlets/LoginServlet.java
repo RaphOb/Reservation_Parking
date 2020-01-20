@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
         Utilisateur user = service.getUtilisateurDao().authenticate(email, password);
         if (user != null) {
         	session.setAttribute("user", user);
-            response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
+            response.sendRedirect(this.getServletContext().getContextPath() + "/CrudParkingServlet");
         } else {
         	/* Failed to authenticate */
         	this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);

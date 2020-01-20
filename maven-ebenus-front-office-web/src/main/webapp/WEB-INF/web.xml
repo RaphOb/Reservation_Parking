@@ -8,6 +8,11 @@
         <servlet-name>CrudUserServlet</servlet-name>
         <servlet-class>com.cours.ebenus.servlets.CrudUserServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>CrudParkingServlet</servlet-name>
+        <servlet-class>com.cours.ebenus.servlets.parkingServlet.CrudParkingServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -15,6 +20,10 @@
     <servlet-mapping>
         <servlet-name>CrudUserServlet</servlet-name>
         <url-pattern>/CrudUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrudParkingServlet</servlet-name>
+        <url-pattern>/CrudParkingServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

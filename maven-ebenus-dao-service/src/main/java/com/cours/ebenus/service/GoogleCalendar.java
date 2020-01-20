@@ -88,7 +88,11 @@ public class GoogleCalendar {
 //        Date d = new Date();
 //        DateTime dd = new DateTime(d);
 //        System.out.println(isBooked(2, dd));
-        getDays();
+        getDays().entrySet().forEach(
+            key -> System.out.println(key.getKey())
+        );
+        DateTime end = new DateTime("2020-01-19T10:00:00+01:00");
+        System.out.println(isBooked(1, end));
     }
 
     public static DateTime getDayOperations(int numberOfdays) {
