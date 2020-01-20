@@ -7,10 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ebenus</title>
 <!-- CSS files -->
+
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	
+<!-- Bootstrap core CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Oswald:300,400,500,600,700"
 	rel="stylesheet">
@@ -42,7 +48,7 @@
 									href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
 								<li id="logs" class="nav-item active"><a class="nav-link"
-									href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
+									href="${pageContext.request.contextPath}/LogsServlet">SQL Logs</a></li>
 							</ul>
 						</div>
 
@@ -68,12 +74,8 @@
 		<div id="logs">
 			<section>
 				<div class="content">
-					<h1 id="user_list_title" style="cursor: pointer;" class="clearfix">
-						SQL Report
-					</h1>
-
 					<div id="user_list" class="table-responsive">
-						<table class="table table-bordered table-hover table-striped">
+						<table id="table" class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
 									<th>Utilisateur</th>
@@ -192,7 +194,16 @@
 		<script src="./assets/js/bower.js" type="text/javascript"></script>
 		<script src="./assets/js/application.js" type="text/javascript"></script>
 
-		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"></script>
+	
+		<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+			
+		<script src="./assets/js/logs.js" type="text/javascript"></script>
+
+	
+
 		<script
 			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 		<script

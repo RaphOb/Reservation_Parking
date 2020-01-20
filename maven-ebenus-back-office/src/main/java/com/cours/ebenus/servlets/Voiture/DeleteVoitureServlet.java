@@ -12,8 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.cours.ebenus.dao.entities.Report;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.dao.entities.Voiture;
+import com.cours.ebenus.dao.impl.AbstractDao;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
@@ -83,6 +85,13 @@ public class DeleteVoitureServlet extends HttpServlet {
 		Voiture voiture = service.getVoitureDao().findVoitureById(voitureID);
 		service.getVoitureDao().deleteVoiture(voiture);
 		log.debug("Voiture deleted");
+		
+		/* Build report */
+		Utilisateur current_user = (Utilisateur) request.getSession(false).getAttribute("user");
+		String query = AbstractDao.lastQuery;
+		Report report = new Report(current_user.getIdUtilisateur(), query, "Suppression d'une voiture");
+		service.getReportDao().createReport(report);
+		
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 

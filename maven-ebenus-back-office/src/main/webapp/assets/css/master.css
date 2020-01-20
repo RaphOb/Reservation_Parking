@@ -5857,7 +5857,7 @@ select:focus{
 
 label, .uploadButton
 {
-	margin-top: 40px;
+	margin-top: 10px;
 }
 
 .inputfile + label svg {

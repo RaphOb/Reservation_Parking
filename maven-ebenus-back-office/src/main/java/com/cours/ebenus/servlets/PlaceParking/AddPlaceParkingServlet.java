@@ -17,9 +17,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.cours.ebenus.dao.entities.PlaceParking;
+import com.cours.ebenus.dao.entities.Report;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.dao.entities.Voiture;
+import com.cours.ebenus.dao.impl.AbstractDao;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
@@ -95,6 +97,13 @@ public class AddPlaceParkingServlet extends HttpServlet {
 		
 		service.getPlaceParkingDao().createPlaceParking(place);
 		log.debug("Place created");
+
+		/* Build report */
+		Utilisateur current_user = (Utilisateur) request.getSession(false).getAttribute("user");
+		String query = AbstractDao.lastQuery;
+		Report report = new Report(current_user.getIdUtilisateur(), query, "Ajout d'une place de parking");
+		service.getReportDao().createReport(report);
+		
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}
 

@@ -8,6 +8,9 @@
 <title>Ebenus</title>
 <!-- CSS files -->
 <link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+<link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
@@ -18,6 +21,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <link rel="stylesheet" href="./assets/css/master.css">
 
 </head>
@@ -26,29 +30,34 @@
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #dee0ef !important;">
-				
-					<div class="collapse navbar-collapse" style="margin-left:250px;">
-				
+				<nav class="navbar navbar-expand-lg navbar-light bg-light"
+					style="background-color: #dee0ef !important;">
+
+					<div class="collapse navbar-collapse" style="margin-left: 250px;">
+
 						<a href="${pageContext.request.contextPath}" title="Ebenus"
 							class="logo"> <img src="./assets/images/logo/Parclik.png"
 							alt="Ebenus">
 						</a>
-	
+
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav mr-auto">
-								<li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/CrudUserServlet">Data
+								<li class="nav-item active"><a class="nav-link"
+									href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
-								<li id="logs" class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
+								<li id="logs" class="nav-item"><a class="nav-link"
+									href="${pageContext.request.contextPath}/LogsServlet">SQL
+										Logs</a></li>
 							</ul>
 						</div>
-						
+
 					</div>
-						
+
 					<div class="content">
 						<div class="User export">
 							<h2 style="margin-top: 30px; display: inline-block;">
-								Bonjour <strong> Mr ${current_user.getNom()} </strong> (${current_user.getRole().getIdentifiant()})
+								Bonjour <strong> Mr ${current_user.getNom()} </strong>
+								(${current_user.getRole().getIdentifiant()})
 							</h2>
 
 							<h1 class="logout">
@@ -67,11 +76,13 @@
 			<section>
 				<div class="content">
 					<h1 id="user_list_title" style="cursor: pointer;" class="clearfix">
-						<i id="icon-plus-1" class="fa fa-plus"></i> liste des utilisateurs
+						<i id="icon-plus-1" class="fa fa-plus" style="color: orangered;"></i>
+						liste des utilisateurs
 					</h1>
 
 					<div id="user_list" class="table-responsive">
-						<table class="table table-bordered table-hover table-striped">
+						<table id="table-user"
+							class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
 									<th>Civilite</th>
@@ -82,7 +93,11 @@
 									<th>Date modification</th>
 									<th>Identifiant rôle</th>
 									<th>Description rôle</th>
-									<th>Actions</th>
+									<th>Actions <a id="addUser" href="AddUserServlet"
+										role="button" type="submit"> <i
+											class="fa fa-plus fa-lg" style="color: green;"> </i>
+									</a>
+									</th>
 								</tr>
 							</thead>
 
@@ -111,10 +126,7 @@
 						</table>
 						<ul class="User">
 							<li>
-								<div class="col-lg-12 no-padding">
-									<a href="AddUserServlet" role="button" type="submit">Ajouter
-										Utilisateur</a>
-								</div>
+								<div class="col-lg-12 no-padding"></div>
 							</li>
 						</ul>
 					</div>
@@ -125,19 +137,24 @@
 				<div class="content">
 					<h1 id="parking_list_title" style="cursor: pointer;"
 						class="clearfix">
-						<i id="icon-plus-2" class="fa fa-plus"></i> liste des places
-						disponibles
+						<i id="icon-plus-2" class="fa fa-plus" style="color: orangered"></i>
+						liste des places disponibles
 					</h1>
 
 					<div id="parking_list" class="table-responsive">
-						<table class="table table-bordered table-hover table-striped">
+						<table id="table-place"
+							class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
 									<th>Voiture</th>
 									<th>Numéro de place</th>
 									<th>Disponible</th>
-									<th>Actions</th>
+									<th>Actions <a id="addPlace" href="AddPlaceParkingServlet"
+										role="button" type="submit"><i class="fa fa-plus fa-lg"
+											style="color: green;"> </i></a>
+									</th>
 								</tr>
+
 							</thead>
 
 							<tbody>
@@ -170,14 +187,6 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<ul class="User">
-							<li>
-								<div class="col-lg-12 no-padding">
-									<a href="AddPlaceParkingServlet" role="button" type="submit">Ajouter
-										une place de parking</a>
-								</div>
-							</li>
-						</ul>
 					</div>
 				</div>
 			</section>
@@ -186,17 +195,23 @@
 				<div class="content">
 					<h1 id="voiture_list_title" style="cursor: pointer;"
 						class="clearfix">
-						<i id="icon-plus-3" class="fa fa-plus"></i> liste des voitures
+						<i id="icon-plus-3" class="fa fa-plus" style="color: orangered"></i>
+						liste des voitures
 					</h1>
 
 					<div id="voiture_list" class="table-responsive">
-						<table class="table table-bordered table-hover table-striped">
+						<table id="table-voiture"
+							class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
 									<th>Propriétaire</th>
 									<th>Modèle</th>
 									<th>Immatriculation</th>
-									<th>Actions</th>
+									<th>Actions <a id="addVoiture " href="AddVoitureServlet"
+										role="button" type="submit"> <i
+											class="fa fa-plus fa-lg" style="color: green;"> </i>
+									</a>
+									</th>
 								</tr>
 							</thead>
 
@@ -216,14 +231,6 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<ul class="User">
-							<li>
-								<div class="col-lg-12 no-padding">
-									<a href="AddVoitureServlet" role="button" type="submit">Ajouter
-										un véhicule</a>
-								</div>
-							</li>
-						</ul>
 					</div>
 				</div>
 			</section>
@@ -321,6 +328,10 @@
 		<script src="./assets/js/events.js" type="text/javascript"></script>
 
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+
+		<script
+			src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
 		<script
 			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 		<script
