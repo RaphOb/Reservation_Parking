@@ -91,7 +91,7 @@
 										<td><c:out value="${report.getSqlQuery()}" /></td>
 										<td><c:out value="${report.getDescription()}" /></td>
 										<td><a
-											href="<c:url value="/DeleteReportServlet?user=${user.getIdUtilisateur()}"/>"
+											href="<c:url value="/DeleteReportServlet?report=${report.getIdReport()}"/>"
 											class="no-style-btn"> <i class="fa fa-trash-o"></i>
 										</a></td>
 									</tr>
