@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.cours.ebenus.service.GoogleCalendar" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -20,7 +21,7 @@
     <div class="content">
         <div class="User export">
             <h2 style="margin-top: 30px; display: inline-block;">
-                Bonjour <strong> Mr ${current_user.getNom()} </strong>
+                Bonjour <strong> Mr ${current_user.getEmail()} </strong>
                 (${current_user.getRole().getIdentifiant()})
             </h2>
 
@@ -61,13 +62,18 @@
                     <c:forEach items="${getDates.entrySet()}" var="dates">
                         <c:choose>
                             <c:when test="${!GoogleCalendar.isBooked(park.getNum(),dates.getKey())}">
-                                <td><a href="#" class="badge badge-success">Reserver</a></td>
+                                <form action="${pageContext.request.contextPath}/CrudParkingServlet" method="Post">
+                                <td><button type="submit" class="badge badge-success">Reserver</button></td>
+                                    <input type="hidden" value="${dates.getKey()}" name="date">
+                                    <input type="hidden" value="${park.getNum()}" name="num">
+                                    <input type="hidden" value="${current_user.getEmail()}" name="userEmail">
+                                </form>
                             </c:when>
-                            <c:when test="">
-                                <td>${current_user.getEmail()}</td>
+                            <c:when test="${GoogleCalendar.isBookByUser(current_user.getEmail(),park.getNum(),dates.getKey()) }">
+                                <td><button value=""  type="submit" class="badge-danger">Cancel</button></td>
                             </c:when>
                             <c:otherwise>
-                                <td><a href="#" class="badge badge-danger">Cancel</a></td>
+                                <td>${GoogleCalendar.UserBook(park.getNum(),dates.getKey())}</td>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
