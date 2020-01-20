@@ -62,6 +62,17 @@ window.onload = function(){
 	change_sign_listener("parking_list_title", "icon-plus-2");
 	change_sign_listener("voiture_list_title", "icon-plus-3");
 	
+	$(document).ready(function() {
+	    $('#table-user').DataTable();
+	} );
+	
+	$(document).ready(function() {
+	    $('#table-place').DataTable();
+	} );
+	
+	$(document).ready(function() {
+	    $('#table-voiture').DataTable();
+	} );
 };
 
 

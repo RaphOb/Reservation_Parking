@@ -41,7 +41,7 @@
 									href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
 								<li id="logs" class="nav-item"><a class="nav-link"
-									href="${pageContext.request.contextPath}/LogsServlet">Logs</a></li>
+									href="${pageContext.request.contextPath}/LogsServlet">SQL Logs</a></li>
 							</ul>
 						</div>
 
