@@ -1,7 +1,9 @@
 package com.cours.ebenus.servlets.Utilisateur;
 
+import com.cours.ebenus.dao.entities.Report;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.impl.AbstractDao;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
@@ -100,6 +102,14 @@ public class UpdateUserServlet extends HttpServlet {
 
         service.getUtilisateurDao().updateUtilisateur(user);
         log.debug("User updated");
+        
+
+		/* Build report */
+		Utilisateur current_user = (Utilisateur) request.getSession(false).getAttribute("user");
+		String query = AbstractDao.lastQuery;
+		Report report = new Report(current_user.getIdUtilisateur(), query, "Mise à jour d'un utiisateur");
+		service.getReportDao().createReport(report);
+		
         response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     }
 }

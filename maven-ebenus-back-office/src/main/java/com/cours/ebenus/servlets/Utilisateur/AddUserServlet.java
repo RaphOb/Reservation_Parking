@@ -1,9 +1,6 @@
 package com.cours.ebenus.servlets.Utilisateur;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,8 +13,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.cours.ebenus.dao.entities.Report;
 import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.impl.AbstractDao;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
@@ -61,7 +60,7 @@ public class AddUserServlet extends HttpServlet {
 	    		/* Set roles to gives info to jsp page */
 	    		List<Role> list = service.getRoleDao().findAllRoles();
 	    		request.setAttribute("roles", list);
-	    		request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
+	    		request.setAttribute("current_user", user);
 	    		/* Gives page to create user which call post method*/
 	    		this.getServletContext().getRequestDispatcher("/pages/crudUser/addUser.jsp").forward(request, response);
     		}
@@ -96,7 +95,12 @@ public class AddUserServlet extends HttpServlet {
 		Utilisateur user = new Utilisateur(civilite, prenom, nom, email, motPasse, role);
 		user = service.getUtilisateurDao().createUtilisateur(user);
 		log.debug("User created");
-
+		
+		/* Build report */
+		Utilisateur current_user = (Utilisateur) request.getSession(false).getAttribute("user");
+		String query = AbstractDao.lastQuery;
+		Report report = new Report(current_user.getIdUtilisateur(), query, "Ajout d'un utiisateur");
+		service.getReportDao().createReport(report);
 		
 		response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
 	}

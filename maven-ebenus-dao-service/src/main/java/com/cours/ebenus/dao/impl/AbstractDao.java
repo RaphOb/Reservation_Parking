@@ -37,6 +37,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
     private Class<T> myClass = null;
     private static final Log log = LogFactory.getLog(AbstractDao.class);
+    public static String lastQuery = null;
 
     public AbstractDao(Class<T> myClass) {
         this.myClass = myClass;
@@ -293,6 +294,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
         String nbValue = IntStream.range(0, t.getClass().getDeclaredFields().length).mapToObj(i -> d).collect(Collectors.joining(separator));
         query = "INSERT INTO " + t.getClass().getSimpleName() + " (" + fieldsName + ") VALUES (" + nbValue + ")";
         query = query.replaceAll("roleIdent", "identifiant");
+        lastQuery = query;
         int id = applyQueryFromParameters(query, params);
 
         return findById(id);
@@ -346,7 +348,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 " SET " + fieldsName + " = ?" +
                 " WHERE id" + t.getClass().getSimpleName() + " = ?";
 
-        query = query.replaceAll("roleIdent", "identifiant");
+        lastQuery = query;
         applyQueryFromParameters(query, params);
 
         return t;
@@ -364,6 +366,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
             Object id = maa.invoke(t);
             query = "DELETE FROM " + t.getClass().getSimpleName() +
                     " WHERE id" + t.getClass().getSimpleName() + " = ?";
+            lastQuery = query;
             applyQueryFromParameter(query, id);
             return true;
         } catch (NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
