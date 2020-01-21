@@ -50,9 +50,9 @@ CREATE TABLE Report (
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* Insertion des Roles */ 
-INSERT INTO Role(identifiant,description) VALUES ('Administrateur','Le rôle administrateur');
-INSERT INTO Role(identifiant,description) VALUES ('Directeur','Le rôle de directeur de magasin');
-INSERT INTO Role(identifiant,description) VALUES ('Standard','Le rôle standard');
+INSERT INTO Role(identifiant,description) VALUES ('Administrateur','Utilisateur root');
+INSERT INTO Role(identifiant,description) VALUES ('Standard','Utilisateur validé');
+INSERT INTO Role(identifiant,description) VALUES ('Unauthorized','Utilisateur non validé');
 
 
 /* Utilisateurs avec le role Administrateur  */
@@ -61,9 +61,6 @@ INSERT INTO Utilisateur(civilite,prenom,nom, idRole,email ,motPasse) VALUES ('Mr
 INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Nicolas','Gruber',(SELECT idRole FROM Role WHERE identifiant LIKE  'Administrateur'),'nicolas.gruber@gmail.com','passw0rd');
 
 /*  Utilisateurs avec le role Directeur  */  
-INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Eric','Lalitte',(SELECT idRole FROM Role WHERE identifiant LIKE  'Directeur'),'eric.lallite@gmail.com','passw0rd');
-INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Laurent','Bordet',(SELECT idRole FROM Role WHERE identifiant LIKE  'Directeur'),'laurent.bordet@gmail.com','passw0rd');
-INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Jimmy','Petit',(SELECT idRole FROM Role WHERE identifiant LIKE  'Directeur'),'jimmy.petit@gmail.com','passw0rd');
 /*  Utilisateurs avec le role Standard  */  
 INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Nicolas','Petit',(SELECT idRole FROM Role WHERE identifiant LIKE  'Standard'),'nicolas.petit@gmail.com','passw0rd');
 INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Paul','Gilbert',(SELECT idRole FROM Role WHERE identifiant LIKE  'Standard'),'paul.gilbert@gmail.com','passw0rd');
@@ -72,7 +69,12 @@ INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr'
 INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mme','Aurelie','Cassas',(SELECT idRole FROM Role WHERE identifiant LIKE  'Standard'),'aurelie.cassas@gmail.com','passw0rd');
 INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Alain','Cassas',(SELECT idRole FROM Role WHERE identifiant LIKE  'Standard'),'alain.cassas@gmail.com','passw0rd');
 INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Julien','Bille',(SELECT idRole FROM Role WHERE identifiant LIKE  'Standard'),'julien.bille@gmail.com','passw0rd');
-
+/* Utilisateurs avec le role non autorisé  */ 
+INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Franck','Jolo',(SELECT idRole FROM Role WHERE identifiant LIKE  'Unauthorized'),'franck.jolo@gmail.com','passw0rd');
+INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Martin','Mystère',(SELECT idRole FROM Role WHERE identifiant LIKE  'Unauthorized'),'martin.mystere@gmail.com','passw0rd');
+INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Eric','Lalitte',(SELECT idRole FROM Role WHERE identifiant LIKE  'Unauthorized'),'eric.lallite@gmail.com','passw0rd');
+INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Laurent','Bordet',(SELECT idRole FROM Role WHERE identifiant LIKE  'Unauthorized'),'laurent.bordet@gmail.com','passw0rd');
+INSERT INTO Utilisateur(civilite,prenom,nom,idRole,email ,motPasse) VALUES ('Mr','Jimmy','Petit',(SELECT idRole FROM Role WHERE identifiant LIKE  'Unauthorized'),'jimmy.petit@gmail.com','passw0rd');
 
 /* Insertion des Voitures */
 INSERT INTO Voiture(idUtilisateur, marque, immatriculation) VALUES (1, 'Citroen', 'CZ-436-G7');
