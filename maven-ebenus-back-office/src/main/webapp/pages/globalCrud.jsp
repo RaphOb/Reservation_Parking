@@ -122,7 +122,7 @@
 											href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i
 												class="fa fa-edit"></i></a> <a
 											href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>"
-											class="no-style-btn"> <i class="fa fa-trash-o"></i>
+											class="no-style-btn"> <i class="fa fa-trash-o" style="color:red;"></i>
 											</a> 
 										
 											<c:if test="${user.getRole().getIdRole() eq 3}">
@@ -193,7 +193,7 @@
 											href="<c:url value="/UpdatePlaceParkingServlet?place=${parking.getNum()}&voiture=${parking.getIdVoiture()}"/>"><i
 												class="fa fa-edit"></i></a> <a
 											href="<c:url value="/DeletePlaceParkingServlet?place=${parking.getNum()}"/>"
-											class="no-style-btn"> <i class="fa fa-trash-o"></i>
+											class="no-style-btn"> <i class="fa fa-trash-o" style="color:red;"></i>
 										</a></td>
 									</tr>
 								</c:forEach>
@@ -237,7 +237,7 @@
 											href="<c:url value="/UpdateVoitureServlet?voiture=${voiture.getIdVoiture()}"/>"><i
 												class="fa fa-edit"></i></a> <a
 											href="<c:url value="/DeleteVoitureServlet?voiture=${voiture.getIdVoiture()}"/>"
-											class="no-style-btn"> <i class="fa fa-trash-o"></i>
+											class="no-style-btn"> <i class="fa fa-trash-o" style="color:red;"></i>
 										</a></td>
 									</tr>
 								</c:forEach>

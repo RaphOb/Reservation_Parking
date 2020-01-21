@@ -60,7 +60,6 @@ public class AcceptAccountServlet extends HttpServlet {
     				if (request.getSession(false).getAttribute("user") != null)
     				{
 						doPost(request, response);
-						response.sendRedirect(this.getServletContext().getContextPath() + "/CrudUserServlet");
     				}
     				else
     				{
@@ -81,6 +80,9 @@ public class AcceptAccountServlet extends HttpServlet {
     	user.setRole(r);
     	service.getUtilisateurDao().updateUtilisateur(user);
     	log.debug("Account authentified");
+    	
+    	/* Send Email to user to inform */
+    	response.sendRedirect(this.getServletContext().getContextPath() + "/MailerServlet");
     }
     
     /**
