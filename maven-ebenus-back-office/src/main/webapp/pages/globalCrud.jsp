@@ -14,14 +14,18 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+	
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Oswald:300,400,500,600,700"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css">
+	
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <link rel="stylesheet" href="./assets/css/master.css">
 
 </head>
@@ -94,8 +98,8 @@
 									<th>Identifiant rôle</th>
 									<th>Description rôle</th>
 									<th>Actions <a id="addUser" href="AddUserServlet"
-										role="button" type="submit"> <i
-											class="fa fa-plus fa-lg" style="color: green;"> </i>
+										role="button" type="submit"> <i class="fa fa-user-plus fa-lg"
+											style="color: green;"> </i>
 									</a>
 									</th>
 								</tr>
@@ -118,8 +122,16 @@
 											href="<c:url value="/UpdateUserServlet?user=${user.getIdUtilisateur()}"/>"><i
 												class="fa fa-edit"></i></a> <a
 											href="<c:url value="/DeleteUserServlet?user=${user.getIdUtilisateur()}"/>"
-											class="no-style-btn"> <i class="fa fa-trash-o"></i>
-										</a></td>
+											class="no-style-btn"> <i class="fa fa-trash-o" style="color:red;"></i>
+											</a> 
+										
+											<c:if test="${user.getRole().getIdRole() eq 3}">
+												<a
+													href="<c:url value="/AcceptAccountServlet?user=${user.getIdUtilisateur()}"/>"
+													class="no-style-btn"> <i class="fas fa-user-check"></i>
+												</a>
+											</c:if>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -181,7 +193,7 @@
 											href="<c:url value="/UpdatePlaceParkingServlet?place=${parking.getNum()}&voiture=${parking.getIdVoiture()}"/>"><i
 												class="fa fa-edit"></i></a> <a
 											href="<c:url value="/DeletePlaceParkingServlet?place=${parking.getNum()}"/>"
-											class="no-style-btn"> <i class="fa fa-trash-o"></i>
+											class="no-style-btn"> <i class="fa fa-trash-o" style="color:red;"></i>
 										</a></td>
 									</tr>
 								</c:forEach>
@@ -208,8 +220,8 @@
 									<th>Modèle</th>
 									<th>Immatriculation</th>
 									<th>Actions <a id="addVoiture " href="AddVoitureServlet"
-										role="button" type="submit"> <i
-											class="fa fa-plus fa-lg" style="color: green;"> </i>
+										role="button" type="submit"> <i class="fa fa-plus fa-lg"
+											style="color: green;"> </i>
 									</a>
 									</th>
 								</tr>
@@ -225,7 +237,7 @@
 											href="<c:url value="/UpdateVoitureServlet?voiture=${voiture.getIdVoiture()}"/>"><i
 												class="fa fa-edit"></i></a> <a
 											href="<c:url value="/DeleteVoitureServlet?voiture=${voiture.getIdVoiture()}"/>"
-											class="no-style-btn"> <i class="fa fa-trash-o"></i>
+											class="no-style-btn"> <i class="fa fa-trash-o" style="color:red;"></i>
 										</a></td>
 									</tr>
 								</c:forEach>

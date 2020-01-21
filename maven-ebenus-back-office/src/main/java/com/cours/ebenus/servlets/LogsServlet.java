@@ -69,12 +69,6 @@ public class LogsServlet extends HttpServlet {
     	}
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	
-    }
-
     /**
      * Méthode appelée lors de la fin de la Servlet
      */

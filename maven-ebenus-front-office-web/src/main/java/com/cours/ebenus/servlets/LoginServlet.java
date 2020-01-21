@@ -72,11 +72,13 @@ public class LoginServlet extends HttpServlet {
         
     	/* Lancement de la méthode d'authentification */
         Utilisateur user = service.getUtilisateurDao().authenticate(email, password);
-        if (user != null) {
+        /* Verify if user is authorized (account confirmation) */
+        if (user != null && user.getRole().getIdRole() != 3) {
         	session.setAttribute("user", user);
             response.sendRedirect(this.getServletContext().getContextPath() + "/CrudParkingServlet");
         } else {
         	/* Failed to authenticate */
+        	log.debug("Create an account or wait for account validation from admins");
         	this.getServletContext().getRequestDispatcher("/pages/login/login.jsp").forward(request, response);
         }
     }
