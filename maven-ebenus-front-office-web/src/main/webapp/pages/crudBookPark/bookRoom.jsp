@@ -63,14 +63,19 @@
                         <c:choose>
                             <c:when test="${!GoogleCalendar.isBooked(park.getNum(),dates.getKey())}">
                                 <form action="${pageContext.request.contextPath}/CrudParkingServlet" method="Post">
-                                <td><button type="submit" class="badge badge-success">Reserver</button></td>
+                                <td><button type="submit" class="badge-success">Reserver</button></td>
                                     <input type="hidden" value="${dates.getKey()}" name="date">
                                     <input type="hidden" value="${park.getNum()}" name="num">
                                     <input type="hidden" value="${current_user.getEmail()}" name="userEmail">
                                 </form>
                             </c:when>
                             <c:when test="${GoogleCalendar.isBookByUser(current_user.getEmail(),park.getNum(),dates.getKey()) }">
-                                <td><button value=""  type="submit" class="badge-danger">Cancel</button></td>
+                                <form action="${pageContext.request.contextPath}/DeleteParkingServlet" method="post">
+                                <td><button type="submit" class="badge-danger">Cancel</button></td>
+                                    <input type="hidden" value="${dates.getKey()}" name="date">
+                                    <input type="hidden" value="${park.getNum()}" name="num">
+                                    <input type="hidden" value="${current_user.getEmail()}" name="userEmail">
+                                </form>
                             </c:when>
                             <c:otherwise>
                                 <td>${GoogleCalendar.UserBook(park.getNum(),dates.getKey())}</td>

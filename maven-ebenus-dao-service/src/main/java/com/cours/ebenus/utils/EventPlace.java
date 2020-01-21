@@ -45,14 +45,21 @@ public class EventPlace {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EventPlace eventPlace = (EventPlace) o;
+        EventPlace that = (EventPlace) o;
 
-        return parkingRoom == eventPlace.parkingRoom;
+        if (parkingRoom != that.parkingRoom) return false;
+        if (!userEmail.equals(that.userEmail)) return false;
+        if (!dateBook.equals(that.dateBook)) return false;
+        return idEvent.equals(that.idEvent);
     }
 
     @Override
     public int hashCode() {
-        return parkingRoom;
+        int result = userEmail.hashCode();
+        result = 31 * result + parkingRoom;
+        result = 31 * result + dateBook.hashCode();
+        result = 31 * result + idEvent.hashCode();
+        return result;
     }
 
     @Override
