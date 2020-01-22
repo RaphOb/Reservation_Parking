@@ -34,8 +34,7 @@
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light"
-					style="background-color: #dee0ef !important;">
+				<nav class="navbar navbar-expand-lg navbar-light">
 
 					<div class="collapse navbar-collapse" style="margin-left: 250px;">
 
@@ -249,91 +248,20 @@
 		</div>
 		<!-- Footer -->
 		<footer>
-			<div class="footer-container ">
-				<div class="footer">
-					<div class="footer-middle">
-						<div class="footer-container_">
-							<div class="row no-gutters">
-								<div class="col-sm-6 col-md-3">
-									<div class="block">
-										<div class="block-title">
-											<strong><span>Contactez Nous</span></strong>
-										</div>
-										<div class="block-content">
-											<ul class="contact-info">
-												<li><i class="icon-location">&nbsp;</i>
-													<p>
-														<b>Addresse:</b><br>123 Rue la victoire, 75000 Paris,
-														France
-													</p></li>
-												<li><i class="icon-phone">&nbsp;</i>
-													<p>
-														<b>Tél:</b><br>(+33) 00 11 00 11 00
-													</p></li>
-												<li><i class="icon-mail">&nbsp;</i>
-													<p>
-														<b>Email:</b><br> <a href="mailto:mail@example.com">mail@example.com</a>
-													</p></li>
-												<li><i class="icon-clock">&nbsp;</i>
-													<p>
-														<b>Horaire : </b><br>Lundi au Samedi
-													</p></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-3">
-									<div class="block">
-										<div class="block-title">
-											<strong><span>Mon compte</span></strong>
-										</div>
-										<div class="block-content">
-											<ul class="links">
-												<li><i class="icon-right-dir theme-color"></i><a
-													href="#" title="A propos de nous">Mon compte</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-3">
-									<div class="block">
-										<div class="block-title">
-											<strong><span>Information</span></strong>
-										</div>
-										<div class="block-content">
-											<ul class="features">
-												<li><i class="icon-ok theme-color"></i><a href="#">Les
-														informations</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-3">
-									<div class="block">
-										<div class="block-title">
-											<strong><span>Nos Services</span></strong>
-										</div>
-										<div class="block-content">
-											<ul class="features">
-												<li><i class="icon-ok  theme-color"></i><a href="#">Service
-														Client</a></li>
-												<li><i class="icon-ok  theme-color"></i><a href="#">Politique
-														d'Utilisation</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="footer-bottom">
-						<div class="footer-container_">
-							<address>© Ebenus. 2019. Tous droit réservé</address>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
+                <div class="footer-container ">
+                    <div class="footer">
+                        <div class="footer-middle">
+                            <div class="footer-container_">
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            <div class="footer-container_">               
+                                <address>© Parclick. 2019. Tous droit réservé</address>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </footer>
 		<!-- JS files -->
 		<script src="./assets/js/bower.js" type="text/javascript"></script>
 		<script src="./assets/js/application.js" type="text/javascript"></script>

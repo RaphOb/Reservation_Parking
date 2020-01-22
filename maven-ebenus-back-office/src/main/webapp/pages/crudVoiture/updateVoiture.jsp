@@ -25,9 +25,7 @@
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light"
-					style="background-color: #dee0ef !important;">
-
+				<nav class="navbar navbar-expand-lg navbar-light">
 					<div class="collapse navbar-collapse"
 						style="margin-left: 250px; display: inline-block;">
 
@@ -207,7 +205,7 @@
 					</div>
 					<div class="footer-bottom">
 						<div class="footer-container_">
-							<address>© Ebenus. 2019. Tous droit réservé</address>
+							<address>© Parclick. 2019. Tous droit réservé</address>
 						</div>
 					</div>
 				</div>

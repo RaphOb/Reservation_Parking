@@ -30,15 +30,11 @@
             <section>
                 <div class="content">
                     <div class="account-login">
-                        <div class="page-title">
-                            <h1>Identifiez vous...</h1>
-                        </div>
                         <form action="${pageContext.request.contextPath}/LoginServlet" method="Post" id="customer-info-form"> 
                             <div class="row">
-                                <div class="col-md-5 registered-users">
+                                <div class="col-md-5 registered-users"  style="margin-left: auto; margin-right: auto;">
                                     <div>
-                                        <h2>ESPACE ADMINISTRATEUR</h2>
-                                        <p>Connectez-vous avec votre <strong>adresse e-mail</strong> et votre <strong>mot de passe</strong> pour accéder à votre espace de gestion.</p>
+                                        <h1>ESPACE ADMINISTRATEUR</h1>
                                         <ul class="form-list">
                                             <li>
                                                 <label for="email" class="required">Email<em>*</em></label>
@@ -56,75 +52,13 @@
                                         <p class="required-msg">* champs obligatoires</p>
                                     </div>
                                     <br>
-                                    <button class="btn btn-default" type="submit">Connexion</button>
+                                    <button class="btn btn-default" type="submit" style="margin: 0 auto;">Connexion</button>
                                 </div>
                             </div>
                         </form>
                     </div> 
                 </div>
             </section>
-            <!-- Footer -->
-            <footer>
-                <div class="footer-container ">
-                    <div class="footer">
-                        <div class="footer-middle">
-                            <div class="footer-container_">
-                                <div class="row no-gutters"> 
-                                    <div class="col-sm-6 col-md-3">
-                                        <div class="block">
-                                            <div class="block-title"><strong><span>Contactez Nous</span></strong></div>
-                                            <div class="block-content">
-                                                <ul class="contact-info">
-                                                    <li><i class="icon-location">&nbsp;</i><p><b>Addresse:</b><br>123 Rue la victoire, 75000 Paris, France</p></li>
-                                                    <li><i class="icon-phone">&nbsp;</i><p><b>Tél:</b><br>(+33) 00 11 00 11 00</p></li>
-                                                    <li><i class="icon-mail">&nbsp;</i><p><b>Email:</b><br><a href="mailto:mail@example.com">mail@example.com</a></p></li>
-                                                    <li><i class="icon-clock">&nbsp;</i><p><b>Horaire : </b><br>Lundi au Samedi</p></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3"><div class="block">
-                                            <div class="block-title"><strong><span>Mon compte</span></strong></div>
-                                            <div class="block-content">
-                                                <ul class="links">
-                                                    <li><i class="icon-right-dir theme-color"></i><a href="#" title="A propos de nous">Mon compte</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>                
-
-                                    <div class="col-sm-6 col-md-3"><div class="block">
-                                            <div class="block-title"><strong><span>Information</span></strong></div>
-                                            <div class="block-content">
-                                                <ul class="features">
-                                                    <li><i class="icon-ok theme-color"></i><a href="#">Les informations</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6 col-md-3">
-                                        <div class="block">
-                                            <div class="block-title"><strong><span>Nos Services</span></strong></div>
-                                            <div class="block-content">
-                                                <ul class="features">
-                                                    <li><i class="icon-ok  theme-color"></i><a href="#">Service Client</a></li>
-                                                    <li><i class="icon-ok  theme-color"></i><a href="#">Politique d'Utilisation</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>              
-                                </div>
-                            </div>
-                        </div>
-                        <div class="footer-bottom">
-                            <div class="footer-container_">               
-                                <address>© Ebenus. 2019. Tous droit réservé</address>
-                            </div>
-                        </div>
-                    </div>
-                </div>   
-            </footer>
         </div>
         <!-- JS files -->
         <script src="./assets/js/bower.js" type="text/javascript"></script>

@@ -32,8 +32,7 @@
 		<div class="header-outer" id="header-outer">
 			<!-- Header -->
 			<header id="header" class="header">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light"
-					style="background-color: #dee0ef !important;">
+				<nav class="navbar navbar-expand-lg navbar-light">
 
 					<div class="collapse navbar-collapse" style="margin-left: 250px;">
 
