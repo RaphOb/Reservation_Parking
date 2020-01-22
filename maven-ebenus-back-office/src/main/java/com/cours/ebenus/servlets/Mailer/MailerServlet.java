@@ -53,10 +53,10 @@ public class MailerServlet extends HttpServlet {
 			if (request.getSession(false).getAttribute("user") != null) {
 	
 				// Recipient's email ID needs to be mentioned.
-				String to = "augu.hourlier@gmail.com";
+				String to = request.getParameter("mail");
 	
 				// Sender's email ID needs to be mentioned
-				String from = "localhost";
+				String from = "test@ebenus.com";
 	
 				// Assuming you are sending email from localhost
 				String host = "localhost";
@@ -81,10 +81,10 @@ public class MailerServlet extends HttpServlet {
 					message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 	
 					// Set Subject: header field
-					message.setSubject("This is the Subject Line!");
+					message.setSubject("Your account has been verified");
 	
 					// Now set the actual message
-					message.setText("This is actual message");
+					message.setText("Hi, your account on Parclick has been validated ! Use your identifiers (mail, password), to log in and start the real experience.");
 	
 					// Send message
 					Transport.send(message);

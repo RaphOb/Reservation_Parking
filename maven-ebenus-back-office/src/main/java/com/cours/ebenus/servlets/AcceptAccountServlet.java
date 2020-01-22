@@ -82,7 +82,7 @@ public class AcceptAccountServlet extends HttpServlet {
     	log.debug("Account authentified");
     	
     	/* Send Email to user to inform */
-    	response.sendRedirect(this.getServletContext().getContextPath() + "/MailerServlet");
+    	response.sendRedirect(this.getServletContext().getContextPath() + "/MailerServlet?mail=" + user.getEmail());
     }
     
     /**
