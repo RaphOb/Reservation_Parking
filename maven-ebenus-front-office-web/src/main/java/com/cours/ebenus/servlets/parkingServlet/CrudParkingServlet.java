@@ -45,7 +45,6 @@ public class CrudParkingServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
-                System.out.println(GoogleCalendar.getDays());
                 request.setAttribute("getDates", GoogleCalendar.getDays());
                 request.setAttribute("getListEvent", GoogleCalendar.listEvent);
                 request.setAttribute("getParkings", service.getPlaceParkingDao().findAllPlacesParking());
@@ -71,5 +70,10 @@ public class CrudParkingServlet extends HttpServlet {
         GoogleCalendar.addEvent(placePark, emailUser, date);
         log.debug("Event created");
         resp.sendRedirect(this.getServletContext().getContextPath() + "/CrudParkingServlet");
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp);
     }
 }

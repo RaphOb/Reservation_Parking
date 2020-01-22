@@ -19,10 +19,7 @@ import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.gson.JsonObject;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
@@ -81,14 +78,8 @@ public class GoogleCalendar {
 
     public static void main(String[] args) throws IOException, GeneralSecurityException {
         GoogleCalendar.getInstance();
-//        deleteEvent("sk5o210cfov6s7r7viuvftnj3s");
-//        Event event = newEvent();
-//        addEvent(event);
         checkCal(100);
         System.out.println(Constants.CREDENTIALS_FILE_PATH);
-//        Date d = new Date();
-//        DateTime dd = new DateTime(d);
-//        System.out.println(isBooked(2, dd));
         getDays().entrySet().forEach(
                 key -> System.out.println(key.getKey())
         );
@@ -112,6 +103,7 @@ public class GoogleCalendar {
      */
     public static void checkCal(int nb) throws IOException, GeneralSecurityException {
         DateTime dateTime = getDayOperations(3);
+        listEvent.clear();
 
 
         //call à l'api google calendar
@@ -154,8 +146,13 @@ public class GoogleCalendar {
      * @Objet : deleteEvent
      * @details : supprime un event
      */
-    public static void deleteEvent(String eventID) throws IOException {
-        service.events().delete(Constants.CALENDAR_ID, eventID).execute();
+    public static void deleteEvent(int place, String userEmail, String dateBook) throws IOException {
+        EventPlace e = listEvent.stream()
+                .filter(event -> event.getParkingRoom() == place && event.getDateBook().toString().substring(0, 10).equals(dateBook)
+                        && event.getUserEmail().equals(userEmail))
+                .findAny().orElse(null);
+        service.events().delete(Constants.CALENDAR_ID, e.getIdEvent()).execute();
+//        listEvent.remove(e);
     }
 
     /**
