@@ -3498,7 +3498,7 @@ textarea {
   border: 1px solid #ccc;
 }
 button,.User h1 a,ul.User li a {
-  background-color: #149ce0;
+  background-color: orangered;
   border: 0;
   height: 40px;
   line-height: 40px;
@@ -3556,13 +3556,13 @@ h3 {
   margin-bottom: 10px; }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #149ce0; }
+  color: orangered; }
   h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-    color: #149ce0; }
+    color: orangered; }
   h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
-    color: #149ce0; }
+    color: orangered; }
     h1 span span, h2 span span, h3 span span, h4 span span, h5 span span, h6 span span {
-      color: #149ce0; }
+      color: orangered; }
 
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
@@ -4299,7 +4299,7 @@ SMACSS: LAYOUT - HEADER
 -------------------------------------------------*/
 header {
   color: #544E4E;
-  background: #149ce0;
+  background: linear-gradient(45deg, #777676, #fcfcfc);
   clear: both;
   position: relative;
   z-index: 9; }
@@ -5857,7 +5857,7 @@ select:focus{
 
 label, .uploadButton
 {
-	margin-top: 40px;
+	margin-top: 10px;
 }
 
 .inputfile + label svg {

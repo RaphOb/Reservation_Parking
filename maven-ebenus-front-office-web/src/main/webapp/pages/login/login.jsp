@@ -18,25 +18,22 @@
                 <!-- Header -->
                 <header id="header"  class="header">
                     <div class="header padd-top">
-                        <a href="${pageContext.request.contextPath}/LoginServlet" title="Ebenus" class="logo"> 
-                            <img src="./assets/images/logo/logo.png" alt="Ebenus"> 
-                        </a>
+                        <a href="${pageContext.request.contextPath}" title="Ebenus"
+						class="logo"> <img src="./assets/images/logo/Parclik.png"
+						alt="Ebenus">
+					</a>
                     </div>
-                    
                 </header>
             </div>
             <!-- Section -->
             <section>
                 <div class="content">
                     <div class="account-login">
-                        <div class="page-title">
-                            <h1>Identifiez vous...</h1>
-                        </div>
                         <form action="${pageContext.request.contextPath}/LoginServlet" method="Post" id="customer-info-form"> 
                             <div class="row">
-                                <div class="col-md-5 registered-users">
+                                <div class="col-md-5 registered-users m-auto">
                                     <div>
-                                        <h2>CONNECTEZ-VOUS</h2>
+                                        <h1>CONNECTEZ-VOUS</h1>
                                         <p>On se connait déjà ?</p>
                                         <p>Connectez-vous avec votre <strong>adresse e-mail</strong> et votre <strong>mot de passe</strong> pour accéder à votre espace client.</p>
                                         <ul class="form-list">
@@ -63,12 +60,10 @@
                     </div> 
                 </div>
                 <div class="content">
-	                <div class="page-title">
-                    	<h1>...ou inscrivez vous</h1>
-                    </div>
                      <form action="${pageContext.request.contextPath}/AddUserServlet" method="get" id="customer-info-form2"> 
                          <div class="row">
-                             <div class="col-md-5 registered-users">
+                             <div class="col-md-5 registered-users m-auto">
+                             	<h1>...ou inscrivez vous</h1>
                              	<div>
                                     <ul class="form-list">
                                         <li>
@@ -82,7 +77,6 @@
 	                 			</button>
                           </div>
                        </div>
-	                      		
 					</form>      
 				</div>
             </section>

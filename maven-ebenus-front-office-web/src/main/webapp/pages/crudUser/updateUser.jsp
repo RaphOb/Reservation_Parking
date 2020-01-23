@@ -17,13 +17,14 @@
 <div class="outer">
     <div class="header-outer" id="header-outer">
         <!-- Header -->
-        <header id="header" class="header">
-            <div class="header padd-top">
-                <a href="index.html" title="Ebenus" class="logo">
-                    <img src="./assets/images/logo/logo.png" alt="Ebenus">
-                </a>
+       <header id="header"  class="header">
+       		<div class="header padd-top">
+           		<a href="${pageContext.request.contextPath}" title="Ebenus"
+					class="logo"> <img src="./assets/images/logo/Parclik.png"
+					alt="Ebenus">
+				</a>
             </div>
-        </header>
+       </header>
     </div>
     <!-- Section -->
     <section>
