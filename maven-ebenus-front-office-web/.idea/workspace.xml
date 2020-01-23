@@ -7,15 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a36bcede-5446-4214-b743-8170dd2f26a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/parkingServlet/DeleteParkingServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/addPlaceParking.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/addPlaceParking.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/updatePlaceParking.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/updatePlaceParking.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/addUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/updateUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/updateUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/addVoiture.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/addVoiture.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/updateVoiture.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/updateVoiture.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/logs.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/logs.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/utils/EventPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/utils/EventPlace.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/crudBookPark/bookRoom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/crudBookPark/bookRoom.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -45,10 +45,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1123">
+            <state relative-caret-position="757">
               <caret line="183" column="32" selection-start-line="183" selection-start-column="23" selection-end-line="183" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -57,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/crudBookPark/bookRoom.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
+            <state relative-caret-position="601">
+              <caret line="156" column="38" selection-start-line="156" selection-start-column="38" selection-end-line="156" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -69,7 +69,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/io/Writer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
+            <state relative-caret-position="4092">
               <caret line="157" selection-start-line="157" selection-end-line="157" />
             </state>
           </provider>
@@ -78,7 +78,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/lang/String.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
+            <state relative-caret-position="17825">
               <caret line="622" selection-start-line="622" selection-end-line="622" />
               <folding>
                 <element signature="e#22821#22822#0" expanded="true" />
@@ -90,7 +90,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/parkingServlet/DeleteParkingServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
+            <state relative-caret-position="899">
               <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -102,7 +102,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/CrudUserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-896">
+            <state relative-caret-position="1178">
               <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
             </state>
           </provider>
@@ -111,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/LoginServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="73" column="40" lean-forward="true" selection-start-line="73" selection-start-column="40" selection-end-line="73" selection-end-column="40" />
+            <state relative-caret-position="1767">
+              <caret line="73" column="40" selection-start-line="73" selection-start-column="40" selection-end-line="73" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -120,7 +120,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
+            <state relative-caret-position="-359">
               <caret line="47" selection-start-line="47" selection-end-line="47" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -132,7 +132,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/ServiceFacade.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
+            <state relative-caret-position="775">
               <caret line="38" column="11" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
             </state>
           </provider>
@@ -213,9 +213,8 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-63" />
-    <option name="y" value="1" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="152" />
     <option name="width" value="1775" />
     <option name="height" value="1039" />
   </component>
@@ -225,6 +224,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -389,7 +389,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -514,17 +513,19 @@
       <workItem from="1578903321620" duration="430000" />
       <workItem from="1579193568020" duration="2474000" />
       <workItem from="1579438817258" duration="9060000" />
-      <workItem from="1579508287627" duration="30823000" />
+      <workItem from="1579508287627" duration="30902000" />
+      <workItem from="1579786629997" duration="357000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53265000" />
+    <option name="totallyTimeSpent" value="53701000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-63" y="1" width="1775" height="1039" extended-state="0" />
+    <frame x="175" y="225" width="1775" height="1039" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20874636" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20874636" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -672,33 +673,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/CrudUserServlet.java">
+    <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-896">
-          <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+        <state relative-caret-position="757">
+          <caret line="183" column="32" selection-start-line="183" selection-start-column="23" selection-end-line="183" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/LoginServlet.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/io/Writer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="73" column="40" lean-forward="true" selection-start-line="73" selection-start-column="40" selection-end-line="73" selection-end-column="40" />
+        <state relative-caret-position="4092">
+          <caret line="157" selection-start-line="157" selection-end-line="157" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/ServiceFacade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="38" column="11" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/credentials/keys.json">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
+        <state relative-caret-position="17825">
           <caret line="622" selection-start-line="622" selection-end-line="622" />
           <folding>
             <element signature="e#22821#22822#0" expanded="true" />
@@ -706,23 +700,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/io/Writer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="157" selection-start-line="157" selection-end-line="157" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/crudBookPark/bookRoom.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/parkingServlet/DeleteParkingServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
+        <state relative-caret-position="899">
           <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -730,9 +710,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/CrudUserServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1178">
+          <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/LoginServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1767">
+          <caret line="73" column="40" selection-start-line="73" selection-start-column="40" selection-end-line="73" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/ServiceFacade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="775">
+          <caret line="38" column="11" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/credentials/keys.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
+        <state relative-caret-position="-359">
           <caret line="47" selection-start-line="47" selection-end-line="47" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -740,13 +744,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../maven-ebenus-dao-service/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/crudBookPark/bookRoom.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1123">
-          <caret line="183" column="32" selection-start-line="183" selection-start-column="23" selection-end-line="183" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="601">
+          <caret line="156" column="38" selection-start-line="156" selection-start-column="38" selection-end-line="156" selection-end-column="38" />
         </state>
       </provider>
     </entry>

@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb7f348-8b7e-48ab-b041-5e8c13bec052" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/java/com/cours/ebenus/servlets/parkingServlet/DeleteParkingServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/addPlaceParking.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/addPlaceParking.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/updatePlaceParking.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudPlaceParking/updatePlaceParking.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/addUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/updateUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudUser/updateUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/addVoiture.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/addVoiture.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/updateVoiture.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/crudVoiture/updateVoiture.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/logs.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-back-office/src/main/webapp/pages/logs.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/EventPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/EventPlace.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/java/com/cours/ebenus/servlets/parkingServlet/CrudParkingServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/pages/crudBookPark/bookRoom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../maven-ebenus-front-office-web/src/main/webapp/pages/crudBookPark/bookRoom.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -65,53 +65,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Voiture.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="403">
+              <caret line="13" column="34" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/PlaceParking.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="278">
+              <caret line="9" column="29" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/UtilisateurDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="105" column="26" selection-start-line="105" selection-start-column="26" selection-end-line="105" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="357">
+              <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/ConnectionHelper.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/RoleDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+            <state relative-caret-position="123">
+              <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/DataSourceSingleton.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/PlaceParkingDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="37" column="48" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/ServiceFacade.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="27" column="1" lean-forward="true" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+            <state relative-caret-position="-527">
+              <caret line="50" column="42" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -119,47 +113,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/script_projet_libre.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2015">
-              <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
-              <caret line="50" selection-start-line="50" selection-end-line="50" />
-              <caret line="52" column="57" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
-              <caret line="55" selection-start-line="55" selection-end-line="55" />
-              <caret line="57" column="47" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
-              <caret line="59" column="57" selection-start-line="59" selection-start-column="57" selection-end-line="59" selection-end-column="57" />
-              <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
-              <caret line="61" selection-start-line="61" selection-end-line="61" />
-              <caret line="62" column="45" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
-              <caret line="64" column="57" selection-start-line="64" selection-start-column="57" selection-end-line="64" selection-end-column="57" />
-              <caret line="63" column="57" selection-start-line="63" selection-start-column="57" selection-end-line="63" selection-end-column="57" />
-              <caret line="65" column="57" selection-start-line="65" selection-start-column="57" selection-end-line="65" selection-end-column="57" />
+            <state relative-caret-position="713">
+              <caret line="23" column="77" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="77" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/credentials/keys.json">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/VoitureDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="4" column="37" selection-start-line="4" selection-start-column="37" selection-end-line="8" selection-end-column="47" />
+            <state relative-caret-position="-528">
+              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/EventPlace.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Role.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+            <state relative-caret-position="797">
+              <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Utilisateur.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3224">
-              <caret line="104" column="21" selection-start-line="104" selection-start-column="21" selection-end-line="104" selection-end-column="21" />
+            <state relative-caret-position="-877">
+              <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -167,8 +149,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
+            <state relative-caret-position="-2863">
+              <caret line="151" column="5" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1301#1302#0" expanded="true" />
@@ -247,8 +229,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-63" />
-    <option name="y" value="1" />
+    <option name="x" value="152" />
     <option name="width" value="1775" />
     <option name="height" value="1039" />
   </component>
@@ -258,6 +239,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -317,6 +299,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ebenus" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="maven-ebenus-dao-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="maven-ebenus-dao-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ebenus" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
               <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -341,7 +333,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -420,17 +411,19 @@
       <workItem from="1579024705941" duration="8852000" />
       <workItem from="1579193463764" duration="1295000" />
       <workItem from="1579438809888" duration="6811000" />
-      <workItem from="1579508409542" duration="22318000" />
+      <workItem from="1579508409542" duration="22408000" />
+      <workItem from="1579696754704" duration="2961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77808000" />
+    <option name="totallyTimeSpent" value="80859000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19936034" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21162046" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -439,7 +432,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3110368" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3110368" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -459,7 +452,7 @@
       <window_info anchor="right" id="Maven" order="5" weight="0.13539445" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Database" order="8" weight="0.23347548" />
+      <window_info anchor="right" id="Database" order="8" visible="true" weight="0.23347548" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,13 +475,6 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d56bb6f8-3d8a-4499-8fde-5531c74e4bc4/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/PlaceParking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/IRoleDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-91">
@@ -498,34 +484,6 @@
     </entry>
     <entry file="das://d56bb6f8-3d8a-4499-8fde-5531c74e4bc4/schema/base_voiture_ebenus/table/utilisateur" />
     <entry file="das://d56bb6f8-3d8a-4499-8fde-5531c74e4bc4/schema/base_voiture_ebenus/table/role" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="899">
-          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Utilisateur.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1736">
-          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/RoleDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/UtilisateurDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1333">
-          <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/credentials/credentials.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -600,22 +558,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script_projet_libre.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2015">
-          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-          <caret line="52" column="57" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
-          <caret line="55" selection-start-line="55" selection-end-line="55" />
-          <caret line="57" column="47" selection-start-line="57" selection-start-column="47" selection-end-line="57" selection-end-column="47" />
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-          <caret line="59" column="57" selection-start-line="59" selection-start-column="57" selection-end-line="59" selection-end-column="57" />
-          <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-          <caret line="62" column="45" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
-          <caret line="64" column="57" selection-start-line="64" selection-start-column="57" selection-end-line="64" selection-end-column="57" />
-          <caret line="63" column="57" selection-start-line="63" selection-start-column="57" selection-end-line="63" selection-end-column="57" />
-          <caret line="65" column="57" selection-start-line="65" selection-start-column="57" selection-end-line="65" selection-end-column="57" />
+        <state relative-caret-position="206">
+          <caret line="105" column="26" selection-start-line="105" selection-start-column="26" selection-end-line="105" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/ConnectionHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/DataSourceSingleton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="868">
+          <caret line="37" column="48" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/ServiceFacade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="806">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="837">
+          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -626,6 +606,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/EventPlace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="837">
+          <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3224">
@@ -633,10 +620,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Report.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Role.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="797">
+          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/VoitureDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-528">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/RoleDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/PlaceParkingDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-527">
+          <caret line="50" column="42" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script_projet_libre.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="23" column="77" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/PlaceParking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Voiture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="13" column="34" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/Utilisateur.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-877">
+          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/AbstractDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
+        <state relative-caret-position="-2863">
+          <caret line="151" column="5" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1301#1302#0" expanded="true" />
@@ -645,51 +695,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/ConnectionHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/UtilisateurDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/DataSourceSingleton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="37" column="48" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/ServiceFacade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/EventPlace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="27" column="1" lean-forward="true" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cours/ebenus/service/GoogleCalendar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="105" column="26" selection-start-line="105" selection-start-column="26" selection-end-line="105" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="357">
+          <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
         </state>
       </provider>
     </entry>
