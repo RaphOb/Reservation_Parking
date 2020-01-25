@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb7f348-8b7e-48ab-b041-5e8c13bec052" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/script_projet_libre.sql" beforeDir="false" afterPath="$PROJECT_DIR$/script_projet_libre.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/IHistoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/IHistoryDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/History.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/entities/History.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/HistoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cours/ebenus/dao/impl/HistoryDao.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -416,12 +418,12 @@
       <workItem from="1579438809888" duration="6811000" />
       <workItem from="1579508409542" duration="22408000" />
       <workItem from="1579696754704" duration="6033000" />
-      <workItem from="1579964115178" duration="588000" />
+      <workItem from="1579964115178" duration="1221000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84519000" />
+    <option name="totallyTimeSpent" value="85152000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -435,7 +437,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.51282054" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16833891" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

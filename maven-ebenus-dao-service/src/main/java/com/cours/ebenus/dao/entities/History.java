@@ -4,7 +4,7 @@ import com.cours.ebenus.dao.annotations.DBTable;
 
 import java.util.Date;
 
-public class History {
+public class History extends Entities {
     @DBTable(columnName = "idHistory")
     private Integer idHistory;
     @DBTable(columnName = "bookTime")
