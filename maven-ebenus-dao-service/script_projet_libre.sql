@@ -47,10 +47,10 @@ create TABLE History (
     bookTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idUtilisateur INTEGER NOT NULL,
     idVoiture INTEGER NOT NULL,
-    idPaceParking INTEGER NOT NULL,
+    idPlaceParking INTEGER NOT NULL,
     CONSTRAINT `FK_History_Utilisateur` FOREIGN KEY (idUtilisateur) referenceS Utilisateur (idUtilisateur),
     CONSTRAINT `FK_History_Voiture` FOREIGN KEY (idVoiture) referenceS Voiture (idVoiture),
-    CONSTRAINT `FK_History_PlaceParking` FOREIGN KEY (idPaceParking) referenceS PlaceParking (idPlaceParking)
+    CONSTRAINT `FK_History_PlaceParking` FOREIGN KEY (idPlaceParking) referenceS PlaceParking (idPlaceParking)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Report (

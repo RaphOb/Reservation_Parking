@@ -89,4 +89,15 @@ public class History extends Entities {
     public int hashCode() {
         return idHistory.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "idHistory=" + idHistory +
+                ", bookTime=" + bookTime +
+                ", utilisateur=" + utilisateur +
+                ", voiture=" + voiture +
+                ", parking=" + parking +
+                '}';
+    }
 }
