@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Role;
 DROP TABLE IF EXISTS Voiture;
 DROP TABLE IF EXISTS PlaceParking;
 DROP TABLE IF EXISTS Report;
+DROP TABLE IF EXISTS History;
 
  CREATE TABLE Role (
 	idRole INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -40,6 +41,17 @@ DROP TABLE IF EXISTS Report;
 	num INTEGER NOT NULL,
 	available TINYINT(1) DEFAULT 1
  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create TABLE History (
+    idHistory INTEGER PRIMARY KEY AUTO_INCREMENT,
+    bookTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    idUtilisateur INTEGER NOT NULL,
+    idVoiture INTEGER NOT NULL,
+    idPaceParking INTEGER NOT NULL,
+    CONSTRAINT `FK_History_Utilisateur` FOREIGN KEY (idUtilisateur) referenceS Utilisateur (idUtilisateur),
+    CONSTRAINT `FK_History_Voiture` FOREIGN KEY (idVoiture) referenceS Voiture (idVoiture),
+    CONSTRAINT `FK_History_PlaceParking` FOREIGN KEY (idPaceParking) referenceS PlaceParking (idPlaceParking)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Report (
 	idReport INTEGER PRIMARY KEY AUTO_INCREMENT,

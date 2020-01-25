@@ -7,8 +7,8 @@ import java.util.Date;
 public class History {
     @DBTable(columnName = "idHistory")
     private Integer idHistory;
-    @DBTable(columnName = "BookTime")
-    private Date BookTime;
+    @DBTable(columnName = "bookTime")
+    private Date bookTime;
     @DBTable(columnName = "idUtilisateur")
     private Utilisateur utilisateur;
     @DBTable(columnName = "idVoiture")
@@ -25,11 +25,11 @@ public class History {
     }
 
     public Date getBookTime() {
-        return BookTime;
+        return bookTime;
     }
 
     public void setBookTime(Date bookTime) {
-        BookTime = bookTime;
+        this.bookTime = bookTime;
     }
 
     public Utilisateur getUtilisateur() {
