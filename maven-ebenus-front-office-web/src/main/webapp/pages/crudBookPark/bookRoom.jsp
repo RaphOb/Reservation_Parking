@@ -18,19 +18,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/master.css">
 
-    <div class="content">
-        <div class="User export">
-            <h2 style="margin-top: 30px; display: inline-block;">
-                Bonjour <strong> Mr ${current_user.getEmail()} </strong>
-                (${current_user.getRole().getIdentifiant()})
-            </h2>
 
-            <h1 class="logout">
-                <a href="<c:url value="LogoutServlet"/>" role="button">Se
-                    Deconnecter</a>
-            </h1>
-        </div>
-    </div>
 </head>
 <body>
 <div class="outer">
@@ -42,6 +30,17 @@
 					class="logo"> <img src="./assets/images/logo/Parclik.png"
 					alt="Ebenus">
 				</a>
+                <div class="User export" style="float: right">
+                    <h2 style="margin-top: 30px; display: inline-block;">
+                        Bonjour <strong> Mr ${current_user.getEmail()} </strong>
+                        (${current_user.getRole().getIdentifiant()})
+                    </h2>
+
+                    <h1 class="logout">
+                        <a href="<c:url value="LogoutServlet"/>" role="button">Se
+                            Deconnecter</a>
+                    </h1>
+                </div>
             </div>
        </header>
     </div>
