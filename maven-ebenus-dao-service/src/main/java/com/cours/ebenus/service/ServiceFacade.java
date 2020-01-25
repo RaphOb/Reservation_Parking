@@ -5,19 +5,17 @@
  */
 package com.cours.ebenus.service;
 
+import com.cours.ebenus.dao.*;
+import com.cours.ebenus.dao.entities.History;
+import com.cours.ebenus.dao.impl.AbstractDao;
+import com.cours.ebenus.dao.impl.HistoryDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.cours.ebenus.dao.IPlaceParkingDao;
-import com.cours.ebenus.dao.IReportDao;
-import com.cours.ebenus.dao.IRoleDao;
-import com.cours.ebenus.dao.IUtilisateurDao;
-import com.cours.ebenus.dao.IVoitureDao;
 import com.cours.ebenus.factory.AbstractDaoFactory;
 import com.cours.ebenus.factory.AbstractDaoFactory.FactoryDaoType;
 
 /**
- *
  * @author ElHadji
  */
 public class ServiceFacade implements IServiceFacade {
@@ -29,12 +27,14 @@ public class ServiceFacade implements IServiceFacade {
     private IUtilisateurDao utilisateurDao = null;
 
     private IRoleDao roleDao = null;
-    
+
     private IPlaceParkingDao placeParkingDao = null;
-    
+
     private IVoitureDao voitureDao = null;
-    
+
     private IReportDao reportDao = null;
+
+    private IHistoryDao historyDao = null;
 
     public ServiceFacade() {
         // mettre tous les DAO
@@ -43,6 +43,7 @@ public class ServiceFacade implements IServiceFacade {
         placeParkingDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getPlaceParkingDao();
         voitureDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getVoitureDao();
         reportDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getReportDao();
+        historyDao = AbstractDaoFactory.getFactory(DEFAULT_IMPLEMENTATION).getHistoryDao();
     }
 
     public ServiceFacade(FactoryDaoType daoType) {
@@ -64,18 +65,23 @@ public class ServiceFacade implements IServiceFacade {
         return roleDao;
     }
 
-	@Override
-	public IPlaceParkingDao getPlaceParkingDao() {
-		return placeParkingDao;
-	}
-	
-	@Override
-	public IVoitureDao getVoitureDao() {
-		return voitureDao;
-	}
-	
-	@Override
-	public IReportDao getReportDao() {
-		return reportDao;
-	}
+    @Override
+    public IPlaceParkingDao getPlaceParkingDao() {
+        return placeParkingDao;
+    }
+
+    @Override
+    public IVoitureDao getVoitureDao() {
+        return voitureDao;
+    }
+
+    @Override
+    public IReportDao getReportDao() {
+        return reportDao;
+    }
+
+    @Override
+    public IHistoryDao getHistoryDao() {
+        return historyDao;
+    }
 }

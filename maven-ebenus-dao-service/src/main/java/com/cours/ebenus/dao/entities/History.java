@@ -16,6 +16,25 @@ public class History extends Entities {
     @DBTable(columnName = "idPlaceParking")
     private PlaceParking parking;
 
+    public History(Integer idHistory, Date bookTime, Utilisateur utilisateur, Voiture voiture, PlaceParking parking) {
+        this.idHistory = idHistory;
+        this.bookTime = bookTime;
+        this.utilisateur = utilisateur;
+        this.voiture = voiture;
+        this.parking = parking;
+    }
+
+    public History(Date bookTime, Utilisateur utilisateur, Voiture voiture, PlaceParking parking) {
+        this(null,bookTime,
+                utilisateur,
+                voiture,
+                parking);
+    }
+
+    public History(Integer idHistory) {
+        this(idHistory, null, null, null, null);
+    }
+
     public Integer getIdHistory() {
         return idHistory;
     }

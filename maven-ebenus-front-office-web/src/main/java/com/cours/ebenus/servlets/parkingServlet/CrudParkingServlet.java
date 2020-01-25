@@ -1,5 +1,9 @@
 package com.cours.ebenus.servlets.parkingServlet;
 
+import com.cours.ebenus.dao.entities.History;
+import com.cours.ebenus.dao.entities.PlaceParking;
+import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.service.GoogleCalendar;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;
@@ -13,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
+import java.util.Date;
 
 public class CrudParkingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -68,6 +74,12 @@ public class CrudParkingServlet extends HttpServlet {
         String date = req.getParameter("date");
         String emailUser = req.getParameter("userEmail");
         GoogleCalendar.addEvent(placePark, emailUser, date);
+        List<PlaceParking> placeParking = service.getPlaceParkingDao().findPlaceParkingByNumero(String.valueOf(placePark));
+        List<Utilisateur> u = service.getUtilisateurDao().findUtilisateurByEmail(emailUser);
+        List<Voiture> v = service.getVoitureDao().findVoitureByIdUtilisateur(u.get(0).getIdUtilisateur());
+        History h = new History(new Date(date),u.get(0),v.get(0),placeParking.get(0));
+        System.out.println(h);
+        service.getHistoryDao().createHistory(h);
         log.debug("Event created");
         resp.sendRedirect(this.getServletContext().getContextPath() + "/CrudParkingServlet");
     }

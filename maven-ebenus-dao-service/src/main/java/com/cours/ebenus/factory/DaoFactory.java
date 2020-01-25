@@ -5,16 +5,8 @@
  */
 package com.cours.ebenus.factory;
 
-import com.cours.ebenus.dao.IPlaceParkingDao;
-import com.cours.ebenus.dao.IReportDao;
-import com.cours.ebenus.dao.IRoleDao;
-import com.cours.ebenus.dao.IUtilisateurDao;
-import com.cours.ebenus.dao.IVoitureDao;
-import com.cours.ebenus.dao.impl.PlaceParkingDao;
-import com.cours.ebenus.dao.impl.ReportDao;
-import com.cours.ebenus.dao.impl.RoleDao;
-import com.cours.ebenus.dao.impl.UtilisateurDao;
-import com.cours.ebenus.dao.impl.VoitureDao;
+import com.cours.ebenus.dao.*;
+import com.cours.ebenus.dao.impl.*;
 
 /**
  *
@@ -43,4 +35,10 @@ public class DaoFactory extends AbstractDaoFactory {
     public IReportDao getReportDao() {
         return new ReportDao();
     }
+
+    @Override
+    public IHistoryDao getHistoryDao() {
+        return new HistoryDao();
+    }
+
 }

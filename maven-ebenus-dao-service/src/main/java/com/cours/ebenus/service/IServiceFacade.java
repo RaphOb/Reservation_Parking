@@ -5,11 +5,7 @@
  */
 package com.cours.ebenus.service;
 
-import com.cours.ebenus.dao.IPlaceParkingDao;
-import com.cours.ebenus.dao.IReportDao;
-import com.cours.ebenus.dao.IRoleDao;
-import com.cours.ebenus.dao.IUtilisateurDao;
-import com.cours.ebenus.dao.IVoitureDao;
+import com.cours.ebenus.dao.*;
 
 /**
  *
@@ -26,4 +22,6 @@ public interface IServiceFacade {
 	public IVoitureDao getVoitureDao();
 	
 	public IReportDao getReportDao();
+
+	public IHistoryDao getHistoryDao();
 }

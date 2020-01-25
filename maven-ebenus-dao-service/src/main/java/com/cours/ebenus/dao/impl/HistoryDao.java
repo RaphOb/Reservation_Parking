@@ -6,8 +6,8 @@ import com.cours.ebenus.dao.entities.History;
 import java.util.List;
 
 public class HistoryDao extends AbstractDao<History> implements IHistoryDao {
-    public HistoryDao(Class<History> myClass) {
-        super(myClass);
+    public HistoryDao() {
+        super(History.class);
     }
 
     @Override
