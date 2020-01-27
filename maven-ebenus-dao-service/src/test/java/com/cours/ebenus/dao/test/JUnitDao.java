@@ -26,6 +26,8 @@ import com.ibatis.common.jdbc.ScriptRunner;
 @RunWith(Suite.class)
 @SuiteClasses({ JUnitUtilisateurDao.class, 
 				JUnitRoleDao.class, 
+				JUnitVoitureDao.class,
+				JUnitPlaceParkingDao.class
 })
 public class JUnitDao {
 
