@@ -43,6 +43,27 @@ public abstract class AbstractDao<T> implements IDao<T> {
         this.myClass = myClass;
     }
 
+    protected Entities getObjectRecu(Field fs, ResultSet rs) {
+        Entities e = null;
+        try {
+            e = (Entities) fs.getType().getConstructor().newInstance();
+            for (Field f : e.getClass().getDeclaredFields()) {
+                f.setAccessible(true);
+                if (f.getType().getGenericSuperclass().equals(Entities.class)) {
+                    f.set(e, getObjectRecu(f, rs));
+                } else {
+                    DBTable annotation = f.getAnnotation(DBTable.class);
+                    Object value = rs.getObject(annotation.columnName());
+                    f.set(e, value);
+                }
+            }
+            return e;
+        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public List<T> getFieldObject(ResultSet rs) throws SQLException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         List<T> objects = new ArrayList<>();
         while (rs.next()) {
@@ -67,44 +88,13 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 //log.debug("Type: " + type);
 
 
-                if (type == Role.class) {
-
-                    try {
-                        Field roleField = myClass.getDeclaredField("role");
-                        roleField.setAccessible(true);
-                        Role r = new Role((int) value);
-
-                        /* Récup des champs de role */
-
-                        Field roleIdentifiantField = r.getClass().getDeclaredField("identifiant");
-                        Field roleDescriptionField = r.getClass().getDeclaredField("description");
-                        roleIdentifiantField.setAccessible(true);
-                        roleDescriptionField.setAccessible(true);
-
-                        DBTable annotation2 = roleIdentifiantField.getAnnotation(DBTable.class);
-                        DBTable annotation3 = roleDescriptionField.getAnnotation(DBTable.class);
-
-                        Object value2 = rs.getObject(annotation2.columnName());
-                        Object value3 = rs.getObject(annotation3.columnName());
-
-                        r.setIdentifiant((String) value2);
-                        r.setDescription((String) value3);
-
-                        roleField.set(obj, r);
-                    } catch (NoSuchFieldException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                } else {
+                if (type.getGenericSuperclass().equals(Entities.class)) {
+                    field.set(obj, getObjectRecu(field, rs));
+   }
+                else {
                     field.set(obj, value);
                 }
 
-                //A quoi ça sert? Si Type primitif
-//                        if (isPrimitive(type)) {//check primitive type
-//                            Class<?> boxed = boxPrimitiveClass(type);//box if primitive
-//                            value = boxed.cast(value);
-//                            log.debug("Valeur (primitif): " + value);
-//                        }
 
 
             }
@@ -179,6 +169,59 @@ public abstract class AbstractDao<T> implements IDao<T> {
         return 0;
     }
 
+    public StringBuilder sqlRecur(Field q) {
+        StringBuilder res = new StringBuilder();
+        Field[] fs = q.getType().getDeclaredFields();
+        System.out.println(fs[0].getName());
+        List<Field> fl = new ArrayList<>();
+
+        //Recup fields de T
+        for (Field f : fs) {
+            if (f.getType().getGenericSuperclass().equals(Entities.class)) {
+                fl.add(f);
+            } else {
+                res.append(q.getName().substring(0, 1).toUpperCase() + q.getName().substring(1)).append(".").append(f.getName());
+                res.append(", ");
+            }
+        }
+        for (Field f1 : fl) {
+            for (Field innerField : f1.getType().getDeclaredFields()) {
+                if (innerField.getType().getGenericSuperclass().equals(Entities.class)) {
+                    System.out.println(innerField.getType());
+                    System.out.println(res);
+                    res.append(sqlRecur(innerField));
+                } else {
+                    //Put Maj to first char
+                    String className = f1.getName();
+                    String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
+                    res.append(entityName).append(".").append(innerField.getName());
+                    res.append(", ");
+                }
+            }
+        }
+        return res;
+    }
+
+    public StringBuilder JoinUsingrecursif(Field f) {
+        StringBuilder querytry = new StringBuilder();
+        DBTable dbTable = f.getAnnotation(DBTable.class);
+        //Put Maj to first char
+        String className = f.getName();
+        String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
+
+        querytry.append(" JOIN ").append(entityName).append(" USING (").append(dbTable.columnName()).append(")");
+
+        for (Field innerField : f.getType().getDeclaredFields()) {
+            System.out.println(innerField.getName());
+            if (innerField.getType().getGenericSuperclass().equals(Entities.class)) {
+                querytry.append(JoinUsingrecursif(innerField));
+            }
+        }
+
+
+        return querytry;
+    }
+
     public String sqlBuilder() {
         StringBuilder querytry = new StringBuilder("SELECT ");
         Field[] fs = myClass.getDeclaredFields();
@@ -195,25 +238,34 @@ public abstract class AbstractDao<T> implements IDao<T> {
         }
         //Recup fields de class custom si T en contient
         for (Field f1 : fl) {
-            for(Field innerField : f1.getType().getDeclaredFields()) {
-            	//Put Maj to first char 
-            	String className = f1.getName();
-            	String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
-                querytry.append(entityName).append(".").append(innerField.getName());
-                querytry.append(", ");
+            for (Field innerField : f1.getType().getDeclaredFields()) {
+                //Put Maj to first char
+                if (innerField.getType().getGenericSuperclass().equals(Entities.class)) {
+                    querytry.append(sqlRecur(innerField));
+
+                } else {
+
+                    String className = f1.getName();
+                    String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
+                    querytry.append(entityName).append(".").append(innerField.getName());
+                    querytry.append(", ");
+                }
             }
         }
         querytry.deleteCharAt(querytry.lastIndexOf(",")).append(" FROM ").append(myClass.getSimpleName());
-        for(Field f : fl) {
-            DBTable dbTable = f.getAnnotation(DBTable.class);
-            //Put Maj to first char 
-        	String className = f.getName();
-        	String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
-            querytry.append(" JOIN ").append(entityName).append(" USING (").append(dbTable.columnName()).append(")");
+        for (Field f : fl) {
+            querytry.append(JoinUsingrecursif(f));
+//            DBTable dbTable = f.getAnnotation(DBTable.class);
+            //Put Maj to first char
+//            String className = f.getName();
+//            System.out.println("className :" + className);
+//            String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
+//            querytry.append(" JOIN ").append(entityName).append(" USING (").append(dbTable.columnName()).append(")");
+//            System.out.println("query dans f : " + querytry);
         }
-       return querytry.toString();
+        return querytry.toString();
     }
-    
+
     @Override
     public List<T> findAll() {
         String query = null;
@@ -236,7 +288,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
 
     public List<T> findByCriteria(Object valueCriteria, String criteria) {
-    	String query = sqlBuilder();
+        String query = sqlBuilder();
         query += " WHERE ";
         query += criteria + " = ? ";
         List<T> obj = applyQueryFromParameter(query, valueCriteria);
@@ -297,7 +349,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
         lastQuery = query;
         int id = applyQueryFromParameters(query, params);
 
-        return findById(id);
+//        return findById(id);
+        return t;
     }
 
     @Override

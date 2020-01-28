@@ -95,7 +95,7 @@ INSERT INTO Voiture(idUtilisateur, marque, immatriculation) VALUES (3, 'Peugeot'
 INSERT INTO Voiture(idUtilisateur, marque, immatriculation) VALUES (4, 'Fiat', 'IY-392-G7');
 INSERT INTO Voiture(idUtilisateur, marque, immatriculation) VALUES (5, 'Toyota', 'PB-199-PP');
 
-/* Insertion des places de parking */
+/* Insertion des places de placeParking */
 INSERT INTO PlaceParking(num) VALUES (1);
 INSERT INTO PlaceParking(num) VALUES (2);
 INSERT INTO PlaceParking(num) VALUES (3);

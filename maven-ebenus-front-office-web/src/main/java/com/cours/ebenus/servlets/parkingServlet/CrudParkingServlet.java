@@ -91,6 +91,8 @@ public class CrudParkingServlet extends HttpServlet {
         System.out.println(h);
         System.out.println("avant create");
         service.getHistoryDao().createHistory(h);
+        System.out.println(service.getUtilisateurDao().findAllUtilisateurs());
+        System.out.println(service.getHistoryDao().findAllHistory());
         log.debug("Event created");
         resp.sendRedirect(this.getServletContext().getContextPath() + "/CrudParkingServlet");
     }

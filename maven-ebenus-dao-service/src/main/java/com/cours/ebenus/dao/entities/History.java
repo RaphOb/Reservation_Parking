@@ -14,21 +14,22 @@ public class History extends Entities {
     @DBTable(columnName = "idVoiture")
     private Voiture voiture;
     @DBTable(columnName = "idPlaceParking")
-    private PlaceParking parking;
+    private PlaceParking placeParking;
 
-    public History(Integer idHistory, Date bookTime, Utilisateur utilisateur, Voiture voiture, PlaceParking parking) {
+    public History(){}
+    public History(Integer idHistory, Date bookTime, Utilisateur utilisateur, Voiture voiture, PlaceParking placeParking) {
         this.idHistory = idHistory;
         this.bookTime = bookTime;
         this.utilisateur = utilisateur;
         this.voiture = voiture;
-        this.parking = parking;
+        this.placeParking = placeParking;
     }
 
-    public History(Date bookTime, Utilisateur utilisateur, Voiture voiture, PlaceParking parking) {
+    public History(Date bookTime, Utilisateur utilisateur, Voiture voiture, PlaceParking placeParking) {
         this(null,bookTime,
                 utilisateur,
                 voiture,
-                parking);
+                placeParking);
     }
 
     public History(Integer idHistory) {
@@ -67,12 +68,12 @@ public class History extends Entities {
         this.voiture = voiture;
     }
 
-    public PlaceParking getParking() {
-        return parking;
+    public PlaceParking getPlaceParking() {
+        return placeParking;
     }
 
-    public void setParking(PlaceParking parking) {
-        this.parking = parking;
+    public void setPlaceParking(PlaceParking placeParking) {
+        this.placeParking = placeParking;
     }
 
     @Override
@@ -97,7 +98,7 @@ public class History extends Entities {
                 ", bookTime=" + bookTime +
                 ", utilisateur=" + utilisateur +
                 ", voiture=" + voiture +
-                ", parking=" + parking +
+                ", placeParking=" + placeParking +
                 '}';
     }
 }

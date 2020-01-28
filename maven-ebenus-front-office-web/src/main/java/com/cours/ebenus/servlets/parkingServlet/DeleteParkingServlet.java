@@ -1,6 +1,9 @@
 package com.cours.ebenus.servlets.parkingServlet;
 
+import com.cours.ebenus.dao.entities.History;
 import com.cours.ebenus.service.GoogleCalendar;
+import com.cours.ebenus.service.IServiceFacade;
+import com.cours.ebenus.service.ServiceFacade;
 import com.cours.ebenus.servlets.LoginServlet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
