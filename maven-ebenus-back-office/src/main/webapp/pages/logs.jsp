@@ -77,7 +77,7 @@
 						<table id="table" class="table table-bordered table-hover table-striped">
 							<thead>
 								<tr>
-									<th>Utilisateur</th>
+									<th>Responsable</th>
 									<th>SQL</th>
 									<th>Description</th>
 									<th>Actions</th>

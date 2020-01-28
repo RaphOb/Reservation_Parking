@@ -40,7 +40,8 @@
 									href="${pageContext.request.contextPath}/CrudUserServlet">Data
 										management </a></li>
 								<li id="logs" class="nav-item"><a class="nav-link"
-									href="${pageContext.request.contextPath}/LogsServlet">SQL Logs</a></li>
+									href="${pageContext.request.contextPath}/LogsServlet">SQL
+										Logs</a></li>
 							</ul>
 						</div>
 
@@ -159,8 +160,7 @@
 			<div class="footer-container ">
 				<div class="footer">
 					<div class="footer-middle">
-						<div class="footer-container_">
-						</div>
+						<div class="footer-container_"></div>
 					</div>
 					<div class="footer-bottom">
 						<div class="footer-container_">

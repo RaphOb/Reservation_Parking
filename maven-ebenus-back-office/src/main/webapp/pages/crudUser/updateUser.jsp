@@ -121,12 +121,6 @@
 										</label>
 									</div>
 								</div>
-								<div class="input-wrapper">
-									<label style="display: block;"> Date de naissance<em>*</em></label>
-									<input autocomplete="off" id="dteNaiss" name="dteNaiss"
-										style="width: auto;" data-toggle="datepicker" type="text"
-										value="${date}" name="naissance">
-								</div>
 							</fieldset>
 						</div>
 						<div class="row">
