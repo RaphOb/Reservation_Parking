@@ -1,5 +1,7 @@
 package com.cours.ebenus.dao.entities;
 
+import com.cours.ebenus.dao.annotations.DBTable;
+
 import java.util.Date;
 
 public class History extends Entities {

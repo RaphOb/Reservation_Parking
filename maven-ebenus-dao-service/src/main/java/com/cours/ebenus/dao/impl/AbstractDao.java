@@ -91,11 +91,9 @@ public abstract class AbstractDao<T> implements IDao<T> {
 
                 if (type.getGenericSuperclass().equals(Entities.class)) {
                     field.set(obj, getObjectRecu(field, rs));
-   }
-                else {
+                } else {
                     field.set(obj, value);
                 }
-
 
 
             }
@@ -118,16 +116,16 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 if (param != null) {
                     prep.setObject(1, param);
                 }
-                
+
                 //Check start of sql request
                 if (query.startsWith("UPDATE") || query.startsWith("DELETE") || query.startsWith("INSERT")) {
-                	lastQuery = prep.toString().split(":")[1];
+                    lastQuery = prep.toString().split(":")[1];
                     prep.executeUpdate();
                 } else {
                     rs = prep.executeQuery();
                     objects = getFieldObject(rs);
                 }
-                
+
             } catch (IllegalArgumentException | InvocationTargetException
                     | NoSuchMethodException | SecurityException
                     | InstantiationException | IllegalAccessException e) {
@@ -259,13 +257,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
         querytry.deleteCharAt(querytry.lastIndexOf(",")).append(" FROM ").append(myClass.getSimpleName());
         for (Field f : fl) {
             querytry.append(JoinUsingrecursif(f));
-//            DBTable dbTable = f.getAnnotation(DBTable.class);
-            //Put Maj to first char
-//            String className = f.getName();
-//            System.out.println("className :" + className);
-//            String entityName = className.substring(0, 1).toUpperCase() + className.substring(1);
-//            querytry.append(" JOIN ").append(entityName).append(" USING (").append(dbTable.columnName()).append(")");
-//            System.out.println("query dans f : " + querytry);
         }
         return querytry.toString();
     }
@@ -351,8 +342,7 @@ public abstract class AbstractDao<T> implements IDao<T> {
         query = "INSERT INTO " + t.getClass().getSimpleName() + " (" + fieldsName + ") VALUES (" + nbValue + ")";
         int id = applyQueryFromParameters(query, params);
 
-//        return findById(id);
-        return t;
+        return findById(id);
     }
 
     @Override

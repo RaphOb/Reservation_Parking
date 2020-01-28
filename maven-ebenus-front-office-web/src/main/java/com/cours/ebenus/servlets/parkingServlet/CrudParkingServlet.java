@@ -77,23 +77,16 @@ public class CrudParkingServlet extends HttpServlet {
         String emailUser = req.getParameter("userEmail");
         GoogleCalendar.addEvent(placePark, emailUser, date);
         List<PlaceParking> placeParking = service.getPlaceParkingDao().findPlaceParkingByNumero(String.valueOf(placePark));
-        System.out.println("plcemarking :" + placeParking);
         List<Utilisateur> u = service.getUtilisateurDao().findUtilisateurByEmail(emailUser);
-        System.out.println("list utilisateur" + u);
         List<Voiture> v = service.getVoitureDao().findVoitureByIdUtilisateur(u.get(0).getIdUtilisateur());
-        System.out.println("voiture : " + v);
         History h = null;
         try {
             h = new History(new SimpleDateFormat("yyyy-MM-dd").parse(date),u.get(0),v.get(0),placeParking.get(0));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(h);
-        System.out.println("avant create");
         service.getHistoryDao().createHistory(h);
-        System.out.println(service.getUtilisateurDao().findAllUtilisateurs());
-        System.out.println(service.getHistoryDao().findAllHistory());
-        log.debug("Event created");
+        System.out.println("history : " + service.getHistoryDao().findAllHistory());
         resp.sendRedirect(this.getServletContext().getContextPath() + "/CrudParkingServlet");
     }
 
