@@ -124,7 +124,7 @@
 									obligatoire</p>
 							</div>
 							<div class="actions col-md-4">
-								<button type="submit">Ajouter</button>
+								<button type="submit">S'inscrire</button>
 							</div>
 						</div>
 					</form>
