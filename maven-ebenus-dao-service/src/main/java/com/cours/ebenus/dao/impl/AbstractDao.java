@@ -8,7 +8,11 @@ package com.cours.ebenus.dao.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,10 +27,7 @@ import com.cours.ebenus.dao.DataSourceSingleton;
 import com.cours.ebenus.dao.IDao;
 import com.cours.ebenus.dao.annotations.DBTable;
 import com.cours.ebenus.dao.entities.Entities;
-import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Role;
-import com.cours.ebenus.dao.entities.Utilisateur;
-import com.cours.ebenus.dao.entities.Voiture;
 
 
 /**

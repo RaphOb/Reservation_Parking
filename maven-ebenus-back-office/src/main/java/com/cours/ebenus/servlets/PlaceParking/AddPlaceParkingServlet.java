@@ -1,9 +1,6 @@
 package com.cours.ebenus.servlets.PlaceParking;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,7 +15,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Report;
-import com.cours.ebenus.dao.entities.Role;
 import com.cours.ebenus.dao.entities.Utilisateur;
 import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.dao.impl.AbstractDao;

@@ -1,15 +1,8 @@
 package com.cours.ebenus.servlets.Utilisateur;
 
-import com.cours.ebenus.dao.entities.Report;
-import com.cours.ebenus.dao.entities.Role;
-import com.cours.ebenus.dao.entities.Utilisateur;
-import com.cours.ebenus.dao.impl.AbstractDao;
-import com.cours.ebenus.service.IServiceFacade;
-import com.cours.ebenus.service.ServiceFacade;
-import com.cours.ebenus.servlets.LoginServlet;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,12 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.cours.ebenus.dao.entities.Report;
+import com.cours.ebenus.dao.entities.Role;
+import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.dao.impl.AbstractDao;
+import com.cours.ebenus.service.IServiceFacade;
+import com.cours.ebenus.service.ServiceFacade;
+import com.cours.ebenus.servlets.LoginServlet;
 
 @WebServlet("/UpdateUserServlet")
 public class UpdateUserServlet extends HttpServlet {

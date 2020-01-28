@@ -5,13 +5,13 @@
  */
 package com.cours.ebenus.dao.impl;
 
-import com.cours.ebenus.dao.IVoitureDao;
-import com.cours.ebenus.dao.entities.Role;
-import com.cours.ebenus.dao.entities.Utilisateur;
-import com.cours.ebenus.dao.entities.Voiture;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.cours.ebenus.dao.IVoitureDao;
+import com.cours.ebenus.dao.entities.Voiture;
 
 /**
  *

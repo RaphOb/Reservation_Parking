@@ -5,8 +5,9 @@
  */
 package com.cours.ebenus.dao;
 
-import com.cours.ebenus.dao.entities.Role;
 import java.util.List;
+
+import com.cours.ebenus.dao.entities.Role;
 
 /**
  *

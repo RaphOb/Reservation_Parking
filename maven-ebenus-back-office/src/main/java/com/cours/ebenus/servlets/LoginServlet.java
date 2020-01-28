@@ -6,18 +6,19 @@
 package com.cours.ebenus.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cours.ebenus.service.IServiceFacade;
-import com.cours.ebenus.service.ServiceFacade;
-import com.cours.ebenus.dao.entities.Utilisateur;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.service.IServiceFacade;
+import com.cours.ebenus.service.ServiceFacade;
 
 
 /**

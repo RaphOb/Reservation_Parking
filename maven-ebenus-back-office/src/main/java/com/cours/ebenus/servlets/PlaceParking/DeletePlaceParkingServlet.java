@@ -1,6 +1,7 @@
 package com.cours.ebenus.servlets.PlaceParking;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +15,6 @@ import org.apache.commons.logging.LogFactory;
 import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Report;
 import com.cours.ebenus.dao.entities.Utilisateur;
-import com.cours.ebenus.dao.entities.Voiture;
 import com.cours.ebenus.dao.impl.AbstractDao;
 import com.cours.ebenus.service.IServiceFacade;
 import com.cours.ebenus.service.ServiceFacade;

@@ -5,9 +5,9 @@
  */
 package com.cours.ebenus.dao;
 
-import com.cours.ebenus.dao.entities.Utilisateur;
-import com.cours.ebenus.dao.entities.Voiture;
 import java.util.List;
+
+import com.cours.ebenus.dao.entities.Voiture;
 
 /**
  *

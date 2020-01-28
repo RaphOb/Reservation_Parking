@@ -7,7 +7,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.cours.ebenus.dao.IReportDao;
 import com.cours.ebenus.dao.entities.Report;
-import com.cours.ebenus.dao.entities.Role;
 
 public class ReportDao extends AbstractDao<Report> implements IReportDao{
 	
