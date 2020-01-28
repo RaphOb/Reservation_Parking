@@ -52,6 +52,7 @@ public class CrudParkingServlet extends HttpServlet {
                 } catch (IOException | GeneralSecurityException e) {
                     e.printStackTrace();
                 }
+                Utilisateur u = (Utilisateur) request.getSession().getAttribute("user");
                 request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
                 request.setAttribute("getDates", GoogleCalendar.getDays());
                 request.setAttribute("getListEvent", GoogleCalendar.listEvent);
@@ -88,10 +89,5 @@ public class CrudParkingServlet extends HttpServlet {
         service.getHistoryDao().createHistory(h);
         System.out.println("history : " + service.getHistoryDao().findAllHistory());
         resp.sendRedirect(this.getServletContext().getContextPath() + "/CrudParkingServlet");
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
     }
 }
