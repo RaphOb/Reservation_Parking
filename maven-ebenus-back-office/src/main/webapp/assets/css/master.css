@@ -4299,7 +4299,7 @@ SMACSS: LAYOUT - HEADER
 -------------------------------------------------*/
 header {
   color: #544E4E;
-  background: linear-gradient(45deg, #777676, #fcfcfc);
+  background: linear-gradient(45deg, #f5853b, #fcfcfc);
   clear: both;
   position: relative;
   z-index: 9; }

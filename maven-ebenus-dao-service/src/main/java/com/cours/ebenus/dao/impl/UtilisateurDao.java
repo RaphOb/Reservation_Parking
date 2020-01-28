@@ -5,21 +5,20 @@
  */
 package com.cours.ebenus.dao.impl;
 
-import com.cours.ebenus.dao.ConnectionHelper;
-import com.cours.ebenus.dao.DataSourceSingleton;
-import com.cours.ebenus.dao.IUtilisateurDao;
-import com.cours.ebenus.dao.entities.Role;
-import com.cours.ebenus.dao.entities.Utilisateur;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.cours.ebenus.exception.EbenusException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.cours.ebenus.dao.ConnectionHelper;
+import com.cours.ebenus.dao.DataSourceSingleton;
+import com.cours.ebenus.dao.IUtilisateurDao;
+import com.cours.ebenus.dao.entities.Utilisateur;
+import com.cours.ebenus.exception.EbenusException;
 
 /**
  * @author ElHadji

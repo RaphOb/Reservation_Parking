@@ -5,9 +5,9 @@
  */
 package com.cours.ebenus.dao.entities;
 
-import com.cours.ebenus.dao.annotations.DBTable;
-
 import java.util.Date;
+
+import com.cours.ebenus.dao.annotations.DBTable;
 
 /**
  * @author elhad

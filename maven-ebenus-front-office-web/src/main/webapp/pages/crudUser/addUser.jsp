@@ -10,6 +10,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Oswald:300,400,500,600,700"
 	rel="stylesheet">
+	<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet"
@@ -36,6 +38,9 @@
 			<div class="content">
 				<div class="User quest">
 					<h1>Créez votre compte</h1>
+					<i class="fas fa-exclamation-triangle" style="color:red;"></i>
+					<p style="color:red;"> Important : Votre compte doit être activé par un administrateur. </p>
+					<p style="color:red;"> Vous recevrez un mail à l'adresse indiqué lorsque vous pourrez vous connecter.</p>
 					<form action="${pageContext.request.contextPath}/AddUserServlet"
 						method="Post" id="customer-info-form" class="no-gutters">
 						<div class="account-container row">
@@ -72,6 +77,7 @@
 												class="input-text" id="pass" title="Password">
 										</div>
 									</div>
+								</div>
 							</fieldset>
 							<div class="offset-md-2"></div>
 							<fieldset class="col-md-3">
@@ -118,7 +124,7 @@
 									obligatoire</p>
 							</div>
 							<div class="actions col-md-4">
-								<button type="submit">Ajouter</button>
+								<button type="submit">S'inscrire</button>
 							</div>
 						</div>
 					</form>

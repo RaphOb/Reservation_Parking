@@ -1,6 +1,16 @@
 package com.cours.ebenus.service;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 import com.cours.ebenus.utils.Constants;
 import com.cours.ebenus.utils.EventPlace;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -9,7 +19,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
@@ -18,13 +27,6 @@ import com.google.api.services.calendar.model.Events;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.gson.JsonObject;
-
-import java.io.*;
-import java.lang.reflect.Array;
-import java.security.GeneralSecurityException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.*;
 
 
 public class GoogleCalendar {

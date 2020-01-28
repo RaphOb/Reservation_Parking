@@ -8,7 +8,11 @@ package com.cours.ebenus.dao.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,10 +27,7 @@ import com.cours.ebenus.dao.DataSourceSingleton;
 import com.cours.ebenus.dao.IDao;
 import com.cours.ebenus.dao.annotations.DBTable;
 import com.cours.ebenus.dao.entities.Entities;
-import com.cours.ebenus.dao.entities.PlaceParking;
 import com.cours.ebenus.dao.entities.Role;
-import com.cours.ebenus.dao.entities.Utilisateur;
-import com.cours.ebenus.dao.entities.Voiture;
 
 
 /**
@@ -117,15 +118,16 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 if (param != null) {
                     prep.setObject(1, param);
                 }
-
+                
                 //Check start of sql request
                 if (query.startsWith("UPDATE") || query.startsWith("DELETE") || query.startsWith("INSERT")) {
+                	lastQuery = prep.toString().split(":")[1];
                     prep.executeUpdate();
                 } else {
                     rs = prep.executeQuery();
                     objects = getFieldObject(rs);
                 }
-
+                
             } catch (IllegalArgumentException | InvocationTargetException
                     | NoSuchMethodException | SecurityException
                     | InstantiationException | IllegalAccessException e) {
@@ -156,6 +158,8 @@ public abstract class AbstractDao<T> implements IDao<T> {
                     prep.setObject(cpt, param);
                     cpt++;
                 }
+                System.out.println(prep);
+                lastQuery = prep.toString().split(":")[1];
                 prep.executeUpdate();
                 ResultSet rs = prep.getGeneratedKeys();
                 if (rs.next()) {
@@ -345,8 +349,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
         //Construit la chaine de "?" avec le nombre de fields
         String nbValue = IntStream.range(0, t.getClass().getDeclaredFields().length).mapToObj(i -> d).collect(Collectors.joining(separator));
         query = "INSERT INTO " + t.getClass().getSimpleName() + " (" + fieldsName + ") VALUES (" + nbValue + ")";
-        query = query.replaceAll("roleIdent", "identifiant");
-        lastQuery = query;
         int id = applyQueryFromParameters(query, params);
 
 //        return findById(id);
@@ -401,7 +403,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
                 " SET " + fieldsName + " = ?" +
                 " WHERE id" + t.getClass().getSimpleName() + " = ?";
 
-        lastQuery = query;
         applyQueryFromParameters(query, params);
 
         return t;
@@ -419,7 +420,6 @@ public abstract class AbstractDao<T> implements IDao<T> {
             Object id = maa.invoke(t);
             query = "DELETE FROM " + t.getClass().getSimpleName() +
                     " WHERE id" + t.getClass().getSimpleName() + " = ?";
-            lastQuery = query;
             applyQueryFromParameter(query, id);
             return true;
         } catch (NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
