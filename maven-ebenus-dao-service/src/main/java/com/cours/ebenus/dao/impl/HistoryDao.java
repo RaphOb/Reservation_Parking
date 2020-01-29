@@ -22,7 +22,7 @@ public class HistoryDao extends AbstractDao<History> implements IHistoryDao {
 
     @Override
     public List<History> findHistoryByIdUtilisateur(Integer idUtilisateur) {
-        return super.findByCriteria(idUtilisateur, "idUtilisateur");
+        return super.findByCriteria(idUtilisateur, "Utilisateur.idUtilisateur");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class HistoryDao extends AbstractDao<History> implements IHistoryDao {
 
     @Override
     public List<History> findHistoryByIdPlaceParking(int idPlaceParking) {
-        return super.findByCriteria(idPlaceParking, "idPlaceParking");
+        return super.findByCriteria(idPlaceParking, "PlaceParking.idPlaceParking");
     }
 
     @Override

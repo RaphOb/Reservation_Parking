@@ -26,7 +26,7 @@ public class HistoryServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null) {
             log.debug("not connected => redirect to login");
@@ -34,9 +34,8 @@ public class HistoryServlet extends HttpServlet {
         } else {
             if (request.getSession(false).getAttribute("user") != null) {
                 Utilisateur u = (Utilisateur) request.getSession().getAttribute("user");
-                request.setAttribute("current_user", request.getSession(false).getAttribute("user"));
                 request.setAttribute("getHistory", service.getHistoryDao().findHistoryByIdUtilisateur(u.getIdUtilisateur()));
-                this.getServletContext().getRequestDispatcher("/pages/crudBookPark/bookRoom.jsp").forward(request, response);
+                this.getServletContext().getRequestDispatcher("/pages/crudBookPark/historyLog.jsp").forward(request, response);
             } else {
                 log.debug("pas de user => go login");
                 response.sendRedirect(this.getServletContext().getContextPath() + "/LoginServlet");
