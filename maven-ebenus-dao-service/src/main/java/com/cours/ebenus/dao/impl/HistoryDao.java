@@ -27,7 +27,7 @@ public class HistoryDao extends AbstractDao<History> implements IHistoryDao {
 
     @Override
     public List<History> findHistoryByIdVoiture(int idVoiture) {
-        return super.findByCriteria(idVoiture, "idVoiture");
+        return super.findByCriteria(idVoiture, "Voiture.idVoiture");
     }
 
     @Override

@@ -27,7 +27,8 @@ import com.ibatis.common.jdbc.ScriptRunner;
 @SuiteClasses({ JUnitUtilisateurDao.class, 
 				JUnitRoleDao.class, 
 				JUnitVoitureDao.class,
-				JUnitPlaceParkingDao.class
+				JUnitPlaceParkingDao.class,
+                JUnitHistoryDao.class
 })
 public class JUnitDao {
 

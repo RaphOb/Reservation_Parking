@@ -50,7 +50,7 @@ create TABLE History (
     idPlaceParking INTEGER NOT NULL,
     CONSTRAINT `FK_History_Utilisateur` FOREIGN KEY (idUtilisateur) referenceS Utilisateur (idUtilisateur),
     CONSTRAINT `FK_History_Voiture` FOREIGN KEY (idVoiture) referenceS Voiture (idVoiture),
-    CONSTRAINT `FK_History_PlaceParking` FOREIGN KEY (idPaceParking) referenceS PlaceParking (idPlaceParking)
+    CONSTRAINT `FK_History_PlaceParking` FOREIGN KEY (idPlaceParking) referenceS PlaceParking (idPlaceParking)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE Report (
@@ -107,4 +107,8 @@ INSERT INTO PlaceParking(num) VALUES (7);
 INSERT INTO PlaceParking(num) VALUES (8);
 INSERT INTO PlaceParking(num) VALUES (9);
 INSERT INTO PlaceParking(num) VALUES (10);
+
+/* Insertion de l'Historique de parking */
+INSERT INTO History (bookTime, idUtilisateur, idVoiture, idPlaceParking) VALUES ('2020-01-30 00:00:00',(SELECT idUtilisateur FROM Utilisateur WHERE email LIKE  'nicolas.petit@gmail.com'),(SELECT idVoiture FROM Voiture WHERE immatriculation LIKE 'PB-199-PP'), (SELECT idPlaceParking FROM PlaceParking where num LIKE 2));
+INSERT INTO History (bookTime, idUtilisateur, idVoiture, idPlaceParking) VALUES ('2020-01-31 00:00:00',(SELECT idUtilisateur FROM Utilisateur WHERE email LIKE  'julien.bille@gmail.com'),(SELECT idVoiture FROM Voiture WHERE immatriculation LIKE 'IY-392-G7'), (SELECT idPlaceParking FROM PlaceParking where num LIKE 3));
 
